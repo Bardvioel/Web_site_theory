@@ -10,5 +10,21 @@
     <h2 class="text_link">HTML</h2>
     <h2 class="text_link">CSS</h2>
     <h2 class="text_link">JS</h2>
+    <ol>
+<li>* { <br />box-sizing: border-box; <br />}</li>
+<li>html { <br />height: 100vh; <br />}</li>
+<li>//Удаляет внутренние и внешние отступы <br />margin: 0; <em> [внешний отступ] </em> <br />padding: 0; <em> [внутренний отступ] <br /><span class="hljs-comment"> /* для каждой стороны &ndash; своё значение */ </span> <span> </span> <span class="hljs-attribute"> padding </span> <span> : </span> <span class="hljs-number"> 20px </span> <span> </span> <span class="hljs-number"> 15px </span> <span> </span> <span class="hljs-number"> 30px </span> <span> </span> <span class="hljs-number"> 15px </span> <span> ;&nbsp; </span> <br /></em></li>
+<li>//Граница (цвет толщина начертание) <br />border: 1px solid [dashed&nbsp;double&nbsp;dotted] rgb(250 50 50 / 0.4);</li>
+<li>//Размеры <br />width: 500px; <br />height: 500px;</li>
+<li>//Шрифт <br />font-family: 'Open Sans', sans-serif; <br />/* размер шрифта */ font-size&nbsp; <br />/* толщина (отношение ширины штриха к высоте буквы) */ font-weight&nbsp; <br />/* семейство шрифта */ font-family <br />/* стиль шрифта, например, italic &mdash; курсивный шрифт */ font-style&nbsp; <br />// <span> подчёркнутый текст </span> <br />text-decoration: underline <br />text-transform: uppercase <br />text-transform:&nbsp;lowercase <br />text-transform: capitalize <br />text-align: center;</li>
+<li>//Отображение <br />/* сделает элемент блочным */ display: block;&nbsp; <br />/* сделает элемент строчным */ display: inline;&nbsp; <br />/* сделает элемент блочно-строчным */ display: inline-block;&nbsp; <br /><span class="hljs-attribute"> /* сделает элемент flex*/ display </span> <span> : flex; </span> <br />/* сделает элемент grid*/ display: grid; <br />grid-template-columns: repeat(3, 1fr); <br />gap: 16px;</li>
+<li><span> </span> <span class="hljs-attribute"> //Тени <br />box-shadow </span> <span> : - </span> <span class="hljs-number"> 2px </span> <span> </span> <span class="hljs-number"> 2px </span> <span> </span> <span class="hljs-number"> 5px </span> <span> </span> <span class="hljs-number"> #FD6969 </span> <span> ; <br /></span> <span class="hljs-comment"> /* сдвинута на 2px влево, на 2px вниз */ </span> <span> <br /></span> <span class="hljs-comment"> /* радиус размытия &mdash; 5px */ <br /></span> <span class="hljs-comment"> /* цвет красноватый, #FD6969 */ </span></li>
+<li>
+<p data-pm-slice="1 1 []">//Плавно смена текса <br />smoothly(phrase, 'textContent', &nbsp;randomElement.text);</p>
+</li>
+<li>//Цвет фона <br />background-color: forestgreen <em> [ <span> rgb( </span> <span class="hljs-number"> 115 </span> <span> </span> <span class="hljs-number"> 170 </span> <span> </span> <span class="hljs-number"> 200 </span> <span> / 1) </span> <span> ; </span> ] </em> ; <br />//Фото фон <br /><span> </span> <span class="hljs-attribute"> background-image </span> <span> : </span> <span class="hljs-built_in"> url </span> <span> ( </span> <span class="hljs-string"> https://yastatic.net/s3/auth2/_/msoffice.d1ada09f.svg </span> <span> ); <br />/* по центру */ background-position: center; <br /><span class="hljs-comment"> /*сожмёт или растянет сохранит пропорции */ </span> <span class="hljs-attribute"> background-size </span> : cover; <br /><span class="hljs-comment"> /* сохранит пропорции */ </span> <span class="hljs-attribute"> background-size </span> : contain; <br /><span class="hljs-comment"> /* первое значение &mdash; ширина, второе &mdash; высота */ </span> <span class="hljs-attribute"> background-size </span> : <span class="hljs-number"> 220px </span> <span class="hljs-number"> 400px </span> ; <br /><span class="hljs-comment"> /* так отменяется повтор изображения */ </span> <span class="hljs-attribute"> background-repeat </span> : no-repeat; <br /><span class="hljs-comment"> /* изображение повторяется только по вертикали */ </span> <span class="hljs-attribute"> background-repeat </span> : repeat-y; </span></li>
+<li><span> //Для удобства вёрстки существует классы <br />&lt;h1 class="text"&gt;123&lt;/h1&gt; //html <br />.text {} //работа в CSS </span></li>
+<li><span> </span></li>
+    </ol>
   </body>
 </html>
