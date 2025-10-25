@@ -3,85 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <title>Всё о сайте</title>
-    <link rel="stylesheet" href="./styles/style.css"/>
+    <link rel="stylesheet" href="./style.css"/>
   </head>
   <body>
-        <h1>Все о веб-разработке</h1>
+    <header>
+        <h1 class="title_1">Все о веб-разработке</h1>
         
-        <h2>Основные технологии веб-разработки</h2>
-        <ul>
-            <li><strong>HTML</strong> (структура)</li>
-            <li><strong>CSS</strong> (стилизация)</li>
-            <li><strong>JS</strong> (интерактивность)</li>
+        <h2 class="title_2">Основные технологии веб-разработки</h2>
+        <ul class="text_menu">
+            <li><a href="#0"><strong>HTML</strong> (структура)</a></li>
+            <li><a href="#Css"><strong>CSS</strong> (стилизация)</a></li>
+            <li><a href="#0"><strong>JS</strong> (интерактивность)</a></li>
         </ul>
+    </header>
     
-        <h2>Справочник по CSS</h2>
-        <h2>1. Немного об основных свойствах</h2>
-        <h3>1. Базовые настройки</h3>
-        <pre><code>* { 
+    <h2 class="text_topic" id="Css">Справочник по CSS</h2>
+    <h2 class="text_topic_1">1. Немного об основных свойствах</h2>
+    
+    <main>
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">1. Базовые настройки</h3></div>
+        <div class="content_1">
+            <pre><code>* { 
       box-sizing: border-box; 
     }
     
     html { 
       height: 100vh; 
     }</code></pre>
+        </div>
+    </div>
     
-        <h3>2. Размеры элементов</h3>
-        <pre><code>width: 500px;
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">2. Размеры элементов</h3></div>
+        <div class="content_1">
+            <pre><code>width: 500px;
     height: 500px;</code></pre>
+        </div>
+    </div>
     
-        <h3>3. Отступы и границы</h3>
-        
-        <h4>Отступы:</h4>
-        <pre><code>/* Удаляет внутренние и внешние отступы */
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">3. Отступы и границы</h3></div>
+        <div class="content_1">
+            <h4>Отступы:</h4>
+            <pre><code>/* Удаляет внутренние и внешние отступы */
     margin: 0;      /* внешний отступ */
     padding: 0;     /* внутренний отступ */
     
-    /* Для каждой стороны - своё значение */
+/* Для каждой стороны - своё значение */
     padding: 20px 15px 30px 15px;</code></pre>
-    
-        <h4>Границы:</h4>
-        <pre><code>/* Граница (цвет толщина начертание) */
+            
+            <h4>Границы:</h4>
+            <pre><code>/* Граница (цвет толщина начертание) */
     border: 1px solid rgb(250 50 50 / 0.4);
-    /* Варианты начертания: dashed, double, dotted */</code></pre>
+/* Варианты начертания: dashed, double, dotted */</code></pre>
+        </div>
+    </div>
     
-        <h3>4. Работа с текстом</h3>
-        <pre><code>/* Шрифты */
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">4. Работа с текстом</h3></div>
+        <div class="content_1">
+            <pre><code>/* Шрифты */
     font-family: 'Open Sans', sans-serif;
     font-size: /* размер шрифта */;
     font-weight: /* толщина шрифта */;
     font-style: /* стиль шрифта, например italic */;
     font-family: /* семейство шрифта */;
     
-    /* Трансформация текста */
+/* Трансформация текста */
     text-decoration: underline;    /* подчёркнутый текст */
     text-transform: uppercase;     /* ВЕРХНИЙ РЕГИСТР */
     text-transform: lowercase;     /* нижний регистр */
     text-transform: capitalize;    /* Каждое Слово С Заглавной */
     text-align: center;            /* выравнивание */</code></pre>
+        </div>
+    </div>
     
-        <h3>5. Отображение и layout</h3>
-        <pre><code>/* Типы отображения */
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">5. Отображение и layout</h3></div>
+        <div class="content_1">
+            <pre><code>/* Типы отображения */
     display: block;        /* блочный элемент */
     display: inline;       /* строчный элемент */
     display: inline-block; /* блочно-строчный */
     display: flex;         /* flexbox */
     display: grid;         /* grid */</code></pre>
+        </div>
+    </div>
     
-        <h3>6. Визуальные эффекты</h3>
-        
-        <h4>Тени:</h4>
-        <pre><code>box-shadow: -2px 2px 5px #FD6969;
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">6. Визуальные эффекты</h3></div>
+        <div class="content_1">
+            <h4>Тени:</h4>
+            <pre><code>box-shadow: -2px 2px 5px #FD6969;
     /* сдвинута на 2px влево, на 2px вниз */
     /* радиус размытия - 5px */
     /* цвет красноватый, #FD6969 */</code></pre>
-    
-        <h4>Фон:</h4>
-        <pre><code>/* Цвет фона */
+            
+            <h4>Фон:</h4>
+            <pre><code>/* Цвет фона */
     background-color: forestgreen;
     background-color: rgb(115 170 200 / 1);
     
-    /* Фото фон */
+/* Фото фон */
     background-image: url(https://yastatic.net/s3/auth2/_/msoffice.d1ada09f.svg);
     /* по центру */ background-position: center;
     /* сожмёт или растянет сохранит пропорции */ background-size: cover;
@@ -89,19 +113,31 @@
     /* первое значение - ширина, второе - высота */ background-size: 220px 400px;
     /* так отменяется повтор изображения */ background-repeat: no-repeat;
     /* изображение повторяется только по вертикали */ background-repeat: repeat-y;</code></pre>
+        </div>
+    </div>
     
-        <h3>7. Классы в HTML и CSS</h3>
-        <pre><code>&lt;h1 class="text"&gt;123&lt;/h1&gt; //html
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">7. Классы в HTML и CSS</h3></div>
+        <div class="content_1">
+            <pre><code>&lt;h1 class="text"&gt;123&lt;/h1&gt; //html
     .text {} //работа в CSS</code></pre>
+        </div>
+    </div>
     
-        <h3>8. Плавная смена текста (JavaScript)</h3>
-        <pre><code>//Плавно смена текста
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">8. Плавная смена текста (JavaScript)</h3></div>
+        <div class="content_1">
+            <pre><code>//Плавно смена текста
     smoothly(phrase, 'textContent', randomElement.text);</code></pre>
+        </div>
+    </div>
     
-        <h2>2. Flexbox - подробный справочник</h2>
+    <h2 class="text_topic_1">2. Flexbox - подробный справочник</h2>
     
-        <h3>Пример Flexbox</h3>
-        <pre><code>/* Grid настройки */
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Основы Flexbox</h3></div>
+        <div class="content_1">
+            <pre><code>/* Grid настройки */
     display: flex;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
@@ -109,52 +145,87 @@
     row-gap управляет расстоянием между строками,
     column-gap управляет расстоянием между столбцами.
     
-    gap: 25px 15px; [промежуток высота длина]
+    gap: 25px 15px; [промежуток высота длины]
     
     justify-content: center; /* Центрирование по горизонтали */
     align-items: center; /* Центрирование по вертикали */</code></pre>
+        </div>
+    </div>
     
-        <h3>Направление элементов (flex-direction)</h3>
-        <pre><code>flex-direction: row — обычный ряд, элементы слева направо (по умолчанию)
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Направление элементов (flex-direction)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    flex-direction: row — обычный ряд, элементы слева направо (по умолчанию)
     flex-direction: row-reverse — ряд в обратном порядке, справа налево
     flex-direction: column — колонка в обычном порядке, сверху вниз
     flex-direction: column-reverse — колонка в обратном порядке, снизу вверх</code></pre>
+        </div>
+    </div>
     
-        <h3>Выравнивание по поперечной оси (align-items)</h3>
-        <pre><code>stretch — элементы растягиваются вдоль поперечной оси (по умолчанию)
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Выравнивание по поперечной оси (align-items)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    stretch — элементы растягиваются вдоль поперечной оси (по умолчанию)
     start — элементы прижимаются к началу поперечной оси
     end — элементы прижимаются к концу поперечной оси
     center — элементы выстраиваются по центру поперечной оси
     baseline — элементы выравниваются по базовой линии текста</code></pre>
+        </div>
+    </div>
     
-        <h3>Выравнивание по основной оси (justify-content)</h3>
-        <pre><code>start — элементы в начале, пустое пространство после
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Выравнивание по основной оси (justify-content)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    start — элементы в начале, пустое пространство после
     end — пустое пространство перед, элементы в конце
     center — элементы по центру, пространство поровну с двух сторон
     space-between — первый элемент в начале, последний в конце, остальные равномерно
     space-around — равные отступы вокруг каждого элемента
     space-evenly — все отступы одинаковой величины</code></pre>
+        </div>
+    </div>
     
-        <h3>Многострочное выравнивание (align-content)</h3>
-        <pre><code>stretch — строки растягиваются равномерно (по умолчанию)
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Многострочное выравнивание (align-content)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    stretch — строки растягиваются равномерно (по умолчанию)
     start — все строки в начале родителя
     end — все строки в конце родителя
     center — строки по центру родителя
     space-between — первая строка в начале, последняя в конце
     space-around — равные отступы вокруг каждой строки
     space-evenly — одинаковые отступы между строками и краями</code></pre>
+        </div>
+    </div>
     
-        <h3>Перенос текста</h3>
-        <pre><code>white-space: nowrap; /* текст не переносится */
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Перенос текста</h3></div>
+        <div class="content_1">
+            <pre><code>
+    white-space: nowrap; /* текст не переносится */
     overflow-wrap: break-word; /* перенос длинных слов */</code></pre>
+        </div>
+    </div>
     
-        <h3>Порядок элементов (order)</h3>
-        <pre><code>order: 0; /* значение по умолчанию */
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Порядок элементов (order)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    order: 0; /* значение по умолчанию */
     order: 1; /* элемент переместится в конец */
     order: -1; /* элемент будет первым в контейнере */</code></pre>
+        </div>
+    </div>
     
-        <h3>Гибкое изменение размеров</h3>
-        <pre><code>flex-grow: 1; /* элемент забирает свободное пространство */
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Гибкое изменение размеров</h3></div>
+        <div class="content_1">
+            <pre><code>
+    flex-grow: 1; /* элемент забирает свободное пространство */
     flex-grow: 2; /* заберёт в 2 раза больше пространства чем flex-grow: 1 */
     
     flex-basis: auto; /* размер до расширения (по умолчанию) */
@@ -162,12 +233,19 @@
     
     flex-shrink: 1; /* элемент сжимается (по умолчанию) */
     flex-shrink: 0; /* запрет на сжатие элемента */
-    
+            
     /* Сокращённая запись */
     flex: 0 1 auto; /* flex-grow: 0; flex-shrink: 1; flex-basis: auto; */</code></pre>
+        </div>
+    </div>
     
-        <h2>3. Подключение шрифтов</h2>
-        <pre><code>@font-face {
+    <h2 class="text_topic_1">3. Подключение шрифтов</h2>
+    
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Подключение пользовательских шрифтов</h3></div>
+        <div class="content_1">
+            <pre><code>
+    @font-face {
         src: url(путь к файлу);
         font-family: 'Название шрифта';
     }
@@ -186,5 +264,8 @@
         font-family: 'Best Font Ever';
         font-style: italic;
     }</code></pre>
-    </body>
+        </div>
+    </div>
+    </main>
+  </body>
 </html>
