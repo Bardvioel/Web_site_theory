@@ -239,7 +239,7 @@
         </div>
     </div>
 
-    <h2 class="text_topic_1">3. Позиционирование элементов</h2>
+        <h2 class="text_topic_1">3. Позиционирование элементов</h2>
 
     <div class="content">
         <div class="topic_block"><h3 class="text_topic_2">Относительное позиционирование</h3></div>
@@ -303,8 +303,182 @@
     inset: 10px 25px 15px 0;</code></pre>
         </div>
     </div>
-    
-    <h2 class="text_topic_1">4. Подключение шрифтов</h2>
+
+    <h2 class="text_topic_1">4. CSS Grid Layout</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Основы Grid</h3></div>
+        <div class="content_1">
+            <pre><code>
+    .container { 
+        display: grid; 
+    }
+
+    /* Деление пространства на столбцы и строки */
+    .container {
+        display: grid;
+        grid-template-columns: 33% 200px 270px;
+        grid-template-rows: auto;
+    }
+
+    /* Использование fr единиц */
+    .container {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+    }</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Отступы в Grid</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Создание отступов */
+    gap: 10px;
+
+    column-gap: 10px;
+    row-gap: 20px;
+    gap: 10px 20px; /* row-gap column-gap */</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Функция repeat()</h3></div>
+        <div class="content_1">
+            <pre><code>
+    grid-template-columns: repeat(/* количество столбцов, нужная ширина */);
+    grid-template-rows: repeat(/* количество строк, нужная высота */);
+
+    /* Примеры */
+    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, auto) 200px;
+
+    .container {
+        width: 600px;
+        display: grid;
+        grid-template-columns: 100px 2fr 3fr;
+    }</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Размещение элементов по линиям</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Свойства для размещения элементов */
+    grid-column-start и grid-column-end — для вертикальных грид-линий;
+    grid-row-start и grid-row-end — для горизонтальных линий.
+
+    /* Пример */
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 40px 5px;
+    }
+
+    .block_size_big {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    .block_size_big {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 6;
+    }
+
+    /* Сокращённая запись */
+    .block_size_big {
+        grid-column: 2/4;
+    }</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Именованные линии</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Именование линий */
+    grid-template-rows: [aside-start] 300px [aside-end];
+
+    /* Использование именованных линий */
+    grid-row: aside-start / 4;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Грид-области</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Определение области */
+    .header {
+        grid-area: header;
+    }
+
+    /* Пример использования грид-областей */
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas: 
+            "header header header"
+            "news news aside"
+            "promo promo aside"
+            ". footer footer";
+    }
+
+    .header {
+        grid-area: header;
+    }</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Выравнивание контейнера</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Выравнивание содержимого грид-контейнера */
+    .container {
+        align-content: center;
+        justify-content: space-between;
+    }
+
+    /* Сокращённая запись */
+    .container {
+        place-content: center space-between;
+    }
+
+    /* Всё по центру */
+    .container {
+        place-content: center;
+    }</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Выравнивание элементов</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Выравнивание элементов внутри ячеек */
+    .container {
+        justify-items: center; /* по горизонтали */
+        align-items: center;   /* по вертикали */
+    }
+
+    /* Выравнивание конкретного элемента */
+    .item {
+        justify-self: start;   /* по горизонтали */
+        align-self: end;       /* по вертикали */
+    }
+
+    /* Значения: stretch, start, end, center */</code></pre>
+        </div>
+    </div>
+
+    <h2 class="text_topic_1">5. Подключение шрифтов</h2>
     
     <div class="content">
         <div class="topic_block"><h3 class="text_topic_2">Подключение пользовательских шрифтов</h3></div>
