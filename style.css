@@ -16,8 +16,11 @@ html {
   font-size: 32px;
   font-weight: 600;
   text-transform: uppercase; 
-  background-color: rgba(137, 127, 190, 0.4);
-  
+  background-color: rgba(137, 127, 190, 0.4);  
+}
+.sticky_menu {
+  position: sticky;
+  top: 20px;
 }
 .title_1, .title_2 {
   text-align: center;
@@ -44,19 +47,23 @@ pre {
   font-size: 32px;
   font-weight: 700;
 }
+.text_topic {
+  position: sticky;
+  top: 10px;
+  margin-top: 20px;
+}
 .text_topic_1 {
   margin-bottom: 30px;
 }
 .content {
   border: 3px solid rgb(250 50 50 / 0.4);
   display: grid;
-  grid-template-columns: 2fr auto 1fr;
+  grid-template-columns: 1fr 2fr;
   background-color: aliceblue;
   align-items: baseline;
   padding-bottom: 20px;
 }
-.topic_block {
-  
+.topic_block {  
   padding: 30px;
   font-size: 28px;
 }
