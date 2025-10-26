@@ -238,8 +238,73 @@
     flex: 0 1 auto; /* flex-grow: 0; flex-shrink: 1; flex-basis: auto; */</code></pre>
         </div>
     </div>
+
+    <h2 class="text_topic_1">3. Позиционирование элементов</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Относительное позиционирование</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Элемент остаётся в потоке, но смещается относительно самого себя */
+    position: relative;
+    top: 20px;
+    right: 40px;
+    bottom: 10px;
+    left: 10px;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Абсолютное позиционирование</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Элемент вырывается из потока и позиционируется относительно ближайшего позиционированного предка */
+    position: absolute;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Z-index - управление слоями</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Для управления близостью элементов используется свойство z-index */
+    .background { z-index: -1; }
+    .first-block { z-index: 0; }</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Фиксированное позиционирование</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Элемент фиксируется относительно окна браузера */
+    position: fixed;
+    right: 0;
+    left: 0;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Липкое позиционирование (sticky)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Блок фиксируется при достижении края области просмотра */
+    position: sticky;
+    top: 20px;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Свойство inset</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Сокращённая запись для top, right, bottom, left */
+    /* 10 пикселей сверху, 25 справа, 15 снизу и 0 слева */
+    inset: 10px 25px 15px 0;</code></pre>
+        </div>
+    </div>
     
-    <h2 class="text_topic_1">3. Подключение шрифтов</h2>
+    <h2 class="text_topic_1">4. Подключение шрифтов</h2>
     
     <div class="content">
         <div class="topic_block"><h3 class="text_topic_2">Подключение пользовательских шрифтов</h3></div>
