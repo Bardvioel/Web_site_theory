@@ -14,6 +14,7 @@
             <li><a href="#0"><strong>HTML</strong> (структура)</a></li>
             <li><a href="#Css"><strong>CSS</strong> (стилизация)</a></li>
             <li><a href="#0"><strong>JS</strong> (интерактивность)</a></li>
+			<li><a href="#Git"><strong>Git/Terminal</strong></a></li>
         </ul>
     </header>
     
@@ -503,6 +504,72 @@
         font-family: 'Best Font Ever';
         font-style: italic;
     }</code></pre>
+        </div>
+    </div>
+    <h2 class="text_topic_1" id="Git">6. Командная строка (Terminal)</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Основные команды навигации</h3></div>
+        <div class="content_1">
+            <pre><code>
+    pwd — покажи, в какой я папке
+    ls — покажи файлы в папке, где я сейчас
+    cd first-project — перейди в папку first-project
+    cd first-project/html — перейди в папку html, находящуюся в папке first-project
+    cd .. — перейди на уровень выше в родительскую папку
+    cd ~ — перейди в домашнюю директорию (у нас это /Users/stas_basov)</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Работа с файлами и папками</h3></div>
+        <div class="content_1">
+            <pre><code>
+    mkdir second-project — в текущей папке создай папку с именем second-project
+    touch index.html — создай файл index.html в текущей папке
+    touch index.html style.css script.js — создать несколько файлов через пробел
+    rm about.html — удали файл about.html
+    rmdir images — удали папку images
+    rm -r second-project — удали папку second-project и всё, что она содержит</code></pre>
+        </div>
+    </div>
+
+    <h2 class="text_topic_1">7. Git - система контроля версий</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Синхронизация с удалённым репозиторием</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Привязка локального репозитория к удалённому */
+    git remote add origin https://github.com/YandexPracticum/first-project.git
+
+    /* Первая загрузка файлов в удалённый репозиторий */
+    git push -u origin main</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Создание коммитов (сохранений)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Подготовка файлов к коммиту */
+    git add название_файла — подготовить выбранный файл
+    git add -A — подготовить все изменённые файлы
+
+    /* Создание коммита с комментарием */
+    git commit -m "комментарий к коммиту"</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2">Публикация изменений</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Получение изменений от других разработчиков */
+    git pull
+
+    /* Отправка изменений в удалённый репозиторий */
+    git push</code></pre>
         </div>
     </div>
     </main>
