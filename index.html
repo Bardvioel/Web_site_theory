@@ -10,20 +10,38 @@
         <h1 class="title_1">Все о веб-разработке</h1>
         
         <h2 class="title_2">Основные технологии веб-разработки</h2>
-        <ul class="text_menu">
+        <ul class="text_menu" id="menu">
             <li><a href="#0"><strong>HTML</strong> (структура)</a></li>
             <li><a href="#Css"><strong>CSS</strong> (стилизация)</a></li>
             <li><a href="#0"><strong>JS</strong> (интерактивность)</a></li>
 			<li><a href="#Git"><strong>Git/Terminal</strong></a></li>
         </ul>
     </header>
-    
-    <h2 class="text_topic" id="Css">Справочник по CSS</h2>
-    <h2 class="text_topic_1">1. Немного об основных свойствах</h2>
+    <div class="Text_bar">
+        <h2 class="text_bar_topic"><a href="#topic_2_1">I. Немного об основных свойствах</a></h2>    
+        <h2 class="text_bar_topic"><a href="#1">1. Базовые настройки</a></h2>    
+        <h2 class="text_bar_topic"><a href="#2">2. Размеры элементов </a></h2>    
+        <h2 class="text_bar_topic"><a href="#3">3. Отступы и границы</a></h2>    
+        <h2 class="text_bar_topic"><a href="#4">4. Работа с текстом</a></h2>    
+        <h2 class="text_bar_topic"><a href="#5">5. Отображение и layout</a></h2>    
+        <h2 class="text_bar_topic"><a href="#6">6. Визуальные эффекты</a></h2>    
+        <h2 class="text_bar_topic"><a href="#7">7. Классы в HTML и CSS</a></h2>    
+        <h2 class="text_bar_topic"><a href="#8">8. Плавная смена текста (JavaScript)</a></h2>    
+        <h2 class="text_bar_topic"><a href="#topic_2_2">II. Flexbox - подробный справочник</a></h2>      
+        <h2 class="text_bar_topic"><a href="#topic_2_3">III. Позиционирование элементов</a></h2>    
+        <h2 class="text_bar_topic"><a href="#topic_2_4">IV. CSS Grid Layout</a></h2>    
+        <h2 class="text_bar_topic"><a href="#topic_2_5">V. Подключение шрифтов</a></h2>    
+        <h2 class="text_bar_topic"><a href="#topic_2_6">VI. Командная строка (Terminal)</a></h2>    
+        <h2 class="text_bar_topic"><a href="#topic_2_7">VII. Git - система контроля версий</a></h2>  
+
+
+    </div>
+    <h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>
+    <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
     
     <main>
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">1. Базовые настройки</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="1">1. Базовые настройки</h3></div>
         <div class="content_1">
             <pre><code>* { 
       box-sizing: border-box; 
@@ -36,7 +54,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">2. Размеры элементов</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="2">2. Размеры элементов</h3></div>
         <div class="content_1">
             <pre><code>width: 500px;
     height: 500px;</code></pre>
@@ -44,7 +62,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">3. Отступы и границы</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="3">3. Отступы и границы</h3></div>
         <div class="content_1">
             <h4>Отступы:</h4>
             <pre><code>/* Удаляет внутренние и внешние отступы */
@@ -62,7 +80,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">4. Работа с текстом</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="4">4. Работа с текстом</h3></div>
         <div class="content_1">
             <pre><code>/* Шрифты */
     font-family: 'Open Sans', sans-serif;
@@ -81,7 +99,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">5. Отображение и layout</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="5">5. Отображение и layout</h3></div>
         <div class="content_1">
             <pre><code>/* Типы отображения */
     display: block;        /* блочный элемент */
@@ -93,7 +111,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">6. Визуальные эффекты</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="6">6. Визуальные эффекты</h3></div>
         <div class="content_1">
             <h4>Тени:</h4>
             <pre><code>box-shadow: -2px 2px 5px #FD6969;
@@ -118,25 +136,25 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">7. Классы в HTML и CSS</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="7">7. Классы в HTML и CSS</h3></div>
         <div class="content_1">
-            <pre><code>&lt;h1 class="text"&gt;123&lt;/h1&gt; //html
+            <pre><code>&lt;h1 class="text 123"&gt;123&lt;/h1&gt; //html
     .text {} //работа в CSS</code></pre>
         </div>
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">8. Плавная смена текста (JavaScript)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="8">8. Плавная смена текста (JavaScript)</h3></div>
         <div class="content_1">
             <pre><code>//Плавно смена текста
     smoothly(phrase, 'textContent', randomElement.text);</code></pre>
         </div>
     </div>
     
-    <h2 class="text_topic_1">2. Flexbox - подробный справочник</h2>
+    <h2 class="text_topic_1" id="topic_2_2">II. Flexbox - подробный справочник</h2>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Основы Flexbox</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="9">Основы Flexbox</h3></div>
         <div class="content_1">
             <pre><code>/* Grid настройки */
     display: flex;
@@ -154,7 +172,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Направление элементов (flex-direction)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="10">Направление элементов (flex-direction)</h3></div>
         <div class="content_1">
             <pre><code>
     flex-direction: row — обычный ряд, элементы слева направо (по умолчанию)
@@ -165,7 +183,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Выравнивание по поперечной оси (align-items)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="11">Выравнивание по поперечной оси (align-items)</h3></div>
         <div class="content_1">
             <pre><code>
     stretch — элементы растягиваются вдоль поперечной оси (по умолчанию)
@@ -177,7 +195,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Выравнивание по основной оси (justify-content)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="12">Выравнивание по основной оси (justify-content)</h3></div>
         <div class="content_1">
             <pre><code>
     start — элементы в начале, пустое пространство после
@@ -190,7 +208,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Многострочное выравнивание (align-content)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="13">Многострочное выравнивание (align-content)</h3></div>
         <div class="content_1">
             <pre><code>
     stretch — строки растягиваются равномерно (по умолчанию)
@@ -204,7 +222,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Перенос текста</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="14">Перенос текста</h3></div>
         <div class="content_1">
             <pre><code>
     white-space: nowrap; /* текст не переносится */
@@ -213,7 +231,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Порядок элементов (order)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="15">Порядок элементов (order)</h3></div>
         <div class="content_1">
             <pre><code>
     order: 0; /* значение по умолчанию */
@@ -223,7 +241,7 @@
     </div>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Гибкое изменение размеров</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="16">Гибкое изменение размеров</h3></div>
         <div class="content_1">
             <pre><code>
     flex-grow: 1; /* элемент забирает свободное пространство */
@@ -240,10 +258,10 @@
         </div>
     </div>
 
-        <h2 class="text_topic_1">3. Позиционирование элементов</h2>
+        <h2 class="text_topic_1" id="topic_2_3">3. Позиционирование элементов</h2>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Относительное позиционирование</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="17">Относительное позиционирование</h3></div>
         <div class="content_1">
             <pre><code>
     /* Элемент остаётся в потоке, но смещается относительно самого себя */
@@ -256,7 +274,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Абсолютное позиционирование</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="`18">Абсолютное позиционирование</h3></div>
         <div class="content_1">
             <pre><code>
     /* Элемент вырывается из потока и позиционируется относительно ближайшего позиционированного предка */
@@ -265,7 +283,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Z-index - управление слоями</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="18">Z-index - управление слоями</h3></div>
         <div class="content_1">
             <pre><code>
     /* Для управления близостью элементов используется свойство z-index */
@@ -275,7 +293,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Фиксированное позиционирование</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="19">Фиксированное позиционирование</h3></div>
         <div class="content_1">
             <pre><code>
     /* Элемент фиксируется относительно окна браузера */
@@ -286,7 +304,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Липкое позиционирование (sticky)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="20">Липкое позиционирование (sticky)</h3></div>
         <div class="content_1">
             <pre><code>
     /* Блок фиксируется при достижении края области просмотра */
@@ -296,7 +314,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Свойство inset</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="21">Свойство inset</h3></div>
         <div class="content_1">
             <pre><code>
     /* Сокращённая запись для top, right, bottom, left */
@@ -305,10 +323,10 @@
         </div>
     </div>
 
-    <h2 class="text_topic_1">4. CSS Grid Layout</h2>
+    <h2 class="text_topic_1" id="topic_2_4">IV. CSS Grid Layout</h2>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Основы Grid</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="22">Основы Grid</h3></div>
         <div class="content_1">
             <pre><code>
     .container { 
@@ -331,7 +349,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Отступы в Grid</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="23">Отступы в Grid</h3></div>
         <div class="content_1">
             <pre><code>
     /* Создание отступов */
@@ -344,7 +362,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Функция repeat()</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="24">Функция repeat()</h3></div>
         <div class="content_1">
             <pre><code>
     grid-template-columns: repeat(/* количество столбцов, нужная ширина */);
@@ -364,7 +382,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Размещение элементов по линиям</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="25">Размещение элементов по линиям</h3></div>
         <div class="content_1">
             <pre><code>
     /* Свойства для размещения элементов */
@@ -399,7 +417,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Именованные линии</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="26">Именованные линии</h3></div>
         <div class="content_1">
             <pre><code>
     /* Именование линий */
@@ -411,7 +429,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Грид-области</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="27">Грид-области</h3></div>
         <div class="content_1">
             <pre><code>
     /* Определение области */
@@ -438,7 +456,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Выравнивание контейнера</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="28">Выравнивание контейнера</h3></div>
         <div class="content_1">
             <pre><code>
     /* Выравнивание содержимого грид-контейнера */
@@ -460,7 +478,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Выравнивание элементов</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="29">Выравнивание элементов</h3></div>
         <div class="content_1">
             <pre><code>
     /* Выравнивание элементов внутри ячеек */
@@ -479,10 +497,10 @@
         </div>
     </div>
 
-    <h2 class="text_topic_1">5. Подключение шрифтов</h2>
+    <h2 class="text_topic_1" id="topic_2_5">V. Подключение шрифтов</h2>
     
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Подключение пользовательских шрифтов</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="30">Подключение пользовательских шрифтов</h3></div>
         <div class="content_1">
             <pre><code>
     @font-face {
@@ -506,10 +524,10 @@
     }</code></pre>
         </div>
     </div>
-    <h2 class="text_topic_1" id="Git">6. Командная строка (Terminal)</h2>
+    <h2 class="text_topic_1" id="topic_2_6">VI. Командная строка (Terminal)</h2>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Основные команды навигации</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="31">Основные команды навигации</h3></div>
         <div class="content_1">
             <pre><code>
     pwd — покажи, в какой я папке
@@ -522,7 +540,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Работа с файлами и папками</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="32">Работа с файлами и папками</h3></div>
         <div class="content_1">
             <pre><code>
     mkdir second-project — в текущей папке создай папку с именем second-project
@@ -534,10 +552,10 @@
         </div>
     </div>
 
-    <h2 class="text_topic_1">7. Git - система контроля версий</h2>
+    <h2 class="text_topic_1" id="topic_2_7">VII. Git - система контроля версий</h2>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Синхронизация с удалённым репозиторием</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="33">Синхронизация с удалённым репозиторием</h3></div>
         <div class="content_1">
             <pre><code>
     /* Привязка локального репозитория к удалённому */
@@ -549,7 +567,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Создание коммитов (сохранений)</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="34">Создание коммитов (сохранений)</h3></div>
         <div class="content_1">
             <pre><code>
     /* Подготовка файлов к коммиту */
@@ -562,7 +580,7 @@
     </div>
 
     <div class="content">
-        <div class="topic_block"><h3 class="text_topic_2">Публикация изменений</h3></div>
+        <div class="topic_block"><h3 class="text_topic_2" id="35">Публикация изменений</h3></div>
         <div class="content_1">
             <pre><code>
     /* Получение изменений от других разработчиков */
