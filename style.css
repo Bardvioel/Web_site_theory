@@ -49,12 +49,13 @@ pre {
   margin-top: 20px;
 }
 .text_topic_1 {
+  margin: 20px;;
   margin-bottom: 30px;
 }
 .content {
   border: 3px solid rgba(50, 87, 250, 0.4);
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: 2fr 3fr 1fr;
   background-color: aliceblue;
   align-items: baseline;
   padding-bottom: 20px;
@@ -67,15 +68,23 @@ pre {
 }
 .Text_bar {
   position: sticky;
-  top: 40px;
+  top: 20px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+  width: 280px;
+  height: fit-content;
+  max-height: 95vh;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: white;
+  border: 3px solid rgba(104, 125, 218, 0.4);
+  float: right;
 }
-.text_bar_topic{
-  font-size: 18px;
-  text-align: start;  
-  grid-column: 5/5;
+
+.text_bar_topic {
+  font-size: 16px;
+  padding: 12px;
   background-color: aliceblue;
-  border: 3px solid rgba(50, 87, 250, 0.4);
+  border: 2px solid rgba(50, 87, 250, 0.3);
+  border-radius: 6px;
 }
