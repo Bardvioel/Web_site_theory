@@ -112,9 +112,10 @@ html {
 
 .text_menu {
     display: flex;
-    justify-content: space-around;
-    padding-bottom: 54px;
-    font-size: 24px;
+    justify-content: space-between;
+    padding: 0px 10px 54px;
+    
+    font-size: 20px;
     font-weight: 600;
     text-transform: uppercase; 
 }
