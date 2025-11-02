@@ -19,6 +19,7 @@
             <li><a href="#Css"><strong>CSS</strong> (стилизация)</a></li>
             <li><a href="#0"><strong>JS</strong> (интерактивность)</a></li>
 			<li><a href="#Git"><strong>Git/Terminal</strong></a></li>
+            <li><a href="#topic_2_9"><strong>Медиа</strong> (iframe, видео, аудио)</a></li>
         </ul>
     </header>
     <div class="content-wrapper">
@@ -39,6 +40,7 @@
             <h2 class="text_bar_topic"><a href="#topic_2_6">VI. Командная строка (Terminal)</a></h2>    
             <h2 class="text_bar_topic"><a href="#topic_2_7">VII. Git - система контроля версий</a></h2>  
             <h2 class="text_bar_topic"><a href="#topic_2_8">VIII. HTML Head - метатеги</a></h2>
+            <h2 class="text_bar_topic"><a href="#topic_2_9">IX. Медиа-контент</a></h2>
 
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
@@ -655,7 +657,155 @@
     &lt;!-- twitter:card - тип карточки для Twitter --&gt;</code></pre>
             </div>
         </div>  
+    <h2 class="text_topic_1" id="topic_2_9">IX. Медиа-контент: iframe, видео, аудио, карты</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="40">1. Встраивание контента через iframe</h3></div>
+        <div class="content_1">
+            <pre><code>
+    &lt;!-- Базовое использование iframe --&gt;
+    &lt;iframe src="shop.html"&gt;&lt;/iframe&gt;
+
+    &lt;!-- Стилизация iframe --&gt;
+    iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+    }
+
+    &lt;!-- Пример вставки видео с Rutube --&gt;
+    &lt;iframe 
+        width="720" 
+        height="405" 
+        src="https://rutube.ru/play/embed/6e35c4fad25431c44f7e087668a615d2/?skinColor=5e35b1" 
+        style="border: none;" 
+        allow="clipboard-write; autoplay" 
+        webkitAllowFullScreen 
+        mozallowfullscreen 
+        allowFullScreen&gt;
+    &lt;/iframe&gt;</code></pre>
+            
+            <h4>Полезные атрибуты iframe:</h4>
+            <pre><code>
+    title — заголовок видео/контента
+    allow — разрешения для фрейма (autoplay, accelerometer и др.)
+    ?t=ВРЕМЯ_НАЧАЛА — начало видео с определенного момента
+    &skinColor=ЦВЕТ — изменение цвета плеера</code></pre>
+        </div>
     </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="41">2. Яндекс Карты</h3></div>
+        <div class="content_1">
+            <pre><code>
+    &lt;!-- Карта созданная через Яндекс.Конструктор карт --&gt;
+    &lt;iframe 
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3Aa709d0586a12997a2ef4dbce42e83efd90e751e023eb93035e727fa86e0e64cb&amp;source=constructor" 
+        width="500" 
+        height="400" 
+        frameborder="0"&gt;
+    &lt;/iframe&gt;</code></pre>
+            
+            <h4>Создание карты:</h4>
+            <pre><code>
+    1. Перейти на https://yandex.ru/map-constructor/
+    2. Выбрать область отображения
+    3. В левой колонке: «Растянуть по ширине»
+    4. Установить высоту: 500px
+    5. Нажать «Получить код карты»
+    6. Выбрать вкладку iframe и скопировать код</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="42">3. Работа с изображениями</h3></div>
+        <div class="content_1">
+            <pre><code>
+    &lt;!-- Базовая вставка изображения --&gt;
+    &lt;img src="image.jpg" alt="Описание изображения"&gt;
+
+    &lt;!-- С атрибутами размера --&gt;
+    &lt;img src="image.jpg" width="300" height="200" alt="Описание"&gt;
+
+    &lt;!-- Responsive изображение --&gt;
+    &lt;img src="image.jpg" alt="Описание" style="max-width: 100%; height: auto;"&gt;
+
+    &lt;!-- Изображение с подписью --&gt;
+    &lt;figure&gt;
+        &lt;img src="image.jpg" alt="Описание"&gt;
+        &lt;figcaption&gt;Текст подписи к изображению&lt;/figcaption&gt;
+    &lt;/figure&gt;</code></pre>
+            
+            <h4>Важные атрибуты:</h4>
+            <pre><code>
+    src - путь к изображению
+    alt - альтернативный текст (обязателен для доступности)
+    width/height - размеры изображения
+    loading="lazy" - ленивая загрузка</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="43">4. Видео контент</h3></div>
+        <div class="content_1">
+            <pre><code>
+    &lt;!-- Простое видео --&gt;
+    &lt;video src="some-video.mp4" controls&gt;&lt;/video&gt;
+
+    &lt;!-- Видео с несколькими источниками --&gt;
+    &lt;video controls autoplay muted loop&gt;
+        &lt;source src="video.webm" type="video/webm"&gt;
+        &lt;source src="video.mp4" type="video/mp4"&gt;
+        Ваш браузер не поддерживает видео тег.
+    &lt;/video&gt;
+
+    &lt;!-- Видео с постером --&gt;
+    &lt;video poster="./images/poster.png" controls&gt;
+        &lt;source src="video.mp4" type="video/mp4"&gt;
+    &lt;/video&gt;</code></pre>
+            
+            <h4>Атрибуты видео:</h4>
+            <pre><code>
+    controls - отображает элементы управления
+    autoplay - автоматическое воспроизведение
+    muted - отключение звука (часто требуется для autoplay)
+    loop - зацикливание воспроизведения
+    poster - изображение-заставка до воспроизведения
+    preload - предзагрузка метаданных</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="44">5. Аудио контент</h3></div>
+        <div class="content_1">
+            <pre><code>
+    &lt;!-- Простое аудио --&gt;
+    &lt;audio src="sound.mp3" controls&gt;&lt;/audio&gt;
+
+    &lt;!-- Аудио с несколькими форматами --&gt;
+    &lt;audio controls&gt;
+        &lt;source src="sound.mp3" type="audio/mp3"&gt;
+        &lt;source src="sound.ogg" type="audio/ogg"&gt;
+        Ваш браузер не поддерживает аудио тег.
+    &lt;/audio&gt;
+
+    &lt;!-- Аудио с различными атрибутами --&gt;
+    &lt;audio controls autoplay muted loop&gt;
+        &lt;source src="sound.mp3" type="audio/mp3"&gt;
+    &lt;/audio&gt;</code></pre>
+            
+            <h4>Атрибуты аудио:</h4>
+            <pre><code>
+    controls - элементы управления воспроизведением
+    autoplay - автоматическое воспроизведение
+    muted - отключение звука
+    loop - зацикливание
+    src - путь к аудиофайлу
+    type - формат аудио (audio/mp3, audio/ogg и др.)</code></pre>
+        </div>
+    </div>
+    </div>
+    
     </main>
     <script src="theme.js"></script>
   </body>
