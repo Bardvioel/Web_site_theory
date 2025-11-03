@@ -41,6 +41,7 @@
             <h2 class="text_bar_topic"><a href="#topic_2_7">VII. Git - система контроля версий</a></h2>  
             <h2 class="text_bar_topic"><a href="#topic_2_8">VIII. HTML Head - метатеги</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_9">IX. Медиа-контент</a></h2>
+            <h2 class="text_bar_topic"><a href="#topic_2_10">X. Продвинутые CSS-эффекты</a></h2>
 
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
@@ -804,6 +805,149 @@
     type - формат аудио (audio/mp3, audio/ogg и др.)</code></pre>
         </div>
     </div>
+    <h2 class="text_topic_1" id="topic_2_10">X. Продвинутые CSS-эффекты</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="45">1. Тени (box-shadow)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Базовая тень */
+    box-shadow: 2px 2px 5px #000000;
+
+    /* Смещённая тень */
+    box-shadow: 24px 24px 0 tomato;
+
+    /* Множественные тени */
+    box-shadow: 
+        2px 2px 5px rgba(0,0,0,0.3),
+        -2px -2px 5px rgba(255,255,255,0.3);
+
+    /* Внутренняя тень */
+    box-shadow: inset 0 0 10px #000000;
+
+    /* Структура box-shadow */
+    box-shadow: [сдвиг по X] [сдвиг по Y] [размытие] [растяжение] [цвет];
+
+    /* Пример с растяжением */
+    box-shadow: 0 0 0 10px rgba(255,0,0,0.5);</code></pre>
+            
+            <h4>Параметры box-shadow:</h4>
+            <pre><code>
+    X-offset — горизонтальное смещение (положительное → вправо)
+    Y-offset — вертикальное смещение (положительное → вниз)
+    Blur — радиус размытия (0 = резкая тень)
+    Spread — растяжение тени (положительное → расширение)
+    Color — цвет тени
+    inset — ключевое слово для внутренней тени</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="46">2. Обводка (outline)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Базовая обводка */
+    outline: 2px solid blue;
+
+    /* Толстая обводка */
+    outline: 20px solid red;
+
+    /* Стили обводки */
+    outline: 3px dotted #333;      /* точечная линия */
+    outline: 3px dashed #333;      /* пунктирная линия */
+    outline: 3px double #333;      /* двойная линия */
+    outline: 5px groove #333;      /* объёмная с вдавленной серединой */
+    outline: 5px ridge #333;       /* объёмная с приподнятым центром */
+    outline: 5px inset #333;       /* объёмная, края внутрь */
+    outline: 5px outset #333;      /* объёмная, края наружу */
+
+    /* Отключение обводки */
+    outline: none;</code></pre>
+            
+            <h4>Стили outline:</h4>
+            <pre><code>
+    none — обводка не отображается
+    dotted — точечная линия (•••••)
+    dashed — пунктирная линия
+    solid — сплошная линия (по умолчанию)
+    double — двойная сплошная линия
+    groove — объёмная с вдавленной серединой
+    ridge — объёмная с приподнятым центром
+    inset — объёмная, края направлены внутрь
+    outset — объёмная, края направлены наружу</code></pre>
+            
+            <h4>Разница между outline и border:</h4>
+            <pre><code>
+    outline:
+    - Не занимает место в потоке
+    - Не влияет на размеры элемента
+    - Всегда рисуется вокруг border
+    - Часто используется для фокуса
+
+    border:
+    - Влияет на размеры элемента
+    - Занимает место в потоке
+    - Может быть с разных сторон разный</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="47">3. Управление переполнением (overflow)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Базовые значения */
+    overflow: visible;   /* переполнение видимо (по умолчанию) */
+    overflow: hidden;    /* скрывает переполнение */
+    overflow: scroll;    /* всегда показывает скролл */
+    overflow: auto;      /* скролл только при переполнении */
+    overflow: clip;      /* обрезает контент, запрещает скролл */
+
+    /* Раздельное управление осями */
+    overflow-x: auto;    /* скролл только по горизонтали */
+    overflow-y: hidden;  /* скрыть переполнение по вертикали */
+
+    /* Сокращённая запись для обеих осей */
+    overflow: hidden auto;     /* X: hidden, Y: auto */
+    overflow: scroll hidden;   /* X: scroll, Y: hidden */
+
+    /* Практические примеры */
+    .block {
+        width: 300px;
+        height: 200px;
+        overflow: hidden scroll;  /* X: hidden, Y: scroll */
+    }
+
+    .modal {
+        overflow: auto;  /* скролл при необходимости */
+    }
+
+    .image-container {
+        overflow: hidden; /* обрезка выходящего за границы */
+    }</code></pre>
+            
+            <h4>Значения overflow:</h4>
+            <pre><code>
+    visible — переполнение видимо за пределами блока
+    auto — скролл появляется только при переполнении
+    scroll — полосы прокрутки всегда видны
+    hidden — скрывает невместившийся контент
+    clip — обрезает контент и запрещает скролл</code></pre>
+            
+            <h4>Полезные комментарии:</h4>
+            <pre><code>
+    /* overflow: hidden часто используется для: */
+    - Создания блока с скруглёнными углами
+    - Очистки float (clearfix)
+    - Скрытия выпадающего меню
+    - Обрезки изображений под определённый размер
+
+    /* overflow: auto полезен для: */
+    - Модальных окон
+    - Блоков с прокруткой
+    - Таблиц с большим количеством данных
+    - Блоков с пользовательским контентом</code></pre>
+        </div>
+        </div>
     </div>
     
     </main>
