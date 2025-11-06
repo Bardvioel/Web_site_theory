@@ -42,7 +42,7 @@
             <h2 class="text_bar_topic"><a href="#topic_2_8">VIII. HTML Head - метатеги</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_9">IX. Медиа-контент</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_10">X. Продвинутые CSS-эффекты</a></h2>
-
+            <h2 class="text_bar_topic"><a href="#topic_2_11">XI. Псевдоклассы и псевдоэлементы</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -948,8 +948,314 @@
     - Блоков с пользовательским контентом</code></pre>
         </div>
         </div>
+
+    <h2 class="text_topic_1" id="topic_2_11">XI. Псевдоклассы и псевдоэлементы</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="48">1. Основные псевдоклассы состояний</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Состояние наведения */
+    .element:hover {
+        background-color: #f0f0f0;
+        transform: scale(1.05);
+    }
+
+    /* Состояние фокуса (для форм, кнопок) */
+    .input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+
+    /* Активный элемент (при нажатии) */
+    .button:active {
+        transform: scale(0.95);
+    }
+
+    /* Пример комбинирования */
+    .menu-item:hover {
+        background-color: #e9ecef;
+    }
+
+    .menu-item:active {
+        background-color: #dee2e6;
+    }</code></pre>
+            
+            <h4>Популярные псевдоклассы:</h4>
+            <pre><code>
+    :hover    - элемент при наведении курсора
+    :focus    - элемент в фокусе (input, button)
+    :active   - активный/нажатый элемент
+    :disabled - отключенные элементы форм
+    :checked  - отмеченные checkbox/radio</code></pre>
+        </div>
     </div>
-    
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="49">2. Псевдоклассы для ссылок</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Важен порядок: LVHA - Link, Visited, Hover, Active */
+    a:link {
+        color: #2563eb;           /* непосещенные ссылки */
+        text-decoration: underline;
+    }
+
+    a:visited {
+        color: #7c3aed;           /* посещенные ссылки */
+        /* Можно менять только цветовые свойства */
+    }
+
+    a:hover {
+        color: #1d4ed8;           /* при наведении */
+        text-decoration: none;
+    }
+
+    a:active {
+        color: #dc2626;           /* в момент клика */
+    }
+
+    /* Пример оформления кнопки-ссылки */
+    .btn:hover {
+        background-color: #0056b3;
+        transition: background-color 0.3s;
+    }
+
+    .btn:active {
+        transform: translateY(1px);
+    }</code></pre>
+            
+            <h4>Важно!</h4>
+            <pre><code>
+    /* Правильный порядок псевдоклассов ссылок */
+    :link → :visited → :hover → :active
+
+    Для :visited можно менять только:
+    - color, background-color, border-color
+    - outline-color, column-rule-color
+    - fill, stroke</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="50">3. Псевдоэлементы ::before и ::after</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Добавление контента перед элементом */
+    .element::before {
+        content: "→ ";            /* обязательное свойство */
+        color: #ff6b6b;
+        margin-right: 5px;
+    }
+
+    /* Добавление контента после элемента */
+    .element::after {
+        content: " ★";
+        color: gold;
+    }
+
+    /* Декоративные элементы */
+    .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+    }
+
+    /* Иконки через псевдоэлементы */
+    .phone::before {
+        content: "📞 ";
+    }
+
+    .email::after {
+        content: " ✉️";
+    }</code></pre>
+            
+            <h4>Свойство content:</h4>
+            <pre><code>
+    content: "текст"           - строковый контент
+    content: ""                - пустой контент (для декора)
+    content: attr(data-text)   - данные из атрибута
+    content: url(image.png)    - изображение
+    content: counter(name)     - нумерация</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="51">4. Текстовые псевдоэлементы</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Стилизация первой строки текста */
+    .article::first-line {
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #2c3e50;
+    }
+
+    /* Стилизация первой буквы (буквица) */
+    .article::first-letter {
+        font-size: 3em;
+        float: left;
+        margin-right: 5px;
+        color: #e74c3c;
+    }
+
+    /* Стилизация выделенного текста */
+    ::selection {
+        background-color: #3498db;
+        color: white;
+    }
+
+    /* Стилизация placeholder */
+    .input::placeholder {
+        color: #95a5a6;
+        font-style: italic;
+    }</code></pre>
+            
+            <h4>Текстовые псевдоэлементы:</h4>
+            <pre><code>
+    ::first-line    - первая строка текста
+    ::first-letter  - первая буква текста  
+    ::selection     - выделенный пользователем текст
+    ::placeholder   - текст placeholder в input</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="52">5. Продвинутые псевдоклассы</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Выбор четных/нечетных элементов */
+    li:nth-child(odd) {
+        background-color: #f8f9fa;
+    }
+
+    li:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+    /* Конкретная позиция (3й элемент) */
+    li:nth-child(3) {
+        font-weight: bold;
+    }
+
+    /* Первый и последний элементы */
+    .list-item:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .list-item:last-child {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    /* Элементы без класса */
+    div:not(.special) {
+        opacity: 0.7;
+    }
+
+    /* Пустые элементы */
+    .container:empty {
+        display: none;
+    }</code></pre>
+            
+            <h4>Структурные псевдоклассы:</h4>
+            <pre><code>
+    :first-child       - первый дочерний элемент
+    :last-child        - последний дочерний элемент  
+    :nth-child(n)      - элемент по порядку (2, 3, even, odd)
+    :not(selector)     - все элементы, кроме указанных
+    :empty             - пустые элементы (без контента)</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="53">6. Декоративное оформление текста</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Подробное управление подчеркиванием */
+    .fancy-link {
+        text-decoration-line: underline;
+        text-decoration-style: wavy;      /* dotted, dashed, double */
+        text-decoration-color: #80d994;
+        text-decoration-thickness: 2px;
+        text-decoration-skip-ink: none;   /* игнорировать выносные элементы */
+    }
+
+    /* Градиентное подчеркивание */
+    .gradient-underline {
+        text-decoration: none;
+        background-image: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        background-size: 100% 2px;
+        background-repeat: no-repeat;
+        background-position: bottom;
+    }
+
+    /* Множественные подчеркивания */
+    .multi-underline {
+        text-decoration: underline overline;
+        text-decoration-color: #ff6b6b;
+        text-decoration-style: double;
+    }</code></pre>
+            
+            <h4>Свойства text-decoration:</h4>
+            <pre><code>
+    text-decoration-line: underline/overline/line-through
+    text-decoration-style: solid/double/dotted/dashed/wavy
+    text-decoration-color: цвет
+    text-decoration-thickness: толщина
+    text-decoration-skip-ink: auto/none</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="54">7. Clearfix для float</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Классический clearfix */
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Современный вариант (рекомендуется) */
+    .container::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    /* Использование с float элементами */
+    .float-left {
+        float: left;
+        width: 50%;
+    }
+
+    .float-right {
+        float: right;
+        width: 50%;
+    }
+
+    /* Без clearfix контейнер "схлопнется" */
+    <div class="container clearfix">
+        <div class="float-left">Левый блок</div>
+        <div class="float-right">Правый блок</div>
+    </div></code></pre>
+            
+            <h4>Зачем нужен clearfix:</h4>
+            <pre><code>
+    - Восстанавливает поток документа после float
+    - Предотвращает "схлопывание" контейнера
+    - Обязателен при использовании float вёрстки
+    - Современная альтернатива - Flexbox/Grid</code></pre>
+        </div>
+    </div>
+    </div>
     </main>
     <script src="theme.js"></script>
   </body>
