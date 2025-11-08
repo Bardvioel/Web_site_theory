@@ -1255,6 +1255,124 @@
     - Современная альтернатива - Flexbox/Grid</code></pre>
         </div>
     </div>
+        <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="55">8. Фокус и доступность</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Обводка при фокусе для доступности */
+    button:focus {
+        outline: 15px solid lightpink;
+    }
+
+    /* Фокус только при навигации с клавиатуры */
+    button:focus-visible {
+        outline: 3px solid blue;
+        background-color: #f0f8ff;
+    }
+
+    /* Стили для родителя, содержащего элемент в фокусе */
+    .form-group:focus-within {
+        border-left: 4px solid #4CAF50;
+        padding-left: 10px;
+    }</code></pre>
+            
+            <h4>Комментарии:</h4>
+            <pre><code>
+    :focus - обводка для всех случаев фокуса
+    :focus-visible - только при навигации с клавиатуры
+    :focus-within - стилизует родителя при фокусе внутри</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="56">9. Продвинутый выбор элементов</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Каждый 3-й элемент */
+    li:nth-child(3n) {
+        color: #fd24af;
+    }
+
+    /* Конкретный элемент (5-й) */
+    li:nth-child(5) {
+        text-decoration: underline;
+    }
+
+    /* Отсчет с конца */
+    li:nth-last-child(2) {
+        font-weight: bold;
+    }
+
+    /* Формулы: каждый 2-й начиная с 3-го */
+    li:nth-child(2n+3) {
+        background-color: #f5f5f5;
+    }
+
+    /* Первый и последний */
+    li:first-child {
+        border-top: 2px solid #000;
+    }
+
+    li:last-child {
+        border-bottom: 2px solid #000;
+    }
+
+    /* Выбор по типу элемента */
+    button:first-of-type {
+        color: #fd24af;
+    }
+
+    /* Исключения */
+    p:not(.text, .hint) {
+        margin-bottom: 1em;
+    }
+
+    /* Родитель с определенным дочерним элементом */
+    .card:has(.label) {
+        border-color: #5f0dee;
+    }
+
+    body:has(.answer_is-open) .overlay {
+        display: block;
+    }</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="57">10. Псевдоэлементы для контента и маркеров</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Добавление контента перед и после */
+    p::before {
+        content: "Заметка! ";
+        color: tomato;
+    }
+
+    p::after {
+        content: "!";
+        color: tomato;
+    }
+
+    /* Стилизация маркеров списка */
+    .container__list-item::marker {
+        content: counter(num)' ✦ ';
+        font-weight: bold;
+        color: #ff6b6b;
+    }
+
+    /* Стили выделенного текста */
+    ::selection {
+        background-color: #3498db;
+        color: white;
+        text-shadow: none;
+    }</code></pre>
+            
+            <h4>Доступные свойства для ::marker:</h4>
+            <pre><code>
+    content, white-space, text-transform, letter-spacing
+    font-size, font-weight, color и другие свойства шрифта</code></pre>
+        </div>
+    </div>
     </div>
     </main>
     <script src="theme.js"></script>
