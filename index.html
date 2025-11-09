@@ -43,6 +43,7 @@
             <h2 class="text_bar_topic"><a href="#topic_2_9">IX. Медиа-контент</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_10">X. Продвинутые CSS-эффекты</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_11">XI. Псевдоклассы и псевдоэлементы</a></h2>
+            <h2 class="text_bar_topic"><a href="#62">XII. Формы - полное руководство</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -1546,6 +1547,181 @@
     prefers-color-scheme - темная/светлая тема
     max-width / min-width - адаптивные breakpoints
     orientation - ориентация устройства</code></pre>
+        </div>
+    </div>
+        <h2 class="text_topic_1" id="topic_2_12">XII. Формы - полное руководство</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="62">15. Формы - полное руководство</h3></div>
+        <div class="content_1">
+            <h4>Структура формы:</h4>
+            <pre><code>
+&lt;!-- Базовая форма --&gt;
+&lt;form action="/submit" method="post"&gt;
+    &lt;!-- Содержимое формы --&gt;
+&lt;/form&gt;
+
+&lt;!-- Группировка полей с fieldset --&gt;
+&lt;form class="form"&gt;
+    &lt;fieldset class="form__contact-info"&gt;
+        &lt;legend&gt;Ваши контактные данные&lt;/legend&gt;
+        &lt;!-- Поля для контактов --&gt;
+    &lt;/fieldset&gt;
+    &lt;fieldset class="form__delivery-info"&gt;
+        &lt;legend&gt;Время и адрес доставки&lt;/legend&gt;
+        &lt;!-- Поля для доставки --&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+
+            <h4>Типы полей ввода:</h4>
+            <pre><code>
+&lt;!-- Текстовые поля --&gt;
+&lt;input type="text" placeholder="Введите имя"&gt;
+&lt;input type="email" placeholder="me@example.com"&gt;
+&lt;input type="password" placeholder="********"&gt;
+&lt;input type="tel" placeholder="+7 (999) 999-99-99"&gt;
+&lt;input type="url" placeholder="https://example.com"&gt;
+
+&lt;!-- Числовые поля --&gt;
+&lt;input type="number" min="1970" max="2025" step="1"&gt;
+&lt;input type="range" min="-20" max="500" step="10"&gt;
+
+&lt;!-- Специальные поля --&gt;
+&lt;input type="color"&gt;
+&lt;input type="date"&gt;
+&lt;input type="datetime-local"&gt;
+&lt;input type="month"&gt;
+&lt;input type="week"&gt;
+&lt;input type="time"&gt;</code></pre>
+
+            <h4>Многострочный ввод:</h4>
+            <pre><code>
+&lt;textarea 
+    name="conctips" 
+    id="conctips" 
+    cols="30" 
+    rows="5" 
+    placeholder="Поделитесь советами"
+&gt;&lt;/textarea&gt;
+
+/* CSS для textarea */
+textarea {
+    resize: vertical; /* или horizontal, both, none */
+    min-height: 100px;
+    max-height: 300px;
+}</code></pre>
+
+            <h4>Выпадающие списки:</h4>
+            <pre><code>
+&lt;!-- Простой select --&gt;
+&lt;select name="Iam" id="Iam"&gt;
+    &lt;option value=""&gt;-- Выберите тотем дня --&lt;/option&gt;
+    &lt;option value="tiger"&gt;Тигр из мадагаскара&lt;/option&gt;
+    &lt;option value="panda"&gt;Кунг-фу панда&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Группировка опций --&gt;
+&lt;select&gt;
+    &lt;optgroup label="Тотемы Pixar"&gt;
+        &lt;option value="nemo"&gt;Немо&lt;/option&gt;
+        &lt;option value="walle"&gt;Валли&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/select&gt;</code></pre>
+
+            <h4>Связь label и input:</h4>
+            <pre><code>
+&lt;!-- Способ 1: через for и id --&gt;
+&lt;label for="first-name"&gt;Имя&lt;/label&gt;
+&lt;input type="text" id="first-name"&gt;
+
+&lt;!-- Способ 2: вложенный input --&gt;
+&lt;label&gt;Имя
+    &lt;input type="text"&gt;
+&lt;/label&gt;</code></pre>
+
+            <h4>Чекбоксы и радиокнопки:</h4>
+            <pre><code>
+&lt;!-- Чекбоксы (множественный выбор) --&gt;
+&lt;fieldset class="inspiration"&gt;
+    &lt;legend&gt;Источники вдохновения&lt;/legend&gt;
+    &lt;div&gt;
+        &lt;input type="checkbox" id="radio" name="inspiration" value="radio" checked&gt;
+        &lt;label for="radio"&gt;Радио Шансон&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type="checkbox" id="verstka" name="inspiration" value="verstka"&gt;
+        &lt;label for="verstka"&gt;Вёрстка&lt;/label&gt;
+    &lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- Радиокнопки (одиночный выбор) --&gt;
+&lt;fieldset class="concentration"&gt;
+    &lt;legend&gt;Время концентрации&lt;/legend&gt;
+    &lt;div&gt;
+        &lt;input type="radio" id="morn" name="concentration" value="morn"&gt;
+        &lt;label for="morn"&gt;Утром&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type="radio" id="day" name="concentration" value="day"&gt;
+        &lt;label for="day"&gt;Днём&lt;/label&gt;
+    &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre>
+
+            <h4>Важные атрибуты:</h4>
+            <pre><code>
+&lt;!-- Обязательные поля и валидация --&gt;
+&lt;input type="text" required minlength="2" maxlength="20"&gt;
+&lt;input type="email" required placeholder="email@example.com"&gt;
+
+&lt;!-- Отключенные поля --&gt;
+&lt;input type="tel" disabled&gt;
+
+&lt;!-- Автозаполнение --&gt;
+&lt;form autocomplete="on"&gt;
+    &lt;input type="email" autocomplete="email"&gt;
+    &lt;input type="password" autocomplete="current-password"&gt;
+&lt;/form&gt;
+
+&lt;!-- Тип клавиатуры на мобильных --&gt;
+&lt;input type="number" inputmode="numeric"&gt;
+&lt;input type="text" inputmode="email"&gt;</code></pre>
+
+            <h4>Кнопки отправки:</h4>
+            <pre><code>
+&lt;!-- Кнопка отправки --&gt;
+&lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;input type="submit" value="Отправить форму"&gt;
+
+&lt;!-- Кнопка сброса --&gt;
+&lt;button type="reset"&gt;Сбросить&lt;/button&gt;
+&lt;input type="reset" value="Очистить форму"&gt;
+
+&lt;!-- Обычная кнопка --&gt;
+&lt;button type="button"&gt;Просто кнопка&lt;/button&gt;</code></pre>
+
+            <h4>Краткая памятка:</h4>
+            <pre><code>
+✅ Обязательные атрибуты:
+   - name (для отправки данных)
+   - type (определяет тип поля)
+   - id (для связи с label)
+
+✅ Полезные атрибуты:
+   - required (обязательное поле)
+   - placeholder (подсказка)
+   - disabled (отключение поля)
+   - min/max/step (для чисел)
+   - autocomplete (автозаполнение)
+   - inputmode (тип клавиатуры)
+
+✅ Основные теги форм:
+   - form - контейнер формы
+   - input - большинство полей
+   - textarea - многострочный текст
+   - select - выпадающий список
+   - button - кнопки
+   - label - подписи
+   - fieldset/legend - группировка</code></pre>
         </div>
     </div>
     </div>
