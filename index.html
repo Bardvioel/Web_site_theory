@@ -1373,6 +1373,181 @@
     font-size, font-weight, color и другие свойства шрифта</code></pre>
         </div>
     </div>
+        <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="58">11. Скрытие элементов</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Полное скрытие из потока */
+    .hidden-block {
+        display: none;
+    }
+
+    /* Скрытие с сохранением места */
+    .another-hidden-block {
+        visibility: hidden;
+    }
+
+    /* HTML атрибут для скрытия */
+    &lt;button hidden&gt;Кнопка Шрёдингера&lt;/button&gt;
+
+    /* Визуальное скрытие с сохранением доступности */
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+    }</code></pre>
+            
+            <h4>Комментарии:</h4>
+            <pre><code>
+    display: none - полностью убирает элемент из потока
+    visibility: hidden - скрывает, но сохраняет место
+    hidden - HTML атрибут, аналогичен display: none
+    visually-hidden - скрывает визуально, но доступен для скринридеров</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="59">12. Работа с формами</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Базовая структура формы */
+    &lt;form&gt;
+        &lt;label class="name"&gt;
+            &lt;span&gt;Имя&lt;/span&gt;
+            &lt;input type="text"&gt;
+        &lt;/label&gt;
+        &lt;label for="surname"&gt;Фамилия&lt;/label&gt;
+        &lt;input id="surname" type="text" /&gt;
+    &lt;/form&gt;
+
+    /* Стилизация формы */
+    input, label {
+        display: block;
+    }
+
+    input {
+        border: 1px solid #000;
+        padding: 10px 15px;
+        font-family: inherit;
+        font-size: 16px;
+        background-color: transparent;
+    }
+
+    label, label span {
+        font-weight: 800;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    input:focus {
+        outline: 2px solid #000;
+        outline-offset: 0;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #000;
+        padding: 45px;
+        background-color: #80d994;
+    }
+
+    /* Placeholder для подсказок */
+    &lt;input placeholder="name@example.com" id="email" type="email" /&gt;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="60">13. Доступность (ARIA)</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Скрытие от скринридеров */
+    &lt;div aria-hidden="true"&gt;...&lt;/div&gt;
+
+    /* Описание для скринридеров */
+    &lt;button aria-label="Закрыть меню"&gt;×&lt;/button&gt;
+    &lt;button aria-description="Описание действия"&gt;Кнопка&lt;/button&gt;
+
+    /* Связь с другими элементами */
+    &lt;div id="menu"&gt;...&lt;/div&gt;
+    &lt;button 
+        aria-controls="menu"
+        aria-expanded="false"
+        aria-labelledby="menu-title"
+    &gt;
+        Меню
+    &lt;/button&gt;
+    &lt;h3 id="menu-title"&gt;Навигация&lt;/h3&gt;</code></pre>
+            
+            <h4>Основные ARIA-атрибуты:</h4>
+            <pre><code>
+    aria-hidden - скрывает элемент от скринридеров
+    aria-label - задает имя элемента
+    aria-description - описание элемента
+    aria-labelledby - ссылка на элемент с именем
+    aria-describedby - ссылка на элемент с описанием
+    aria-controls - указывает на управляемый элемент
+    aria-expanded - статус раскрытия (true/false)</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="61">14. Медиазапросы</h3></div>
+        <div class="content_1">
+            <pre><code>
+    /* Базовые стили для всех устройств */
+    .block {
+        color: #000;
+        background: #fff;
+    }
+
+    /* Для пользователей с уменьшением движения */
+    @media (prefers-reduced-motion) {
+        .block {
+            animation: none;
+            transition: none;
+        }
+    }
+
+    /* Для пользователей с повышенной контрастностью */
+    @media (prefers-contrast) {
+        .block {
+            background: #000;
+            color: #fff;
+            border: 2px solid yellow;
+        }
+    }
+
+    /* Адаптивные breakpoints */
+    @media (max-width: 768px) {
+        .block {
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+
+    /* Темная тема */
+    @media (prefers-color-scheme: dark) {
+        .block {
+            background: #1a1a1a;
+            color: #fff;
+        }
+    }</code></pre>
+            
+            <h4>Полезные медиа-функции:</h4>
+            <pre><code>
+    prefers-reduced-motion - уменьшение анимаций
+    prefers-contrast - повышенная контрастность  
+    prefers-color-scheme - темная/светлая тема
+    max-width / min-width - адаптивные breakpoints
+    orientation - ориентация устройства</code></pre>
+        </div>
+    </div>
     </div>
     </main>
     <script src="theme.js"></script>
