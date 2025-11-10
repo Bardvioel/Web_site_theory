@@ -44,6 +44,7 @@
             <h2 class="text_bar_topic"><a href="#topic_2_10">X. Продвинутые CSS-эффекты</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_11">XI. Псевдоклассы и псевдоэлементы</a></h2>
             <h2 class="text_bar_topic"><a href="#62">XII. Формы - полное руководство</a></h2>
+            <h2 class="text_bar_topic"><a href="#topic_2_13">XIII. Специфичность и селекторы</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -1722,6 +1723,206 @@ textarea {
    - button - кнопки
    - label - подписи
    - fieldset/legend - группировка</code></pre>
+        </div>
+    </div>
+        <h2 class="text_topic_1" id="topic_2_13">XIII. Специфичность и селекторы</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="63">16. Специфичность и важность</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Вес селекторов (от большего к меньшему): */
+
+/* 1. !important - максимальный приоритет */
+div { 
+    color: tomato !important; 
+}
+
+/* 2. Инлайн-стили (1000) */
+&lt;div style="color: red;"&gt;
+
+/* 3. ID селекторы (100) */
+#header { color: blue; }
+
+/* 4. Классы/атрибуты/псевдоклассы (10) */
+.button:hover { color: green; }
+[type="text"] { color: purple; }
+
+/* 5. Теги/псевдоэлементы (1) */
+p { color: black; }
+::before { content: ""; }</code></pre>
+
+            <h4>Пример расчета специфичности:</h4>
+            <pre><code>
+/* Специфичность: 1 (тег) + 10 (класс) = 11 */
+div.header { color: red; }
+
+/* Специфичность: 10 (класс) + 10 (класс) = 20 */
+.header.title { color: blue; } /* Этот применится! */
+
+/* Специфичность: 100 (ID) */
+#main { color: green; } /* Этот переопределит оба выше */</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="64">17. Комбинаторы селекторов</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Потомок (пробел) - выбирает всех потомков */
+section p {
+    color: blue; /* Все p внутри section */
+}
+
+.card .card-content .card-text {
+    font-size: 14px; /* Вложенные элементы */
+}
+
+/* Дочерний элемент (>) - только прямые потомки */
+section > p {
+    font-weight: bold; /* Только p на первом уровне */
+    text-decoration: underline;
+}
+
+/* Соседний элемент (+) - следующий элемент */
+label + input {
+    border-color: red; /* Только input сразу после label */
+}
+
+/* Пример в HTML: */
+&lt;form&gt;
+    &lt;label&gt;Только мы с конём по полю вдвоём&lt;/label&gt;
+    &lt;input&gt;              /* Этот получит стили */
+    &lt;input&gt;              /* Этот - нет */
+&lt;/form&gt;
+
+/* Общий сосед (~) - все следующие элементы на одном уровне */
+p ~ button {
+    background: yellow; /* Все button после p в одном родителе */
+}
+
+/* Пример в HTML: */
+&lt;div&gt;
+    &lt;p&gt;Я — абзац&lt;/p&gt;
+    &lt;ul&gt;&lt;li&gt;Пункт списка&lt;/li&gt;&lt;/ul&gt;
+    &lt;button&gt;Я — кнопка&lt;/button&gt; /* Этот получит стили */
+&lt;/div&gt;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="65">18. Селекторы атрибутов</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Наличие атрибута */
+a[href] {
+    text-decoration: underline; /* Все ссылки с href */
+}
+
+input[required] {
+    border-color: red; /* Все обязательные поля */
+}
+
+/* Точное значение атрибута */
+a[href="https://ya.ru/"] {
+    color: red; /* Конкретная ссылка */
+}
+
+input[type="submit"] {
+    background: blue; /* Кнопки отправки */
+}
+
+/* Начало значения (^=) */
+a[href^="http"] {
+    border: 1px solid orange; /* Внешние ссылки */
+}
+
+a[href^="/"] {
+    color: green; /* Относительные ссылки */
+}
+
+/* Содержание подстроки (*=) */
+a[href*="#"] {
+    font-weight: bold; /* Ссылки с якорем */
+}
+
+a[href*="download"] {
+    color: purple; /* Ссылки для скачивания */
+}
+
+/* Окончание значения ($=) */
+a[href$=".pdf"] {
+    background: url(pdf-icon.png); /* PDF файлы */
+}
+
+img[src$=".jpg"] {
+    border: 2px solid #ccc; /* JPG изображения */
+}
+
+/* Примеры в HTML: */
+&lt;a href="https://ya.ru/"&gt;Ya&lt;/a&gt;
+&lt;a href="/about"&gt;О нас&lt;/a&gt;
+&lt;a href="/manifest#download"&gt;Манифест&lt;/a&gt;</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="66">19. Современные CSS-возможности</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Буквица (initial-letter) */
+p::first-letter {
+    initial-letter: 3; /* Буква занимает 3 строки */
+    -webkit-initial-letter: 3; /* Префикс для Safari */
+    font-weight: bold;
+    color: tomato;
+}
+
+/* :focus-within - родитель с фокусированным элементом */
+.form-group:focus-within {
+    background: #f0f8ff;
+    border-left: 4px solid #4CAF50;
+}
+
+/* @supports - проверка поддержки свойств */
+@supports (display: grid) {
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@supports (backdrop-filter: blur(10px)) {
+    .modal {
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* Современные селекторы */
+:is(section, article, aside) h1 {
+    font-size: 2em; /* Применяется ко всем h1 в section, article, aside */
+}
+
+:where(.dark-theme, .light-theme) button {
+    padding: 10px; /* Применяется к button в указанных темах */
+}
+
+/* Селектор :has() - родитель с определенным потомком */
+.card:has(.sale-badge) {
+    border: 2px solid gold; /* Карточка со скидкой */
+}
+
+.menu:has(> .dropdown-open) {
+    background: #f5f5f5; /* Меню с открытым dropdown */
+}</code></pre>
+
+            <h4>Разница между :is() и :where():</h4>
+            <pre><code>
+/* :is() - учитывается в специфичности */
+:is(section, article) h1 { } /* Специфичность: 1 (тег) + 1 (тег) = 2 */
+
+/* :where() - специфичность всегда 0 */
+:where(section, article) h1 { } /* Специфичность: 0 + 1 = 1 */</code></pre>
         </div>
     </div>
     </div>
