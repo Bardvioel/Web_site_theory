@@ -45,6 +45,7 @@
             <h2 class="text_bar_topic"><a href="#topic_2_11">XI. Псевдоклассы и псевдоэлементы</a></h2>
             <h2 class="text_bar_topic"><a href="#62">XII. Формы - полное руководство</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_13">XIII. Специфичность и селекторы</a></h2>
+            <h2 class="text_bar_topic"><a href="#topic_2_14">XIV. Стилизация форм и состояний</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -1923,6 +1924,254 @@ p::first-letter {
 
 /* :where() - специфичность всегда 0 */
 :where(section, article) h1 { } /* Специфичность: 0 + 1 = 1 */</code></pre>
+        </div>
+    </div>
+        <h2 class="text_topic_1" id="topic_2_14">XIV. Стилизация форм и состояний</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="67">20. Стилизация полей ввода</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Наследование стилей от родителя */
+input {
+    font-family: inherit;     /* Наследует шрифт */
+    color: inherit;           /* Наследует цвет текста */
+    background-color: transparent; /* Прозрачный фон */
+}
+
+/* Базовая стилизация полей */
+input, textarea, select {
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Убрать стандартную рамку */
+input {
+    border: none;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Стили для фокуса */
+input:focus {
+    outline: 2px solid blue;
+    outline-offset: 2px;
+}
+
+/* Альтернативный вариант фокуса */
+input:focus {
+    outline-color: yellow;
+    outline-style: dashed;
+    outline-width: 3px;
+}
+
+/* Убрать обводку, но оставить для клавиатурной навигации */
+input:focus {
+    outline: none;
+    border-color: blue;
+}
+
+input:focus-visible {
+    outline: 2px solid -webkit-focus-ring-color;
+}
+
+/* Стилизация placeholder */
+::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+input::placeholder {
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="68">21. Валидация форм</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Валидное поле */
+input:valid {
+    border-color: #80d994;
+    background-color: #f8fff9;
+}
+
+/* Невалидное поле */
+input:invalid {
+    border-color: #fd24af;
+    background-color: #fff5f9;
+}
+
+/* Пример с email */
+input[type="email"]:invalid {
+    background-image: url('warning-icon.png');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+}
+
+/* Диапазон значений */
+input[type="number"]:in-range {
+    background-color: #80d994; /* В пределах min-max */
+}
+
+input[type="number"]:out-of-range {
+    background-color: #fd24af; /* За пределами min-max */
+}
+
+/* Пример HTML для диапазона */
+&lt;label&gt;
+    &lt;span&gt;Введите число от 0 до 10&lt;/span&gt;
+    &lt;input type="number" min="0" max="10" value="5" /&gt;
+&lt;/label&gt;
+
+/* Обязательные поля */
+input:required {
+    border-left: 3px solid orange;
+}
+
+input:optional {
+    border-left: 3px solid #ccc;
+}
+
+/* Кастомные сообщения об ошибках */
+input:invalid {
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+}
+
+input:invalid:focus {
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="69">22. Состояния элементов форм</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Состояния чекбоксов и радиокнопок */
+
+/* Выбранный элемент */
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+    accent-color: #4CAF50; /* Цвет акцента */
+}
+
+/* Отключенный элемент */
+input[type="checkbox"]:disabled,
+input[type="radio"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Фокус на элементе */
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+    outline: 2px solid blue;
+    outline-offset: 2px;
+}
+
+/* Кастомные чекбоксы */
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.custom-checkbox:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    background-image: url('checkmark.svg');
+    background-size: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Стилизация select */
+select {
+    appearance: none;           /* Убрать стандартный вид */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('dropdown-arrow.svg');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+}
+
+/* Акцент-цвет для элементов форм */
+:root {
+    --accent-color: #ff6b6b;
+}
+
+input[type="range"] {
+    accent-color: var(--accent-color);
+}
+
+input[type="checkbox"] {
+    accent-color: var(--accent-color);
+}
+
+input[type="radio"] {
+    accent-color: var(--accent-color);
+}
+
+progress {
+    accent-color: var(--accent-color);
+}
+
+/* Состояния кнопок */
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:enabled:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Группировка состояний */
+input:not(:disabled):hover {
+    border-color: #999;
+}
+
+input:focus:not(:read-only) {
+    background-color: #f0f8ff;
+}</code></pre>
+
+            <h4>Свойство accent-color:</h4>
+            <pre><code>
+/* Управляет цветом элементов UI */
+accent-color: #ff6b6b; /* Работает с: */
+
+- checkbox
+- radio  
+- range
+- progress
+
+/* Пример использования */
+input[type="checkbox"] {
+    accent-color: #4CAF50; /* Зеленые чекбоксы */
+}
+
+input[type="range"] {
+    accent-color: #2196F3; /* Синий ползунок */
+}</code></pre>
         </div>
     </div>
     </div>
