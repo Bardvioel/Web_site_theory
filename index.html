@@ -46,6 +46,9 @@
             <h2 class="text_bar_topic"><a href="#62">XII. Формы - полное руководство</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_13">XIII. Специфичность и селекторы</a></h2>
             <h2 class="text_bar_topic"><a href="#topic_2_14">XIV. Стилизация форм и состояний</a></h2>
+			<h2 class="text_bar_topic"><a href="#70">XV. Переменные шрифты</a></h2>
+			<h2 class="text_bar_topic"><a href="#71">XVI. CSS анимации</a></h2>
+			<h2 class="text_bar_topic"><a href="#72">XVII. Свойства анимации</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -2172,6 +2175,248 @@ input[type="checkbox"] {
 input[type="range"] {
     accent-color: #2196F3; /* Синий ползунок */
 }</code></pre>
+        </div>
+    </div>
+	
+	    <h2 class="text_topic_1" id="topic_2_15">XV. Переменные шрифты и анимации</h2>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="70">23. Переменные шрифты</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Подключение переменного шрифта */
+@font-face {
+    font-display: swap;
+    font-family: 'Roboto-Flex-Variable';
+    src:
+        local('Roboto-Flex-Variable'),
+        url('../fonts/Roboto-Flex-Variable.woff2') format('woff2 supports variations'),
+        url('../fonts/Roboto-Flex-Variable.woff2') format('woff2-variations');
+}
+
+/* Использование шрифта */
+body {
+    font-family: 'Roboto-Flex-Variable', sans-serif;
+}
+
+/* Подключение с диапазонами значений */
+@font-face {
+    font-display: swap;
+    font-family: 'Roboto-Flex-Variable';
+    src:
+        local('Roboto-Flex-Variable'),
+        url('../fonts/Roboto-Flex-Variable.woff2') format('woff2 supports variations');
+    font-weight: 100 900;           /* Диапазон насыщенности */
+    font-stretch: 75% 125%;         /* Диапазон ширины */
+}
+
+/* Работа с CSS-переменными */
+:root {
+    --wdth: 100;    /* Ширина шрифта */
+    --wght: 400;    /* Насыщенность */
+    --slnt: 0;      /* Наклон */
+}
+
+.text_width_large {
+    --wdth: 151;
+}
+
+.text_weight_bold {
+    --wght: 900;
+}
+
+.text_italic {
+    --slnt: -10;
+}
+
+/* Применение переменных */
+.text_width_large,
+.text_weight_bold,
+.text_italic {
+    font-variation-settings: 
+        'wdth' var(--wdth),
+        'wght' var(--wght),
+        'slnt' var(--slnt);
+}
+
+/* Основные оси переменных шрифтов */
+.axis-example {
+    font-variation-settings:
+        'wght' 700,     /* Насыщенность (font-weight) */
+        'wdth' 125,     /* Ширина (font-stretch) */
+        'slnt' -10,     /* Наклон (font-style) */
+        'opsz' 36;      /* Оптический размер */
+}</code></pre>
+
+            <h4>Основные оси переменных шрифтов:</h4>
+            <pre><code>
+wght - насыщенность (weight) → font-weight
+wdth - ширина (width) → font-stretch  
+slnt - наклон (slant) → font-style
+opsz - оптический размер → font-optical-sizing</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="71">24. CSS анимации</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Определение анимации */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes changeColor {
+    0% {
+        background-color: red;
+    }
+    50% {
+        background-color: blue;
+    }
+    100% {
+        background-color: green;
+    }
+}
+
+/* Применение анимации */
+.loader {
+    animation: spin 2s linear infinite;
+}
+
+.button {
+    animation: changeColor 0.5s ease-in-out;
+}
+
+/* Направление анимации */
+.loader-reverse {
+    animation: spin 2s linear infinite reverse;
+}
+
+.loader-alternate {
+    animation: spin 2s linear infinite alternate;
+}
+
+.loader-alternate-reverse {
+    animation: spin 2s linear infinite alternate-reverse;
+}
+
+/* Временные функции (timing-function) */
+.animation-ease { animation-timing-function: ease; }      /* по умолчанию */
+.animation-ease-in { animation-timing-function: ease-in; } /* начинается медленно */
+.animation-ease-out { animation-timing-function: ease-out; } /* заканчивается медленно */
+.animation-ease-in-out { animation-timing-function: ease-in-out; } /* медленно начинается и заканчивается */
+.animation-linear { animation-timing-function: linear; }   /* постоянная скорость */
+.animation-steps { animation-timing-function: steps(5); }  /* пошаговая */
+
+/* Количество повторений */
+.animation-once { animation-iteration-count: 1; }         /* один раз */
+.animation-infinite { animation-iteration-count: infinite; } /* бесконечно */
+.animation-three-times { animation-iteration-count: 3; }   /* три раза */</code></pre>
+
+            <h4>Направления анимации (animation-direction):</h4>
+            <pre><code>
+normal - от начала до конца (по умолчанию)
+reverse - от конца к началу
+alternate - чередуется прямой/обратный порядок
+alternate-reverse - чередуется обратный/прямой порядок</code></pre>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="topic_block"><h3 class="text_topic_2" id="72">25. Свойства анимации</h3></div>
+        <div class="content_1">
+            <pre><code>
+/* Полная запись анимации */
+.element {
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-delay: 1s;
+    animation-fill-mode: both;
+    animation-play-state: running;
+}
+
+/* Сокращенная запись (shorthand) */
+.element {
+    animation: spin 2s linear infinite normal 1s both running;
+}
+
+/* Задержка анимации */
+.delayed-animation {
+    animation: fadeIn 1s ease-in 0.5s; /* Задержка 0.5s */
+}
+
+/* Состояние после анимации (animation-fill-mode) */
+.animation-none { animation-fill-mode: none; }       /* вернется к исходному состоянию */
+.animation-forwards { animation-fill-mode: forwards; } /* останется в последнем кадре */
+.animation-backwards { animation-fill-mode: backwards; } /* останется в первом кадре */
+.animation-both { animation-fill-mode: both; }       /* комбинация backwards + forwards */
+
+/* Управление воспроизведением (animation-play-state) */
+.pausable-animation {
+    animation: spin 2s linear infinite;
+}
+
+.pausable-animation:hover {
+    animation-play-state: paused; /* пауза при наведении */
+}
+
+/* Практические примеры */
+.loader {
+    animation: spin 1s linear infinite;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { 
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to { 
+        transform: translateX(0);
+        opacity: 1;
+    }
+}</code></pre>
+
+            <h4>Свойства анимации:</h4>
+            <pre><code>
+animation-name - имя @keyframes
+animation-duration - длительность
+animation-timing-function - временная функция
+animation-iteration-count - количество повторений
+animation-direction - направление
+animation-delay - задержка перед началом
+animation-fill-mode - стили после завершения
+animation-play-state - воспроизведение/пауза</code></pre>
+
+            <h4>Временные функции (timing-function):</h4>
+            <pre><code>
+ease - ускоряется к середине, замедляется в конце
+ease-in - начинается медленно, заканчивается быстро
+ease-out - начинается быстро, заканчивается медленно
+ease-in-out - медленно начинается и заканчивается
+linear - постоянная скорость
+steps(n) - пошаговая анимация
+cubic-bezier() - кастомная кривая Безье</code></pre>
         </div>
     </div>
     </div>
