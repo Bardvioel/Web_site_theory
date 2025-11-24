@@ -3239,6 +3239,323 @@ console.log(bigMax); // 9007199254740992n - точно</code></pre>
 💡 Идеально для финансовых расчетов, ID, криптографии</code></pre>
     </div>
 	</div>
+	<h2 class="text_topic_1" id="topic_2_22">XXIII. JavaScript - Поиск элементов в DOM</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="97">1. Основные методы поиска</h3></div>
+    <div class="content_1">
+        <pre><code>
+// querySelector - находит первый подходящий элемент
+const container = document.querySelector('#container');
+const firstButton = document.querySelector('button');
+
+// querySelectorAll - находит все подходящие элементы
+const allItems = document.querySelectorAll('.content__item');
+const allParagraphs = document.querySelectorAll('p');
+
+// Поиск внутри элементов
+const main = document.querySelector('main');
+const items = main.querySelectorAll('.item'); // только внутри main
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="98">2. Устаревшие методы поиска</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Работают, но менее гибкие
+const container = document.getElementById('container');
+const items = document.getElementsByClassName('item');
+const divs = document.getElementsByTagName('div');
+
+// Особенности:
+// - Не поддерживают сложные селекторы
+// - getElementsBy... возвращают "живые" коллекции
+// - Имена указываются без символов # и .
+        </code></pre>
+    </div>
+</div>
+
+<h2 class="text_topic_1" id="topic_2_23">XXIV. JavaScript - Работа с атрибутами</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="99">1. Основные методы атрибутов</h3></div>
+    <div class="content_1">
+        <pre><code>
+const image = document.querySelector('img');
+
+// Получить значение атрибута
+const src = image.getAttribute('src');
+
+// Проверить наличие атрибута
+const hasAlt = image.hasAttribute('alt');
+
+// Установить атрибут
+image.setAttribute('alt', 'Описание изображения');
+
+// Удалить атрибут
+image.removeAttribute('title');
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="100">2. Специальные свойства элементов</h3></div>
+    <div class="content_1">
+        <pre><code>
+const link = document.querySelector('a');
+const input = document.querySelector('input');
+
+// У элементов есть специальные свойства
+link.href;        // URL ссылки
+input.value;      // значение поля ввода
+input.checked;    // состояние чекбокса
+input.disabled;   // заблокировано ли поле
+
+// console.dir - посмотреть все свойства элемента
+console.dir(input); // полный список свойств и методов
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="101">3. Пользовательские атрибуты data-*</h3></div>
+    <div class="content_1">
+        <pre><code>
+&lt;!-- HTML --&gt;
+&lt;div data-user-id="123" data-role="admin"&gt;Пользователь&lt;/div&gt;
+
+// JavaScript
+const userDiv = document.querySelector('div');
+
+// Стандартные методы
+userDiv.getAttribute('data-user-id'); // "123"
+
+// Специальное свойство dataset
+userDiv.dataset.userId; // "123"
+userDiv.dataset.role;   // "admin"
+
+// Изменение data-атрибутов
+userDiv.dataset.userId = "456";
+        </code></pre>
+    </div>
+</div>
+
+<h2 class="text_topic_1" id="topic_2_24">XXV. JavaScript - Работа с классами</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="102">1. Свойство classList</h3></div>
+    <div class="content_1">
+        <pre><code>
+const element = document.querySelector('.princess');
+
+// Проверить наличие класса
+element.classList.contains('princess'); // true
+
+// Добавить класс
+element.classList.add('queen');
+
+// Удалить класс  
+element.classList.remove('princess');
+
+// Переключить класс
+element.classList.toggle('active');
+
+// Заменить класс
+element.classList.replace('old-class', 'new-class');
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="103">2. Свойство className</h3></div>
+    <div class="content_1">
+        <pre><code>
+const element = document.querySelector('.princess');
+
+// Получить все классы строкой
+const classes = element.className; // "princess royal"
+
+// Установить новые классы (перезаписывает все!)
+element.className = 'queen ruler';
+
+// Добавить класс (старый способ)
+element.className += ' new-class';
+        </code></pre>
+    </div>
+</div>
+
+<h2 class="text_topic_1" id="topic_2_25">XXVI. JavaScript - Работа с содержимым</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="104">1. innerHTML vs textContent</h3></div>
+    <div class="content_1">
+        <pre><code>
+&lt;!-- HTML --&gt;
+&lt;div id="content"&gt;
+  Текст и &lt;span&gt;вложенный элемент&lt;/span&gt;
+&lt;/div&gt;
+
+// JavaScript
+const content = document.querySelector('#content');
+
+// textContent - только текст
+content.textContent; // "Текст и вложенный элемент"
+
+// innerHTML - включая разметку
+content.innerHTML; // "Текст и &lt;span&gt;вложенный элемент&lt;/span&gt;"
+
+// innerText - видимый текст (учитывает CSS)
+content.innerText; // "Текст и вложенный элемент"
+
+// Изменение содержимого
+content.textContent = 'Новый текст'; // безопасно
+content.innerHTML = '&lt;strong&gt;Новая разметка&lt;/strong&gt;'; // осторожно!
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="105">2. Безопасное добавление контента</h3></div>
+    <div class="content_1">
+        <pre><code>
+const container = document.querySelector('.container');
+
+// insertAdjacentHTML - добавляет разметку
+container.insertAdjacentHTML('beforeend', '&lt;div&gt;Новый элемент&lt;/div&gt;');
+
+// insertAdjacentText - добавляет текст
+container.insertAdjacentText('beforeend', 'Новый текст');
+
+// Позиции для вставки:
+// 'beforebegin' - перед элементом
+// 'afterbegin'  - внутрь, в начало
+// 'beforeend'   - внутрь, в конец  
+// 'afterend'    - после элемента
+
+&lt;!-- beforebegin --&gt;
+&lt;div class="container"&gt;
+  &lt;!-- afterbegin --&gt;
+  Существующий контент
+  &lt;!-- beforeend --&gt;
+&lt;/div&gt;
+&lt;!-- afterend --&gt;
+        </code></pre>
+    </div>
+</div>
+
+<h2 class="text_topic_1" id="topic_2_26">XXVII. JavaScript - События</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="106">1. Добавление обработчиков событий</h3></div>
+    <div class="content_1">
+        <pre><code>
+const element = document.querySelector('.my-element');
+
+// Способ 1: именованная функция
+function showClick() {
+  console.log('Мы кликнули по элементу');
+}
+element.addEventListener('click', showClick);
+
+// Способ 2: анонимная функция
+element.addEventListener('click', function() {
+  console.log('Мы кликнули по элементу');
+});
+
+// Способ 3: стрелочная функция
+element.addEventListener('click', () => {
+  console.log('Мы кликнули по элементу');
+});
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="107">2. Основные события</h3></div>
+    <div class="content_1">
+        <pre><code>
+// События мыши
+element.addEventListener('click', handleClick);      // клик
+element.addEventListener('mouseover', handleHover); // наведение
+element.addEventListener('mouseout', handleLeave);  // убрали курсор
+
+// События клавиатуры  
+input.addEventListener('keydown', handleKeyDown);   // клавиша нажата
+input.addEventListener('keyup', handleKeyUp);       // клавиша отпущена
+
+// События форм
+form.addEventListener('submit', handleSubmit);      // отправка формы
+input.addEventListener('change', handleChange);     // значение изменилось
+input.addEventListener('focus', handleFocus);       // получил фокус
+input.addEventListener('blur', handleBlur);         // потерял фокус
+
+// Другие события
+window.addEventListener('scroll', handleScroll);    // прокрутка
+window.addEventListener('resize', handleResize);    // изменение размера
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="108">3. Событие отправки формы</h3></div>
+    <div class="content_1">
+        <pre><code>
+&lt;!-- HTML --&gt;
+&lt;form class="form"&gt;
+  &lt;input class="form__input" type="text"&gt;
+  &lt;button type="submit"&gt;Сохранить&lt;/button&gt;
+&lt;/form&gt;
+
+// JavaScript
+const formElement = document.querySelector('.form');
+
+formElement.addEventListener('submit', function(event) {
+  // Предотвращаем стандартную отправку формы
+  event.preventDefault();
+  
+  console.log('Форма отправлена');
+  
+  // Получаем значение поля
+  const input = formElement.querySelector('.form__input');
+  console.log('Введенное значение:', input.value);
+});
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="109">4. Объект события (event)</h3></div>
+    <div class="content_1">
+        <pre><code>
+element.addEventListener('click', function(event) {
+  // Основные свойства event:
+  event.target;        // элемент, на котором произошло событие
+  event.currentTarget; // элемент, на котором висит обработчик
+  event.type;          // тип события ('click', 'submit', etc.)
+  
+  // Для мышиных событий
+  event.clientX;       // координата X курсора
+  event.clientY;       // координата Y курсора
+  
+  // Для клавиатурных событий
+  event.key;           // нажатая клавиша
+  event.code;          // код клавиши
+  
+  // Методы
+  event.preventDefault();  // отменить действие по умолчанию
+  event.stopPropagation(); // остановить всплытие события
+});
+
+// Пример: отмена отправки формы
+form.addEventListener('submit', function(event) {
+  event.preventDefault(); // форма не отправится
+  // наша логика обработки
+});
+        </code></pre>
+    </div>
+	</div>
     </div>
     </main>
     <script src="theme.js"></script>
