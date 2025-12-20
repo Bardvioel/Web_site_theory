@@ -54,6 +54,8 @@
 			<h2 class="text_bar_topic"><a href="#topic_2_19">XX. JavaScript - функции</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_20">XXI. JavaScript - объекты и специальные типы</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_21">XXII. JavaScript - работа со строками и числами</a></h2>
+			<h2 class="text_bar_topic"><a href="#topic_2_27">XXVIII. JavaScript - Создание и удаление элементов DOM</a></h2>
+			
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -3554,8 +3556,110 @@ form.addEventListener('submit', function(event) {
   // наша логика обработки
 });
         </code></pre>
+
     </div>
 	</div>
+	<h2 class="text_topic_1" id="topic_2_27">XXVIII. JavaScript - Создание и удаление элементов DOM</h2>
+
+	<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="110">1. Создание элементов</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Создание элементов с помощью document.createElement
+const listItem = document.createElement('li');
+const divElement = document.createElement('div');
+const imageElement = document.createElement('img');
+
+// Создание текстового узла
+const textItem = document.createTextNode('Hello, world');
+
+// Пример потенциально опасного кода (не использовать!)
+// &lt;img src="https://invalid_url" onerror="alert('but most of all, samy is my hero')"&gt;
+
+// Безопасное создание элемента img
+const safeImage = document.createElement('img');
+safeImage.src = 'https://example.com/valid-image.jpg';
+safeImage.alt = 'Пример изображения';
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="111">2. Методы добавления элементов</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Существует пять методов добавления элементов на страницу:
+
+// node.append(...nodes or strings) - добавляет в конец node
+const list = document.querySelector('.todo-list');
+const listItem = document.createElement('li');
+listItem.textContent = 'Полить цветы';
+list.append(listItem);
+
+// node.prepend(...nodes or strings) - добавляет в начало node
+list.prepend(listItem);
+
+// node.before(...nodes or strings) - добавляет до node
+list.before(listItem);
+
+// node.after(...nodes or strings) - добавляет после node  
+list.after(listItem);
+
+// node.replaceWith(...nodes or strings) - заменяет node
+list.replaceWith(listItem);
+
+// Добавление нескольких элементов одновременно
+const listItem1 = document.createElement('li');
+const listItem2 = document.createElement('li');
+const listItem3 = document.createElement('li');
+list.append(listItem1, listItem2, listItem3);
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="112">3. Удаление элементов</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод remove - удаляет элемент из DOM
+const listItem = document.querySelector('li');
+listItem.remove();
+
+// Метод closest - ищет ближайший родительский элемент с селектором
+const deleteButton = document.querySelector('.todo__item-button');
+
+deleteButton.addEventListener('click', function () {
+    // Находим ближайший родительский элемент с классом .todo__item
+    const listItem = deleteButton.closest('.todo__item');
+    
+    // Удаляем найденный элемент
+    if (listItem) {
+        listItem.remove();
+    }
+});
+
+// Особенность: элемент можно перемещать
+const list = document.querySelector('.todo-list');
+const listItems = list.children; // псевдомассив дочерних элементов
+
+// Перемещаем первый элемент в конец списка
+if (listItems.length > 0) {
+    list.append(listItems[0]);
+}
+        </code></pre>
+        
+        <h4>Комментарии:</h4>
+        <pre><code>
+✅ document.createElement() - создает новый элемент
+✅ createTextNode() - создает текстовый узел  
+✅ Методы добавления: append, prepend, before, after, replaceWith
+✅ remove() - удаляет элемент из DOM
+✅ closest() - ищет ближайший родительский элемент
+🔄 Элемент можно перемещать между родителями
+🚫 Избегайте вставки небезопасного HTML через innerHTML
+        </code></pre>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
