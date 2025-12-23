@@ -3660,6 +3660,215 @@ if (listItems.length > 0) {
         </code></pre>
     </div>
 </div>
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="113">4. Клонирование элементов с cloneNode</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод cloneNode создает копию элемента
+
+// Клонировать элемент вместе со всем его содержимым (глубокое клонирование)
+const originalElement = document.querySelector('.element');
+const deepCopy = originalElement.cloneNode(true);
+
+// Клонирование без дочерних элементов (поверхностное клонирование)
+const shallowCopy = originalElement.cloneNode(false);
+
+// Метод cloneNode только копирует элемент, но не добавляет его в DOM
+const container = document.querySelector('.container');
+const element = document.querySelector('.element');
+const elementCopy = element.cloneNode(true);
+
+// Чтобы добавить копию в DOM, используем методы добавления
+container.append(elementCopy);
+
+// Пример с клонированием и изменением
+const list = document.querySelector('.todo-list');
+const firstItem = list.querySelector('li:first-child');
+const clonedItem = firstItem.cloneNode(true);
+
+// Изменяем текст клонированного элемента
+clonedItem.textContent = 'Новая задача (копия)';
+
+// Добавляем клонированный элемент в конец списка
+list.append(clonedItem);
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="114">5. Шаблоны с тегом template</h3></div>
+    <div class="content_1">
+        <pre><code>
+&lt;!-- HTML: template как заготовка вёрстки --&gt;
+&lt;template id="user"&gt;
+  &lt;div class="user"&gt;
+    &lt;img class="user__avatar" alt="avatar"&gt;
+    &lt;p class="user__name"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+// JavaScript: работа с template
+const userTemplate = document.querySelector('#user');
+const userContent = userTemplate.content; // получаем содержимое template
+const usersOnline = document.querySelector('.users-online');
+
+// Клонируем содержимое тега template
+const userElement = userContent.querySelector('.user').cloneNode(true);
+
+// Наполняем содержимым
+userElement.querySelector('.user__avatar').src = 'https://tinyurl.com/v4pfzwy';
+userElement.querySelector('.user__avatar').alt = 'Аватар пользователя';
+userElement.querySelector('.user__name').textContent = 'Дюк Корморант';
+
+// Отображаем на странице
+usersOnline.append(userElement);
+
+// Создаем еще одного пользователя (повторное использование шаблона)
+const anotherUser = userContent.querySelector('.user').cloneNode(true);
+anotherUser.querySelector('.user__avatar').src = 'https://example.com/avatar2.jpg';
+anotherUser.querySelector('.user__name').textContent = 'Анна Иванова';
+usersOnline.append(anotherUser);
+
+// Преимущества template:
+// 1. Браузер проверяет валидность HTML внутри template
+// 2. Можно использовать любой корректный HTML-код
+// 3. Не требуется соблюдать вложенность тегов
+// 4. Содержимое template не отображается на странице до использования
+
+&lt;!-- Пример: tr может быть сам по себе внутри template --&gt;
+&lt;template id="table-row"&gt;
+  &lt;tr class="data"&gt;
+    &lt;td&gt;Ячейка 1&lt;/td&gt;
+    &lt;td&gt;Ячейка 2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/template&gt;
+        </code></pre>
+        
+        <h4>Комментарии:</h4>
+        <pre><code>
+✅ cloneNode(true) - глубокое клонирование (с содержимым)
+✅ cloneNode(false) - поверхностное клонирование (без содержимого)
+✅ template - идеален для многократного использования шаблонов
+✅ template.content - доступ к содержимому шаблона
+🚫 Содержимое template не отображается пока не добавлено в DOM
+💡 Шаблоны упрощают создание сложных повторяющихся элементов
+        </code></pre>
+    </div>
+</div>
+
+<h2 class="text_topic_1" id="topic_2_29">XXIX. JavaScript - Детали событий и объект Event</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="115">1. Объект события (event) подробнее</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Объект event содержит информацию о произошедшем событии
+const button = document.querySelector('button');
+
+button.addEventListener('click', function (evt) {
+    // evt (или e) - объект события
+    // Его можно называть как угодно, но обычно используют evt или e
+    
+    console.log(evt); // полный объект события
+    console.log(evt.type); // тип события: 'click', 'submit', etc.
+    console.log(evt.timeStamp); // время возникновения события
+});
+
+// Свойство target - элемент, на котором сработало событие
+const button = document.querySelector('.button');
+
+button.addEventListener('click', function (evt) {
+    // В переменной eventTarget окажется элемент button
+    const eventTarget = evt.target;
+    
+    // Пример использования
+    eventTarget.setAttribute('disabled', true);
+    eventTarget.textContent = 'Нажата!';
+    
+    console.log('Клик по элементу:', eventTarget.tagName);
+    console.log('ID элемента:', eventTarget.id);
+    console.log('Классы элемента:', eventTarget.className);
+});
+
+// Разница между target и currentTarget
+const container = document.querySelector('.container');
+
+container.addEventListener('click', function (evt) {
+    console.log('target:', evt.target); // конкретный элемент, по которому кликнули
+    console.log('currentTarget:', evt.currentTarget); // элемент с обработчиком (container)
+    
+    // Пример: если внутри container есть кнопка
+    if (evt.target.tagName === 'BUTTON') {
+        console.log('Клик по кнопке внутри container');
+    }
+});
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="116">2. Практические примеры использования event</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Пример 1: Обработка кликов по динамически созданным элементам
+const list = document.querySelector('.todo-list');
+
+list.addEventListener('click', function (evt) {
+    // Проверяем, что клик был по элементу с классом 'delete-btn'
+    if (evt.target.classList.contains('delete-btn')) {
+        const listItem = evt.target.closest('li');
+        listItem.remove();
+        console.log('Элемент удален');
+    }
+    
+    // Проверяем, что клик был по элементу с классом 'edit-btn'
+    if (evt.target.classList.contains('edit-btn')) {
+        const listItem = evt.target.closest('li');
+        const text = listItem.querySelector('.task-text').textContent;
+        console.log('Редактирование задачи:', text);
+    }
+});
+
+// Пример 2: Получение координат мыши
+const area = document.querySelector('.click-area');
+
+area.addEventListener('click', function (evt) {
+    console.log('Координаты клика:');
+    console.log('Относительно окна:', evt.clientX, evt.clientY);
+    console.log('Относительно документа:', evt.pageX, evt.pageY);
+    console.log('Относительно элемента:', evt.offsetX, evt.offsetY);
+});
+
+// Пример 3: Предотвращение стандартного поведения
+const form = document.querySelector('.form');
+const link = document.querySelector('a');
+
+form.addEventListener('submit', function (evt) {
+    evt.preventDefault(); // предотвращает отправку формы
+    console.log('Форма не отправлена, обрабатываем данные вручную');
+});
+
+link.addEventListener('click', function (evt) {
+    evt.preventDefault(); // предотвращает переход по ссылке
+    console.log('Переход по ссылке отменен');
+    
+    // Вместо перехода показываем модальное окно
+    showModal();
+});
+        </code></pre>
+        
+        <h4>Комментарии:</h4>
+        <pre><code>
+🎯 evt.target - элемент, на котором произошло событие
+🎯 evt.currentTarget - элемент, на котором висит обработчик
+🎯 evt.preventDefault() - отменяет стандартное поведение
+🎯 evt.stopPropagation() - останавливает всплытие события
+📍 evt.clientX/Y - координаты курсора относительно окна
+📍 evt.pageX/Y - координаты относительно документа
+💡 Используйте делегирование событий для динамических элементов
+        </code></pre>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
