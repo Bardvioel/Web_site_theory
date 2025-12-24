@@ -3869,6 +3869,251 @@ link.addEventListener('click', function (evt) {
         </code></pre>
     </div>
 </div>
+<h2 class="text_topic_1" id="topic_2_30">XXX. JavaScript - Навигация по DOM элементам</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="117">1. Ссылка на родителя - parentElement</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Свойство parentElement содержит ссылку на родительский элемент
+&lt;!-- HTML структура: --&gt;
+&lt;body&gt;
+  &lt;p&gt;Абзац 1&lt;/p&gt;
+  &lt;p&gt;Абзац 2&lt;/p&gt;
+  &lt;p&gt;Абзац 3&lt;/p&gt;
+&lt;/body&gt;
+
+// JavaScript
+const element = document.querySelector('p');
+console.log(element.parentElement); // body, так как это родитель p
+
+// Практическое использование
+const deleteButton = document.querySelector('.delete-btn');
+
+deleteButton.addEventListener('click', function() {
+    // Находим родительский элемент кнопки
+    const parent = this.parentElement;
+    
+    if (parent && parent.classList.contains('todo-item')) {
+        parent.remove();
+        console.log('Элемент удален');
+    }
+});
+
+// Пример с цепочкой parentElement
+const nestedElement = document.querySelector('.deeply-nested span');
+const rootParent = nestedElement.parentElement.parentElement.parentElement;
+console.log('Корневой родитель:', rootParent);
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="118">2. Псевдомассив детей - children</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Свойство children содержит псевдомассив всех дочерних элементов
+&lt;!-- HTML --&gt;
+&lt;body&gt;
+  &lt;p&gt;Ребёнок раз&lt;/p&gt;
+  &lt;p&gt;Ребёнок два&lt;/p&gt;
+  &lt;p&gt;Ребёнок три&lt;/p&gt;
+&lt;/body&gt;
+
+// JavaScript
+const body = document.querySelector('body');
+console.log(body.children); // HTMLCollection(3) [p, p, p]
+
+// Работа с children как с псевдомассивом
+const container = document.querySelector('.container');
+const childElements = container.children;
+
+console.log('Количество детей:', childElements.length); // 3
+
+// Перебор элементов (for...of работает)
+for (let child of childElements) {
+    console.log('Дочерний элемент:', child.tagName);
+}
+
+// Преобразование в настоящий массив
+const childrenArray = Array.from(childElements);
+
+// Использование методов массива
+childrenArray.forEach((child, index) => {
+    console.log(`Ребёнок ${index}:`, child.textContent);
+});
+
+// Ограничения псевдомассива children:
+// 1. Нет методов map, filter, reduce
+// 2. Но есть length и доступ по индексу
+// 3. Можно использовать for...of
+// 4. Можно преобразовать в массив через Array.from()
+
+// children доступен только для чтения
+console.log(body.children); // HTMLCollection(3) [p, p, p]
+body.children = []; // Попытка перезаписи
+console.log(body.children); // HTMLCollection(3) [p, p, p] - не изменилось
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="119">3. Первый и последний ребёнок - firstElementChild и lastElementChild</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Свойства firstElementChild и lastElementChild
+&lt;!-- HTML --&gt;
+&lt;body&gt;
+  &lt;p&gt;Ребёнок раз&lt;/p&gt;
+  &lt;p&gt;Ребёнок два&lt;/p&gt;
+  &lt;p&gt;Ребёнок три&lt;/p&gt;
+&lt;/body&gt;
+
+// JavaScript
+const body = document.querySelector('body');
+console.log(body.firstElementChild); // &lt;p&gt;Ребёнок раз&lt;/p&gt;
+console.log(body.lastElementChild);  // &lt;p&gt;Ребёнок три&lt;/p&gt;
+
+// Если у элемента нет дочерних элементов, вернётся null
+const emptyDiv = document.querySelector('.empty');
+console.log(emptyDiv.firstElementChild); // null
+console.log(emptyDiv.lastElementChild);  // null
+
+// Практическое использование
+const list = document.querySelector('.todo-list');
+
+// Удаление первого элемента списка
+function removeFirstItem() {
+    const firstItem = list.firstElementChild;
+    if (firstItem) {
+        firstItem.remove();
+        console.log('Первый элемент удален');
+    }
+}
+
+// Удаление последнего элемента списка
+function removeLastItem() {
+    const lastItem = list.lastElementChild;
+    if (lastItem) {
+        lastItem.remove();
+        console.log('Последний элемент удален');
+    }
+}
+
+// Добавление класса к первому и последнему элементу
+if (list.firstElementChild) {
+    list.firstElementChild.classList.add('first-item');
+}
+if (list.lastElementChild) {
+    list.lastElementChild.classList.add('last-item');
+}
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="120">4. Предыдущий и следующий сосед - previousElementSibling и nextElementSibling</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Свойства previousElementSibling и nextElementSibling
+&lt;!-- HTML --&gt;
+&lt;body&gt;
+  &lt;p&gt;Ребёнок раз&lt;/p&gt;
+  &lt;p&gt;Ребёнок два&lt;/p&gt;
+  &lt;p&gt;Ребёнок три&lt;/p&gt;
+&lt;/body&gt;
+
+// JavaScript
+const elements = document.querySelectorAll('p');
+const middleElement = elements[1]; // Второй элемент (индекс 1)
+
+console.log(middleElement.previousElementSibling); // &lt;p&gt;Ребёнок раз&lt;/p&gt;
+console.log(middleElement.nextElementSibling);     // &lt;p&gt;Ребёнок три&lt;/p&gt;
+
+// Если соседа нет — вернётся null
+const firstElement = elements[0];
+const lastElement = elements[2];
+
+console.log(firstElement.previousElementSibling); // null
+console.log(lastElement.nextElementSibling);      // null
+
+// Цепочка навигации
+console.log(middleElement.nextElementSibling.nextElementSibling); // null
+
+// Практическое использование
+function moveUp(element) {
+    const previous = element.previousElementSibling;
+    if (previous) {
+        previous.before(element);
+        console.log('Элемент перемещен вверх');
+    }
+}
+
+function moveDown(element) {
+    const next = element.nextElementSibling;
+    if (next) {
+        next.after(element);
+        console.log('Элемент перемещен вниз');
+    }
+}
+
+// Пример с переключением между элементами списка
+const listItems = document.querySelectorAll('.todo-list li');
+
+listItems.forEach(item => {
+    item.addEventListener('click', function() {
+        // Убираем активный класс у всех элементов
+        listItems.forEach(i => i.classList.remove('active'));
+        
+        // Добавляем активный класс текущему элементу
+        this.classList.add('active');
+        
+        // Работаем с соседями
+        const prev = this.previousElementSibling;
+        const next = this.nextElementSibling;
+        
+        if (prev) {
+            prev.classList.add('before-active');
+        }
+        if (next) {
+            next.classList.add('after-active');
+        }
+    });
+});
+        </code></pre>
+        
+        <h4>Сводка свойств навигации:</h4>
+        <pre><code>
+📌 parentElement           - родительский элемент
+📌 children                - псевдомассив дочерних элементов  
+📌 firstElementChild       - первый дочерний элемент
+📌 lastElementChild        - последний дочерний элемент
+📌 previousElementSibling  - предыдущий соседний элемент
+📌 nextElementSibling      - следующий соседний элемент
+
+⚠️ Все свойства доступны только для чтения
+⚠️ Возвращают null, если элемент не найден
+💡 Используйте для навигации по DOM без селекторов
+💡 Особенно полезно при работе с динамическими списками
+        </code></pre>
+        
+        <h4>Разница между свойствами:</h4>
+        <pre><code>
+✅ firstChild / lastChild           - возвращают любые узлы (включая текстовые)
+✅ firstElementChild / lastElementChild - возвращают только элементы
+
+// Пример:
+&lt;div&gt;
+  Текст          ← текстовый узел
+  &lt;p&gt;Элемент&lt;/p&gt; ← элемент
+&lt;/div&gt;
+
+const div = document.querySelector('div');
+console.log(div.firstChild);         // "Текст" (текстовый узел)
+console.log(div.firstElementChild);  // &lt;p&gt;Элемент&lt;/p&gt; (элемент)
+        </code></pre>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
