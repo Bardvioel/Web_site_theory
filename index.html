@@ -4114,6 +4114,347 @@ console.log(div.firstElementChild);  // &lt;p&gt;Элемент&lt;/p&gt; (эл�
         </code></pre>
     </div>
 </div>
+<h2 class="text_topic_1" id="topic_2_31">XXXI. JavaScript - Методы работы со строками</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="121">1. Поиск по строке - indexOf и includes</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод indexOf ищет символ в строке и возвращает его индекс
+'Яндекс.Практикум'.indexOf('Я'); // 0
+
+// Если таких символов несколько, возвращает индекс первого
+'эспрессо'.indexOf('с'); // 1
+
+// Если символа нет, возвращает -1
+'эспрессо'.indexOf('к'); // -1
+
+// indexOf может найти комбинацию символов
+const blok = 'Ночь, улица, фонарь, аптека';
+blok.indexOf('фонарь'); // 13 (индекс первого символа "ф")
+
+// indexOf чувствителен к регистру
+'Шалаш'.indexOf('Ш'); // 0
+'Шалаш'.indexOf('ш'); // 4
+
+// Метод includes проверяет наличие подстроки
+'Гарри Поттер и узник Азкабана'.includes('Гарри Поттер'); // true
+
+// Старый способ с indexOf
+'хлеб да соль'.indexOf('соль') !== -1; // true
+'хлеб да соль'.indexOf('сахар') !== -1; // false
+
+// Современный способ с includes
+'хлеб да соль'.includes('соль'); // true
+'хлеб да соль'.includes('сахар'); // false
+
+// Практические примеры
+function validateEmail(email) {
+    return email.includes('@') && email.includes('.');
+}
+
+function findWord(text, word) {
+    const position = text.indexOf(word);
+    if (position !== -1) {
+        console.log(`Слово "${word}" найдено на позиции ${position}`);
+        return true;
+    } else {
+        console.log(`Слово "${word}" не найдено`);
+        return false;
+    }
+}
+
+// Поиск всех вхождений
+function findAllOccurrences(text, substring) {
+    let positions = [];
+    let index = text.indexOf(substring);
+    
+    while (index !== -1) {
+        positions.push(index);
+        index = text.indexOf(substring, index + 1);
+    }
+    
+    return positions;
+}
+
+console.log(findAllOccurrences('баобаб', 'ба')); // [0, 3]
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="122">2. Поиск в начале и конце - startsWith и endsWith</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод startsWith проверяет начало строки
+'Вендетта'.startsWith('В'); // true
+'Вендетта'.startsWith('Вен'); // true
+'Родина'.startsWith('Картинка в букваре'); // false
+
+// Метод endsWith проверяет конец строки
+const theRealEnd = 'Это ещё не конец';
+theRealEnd.endsWith('конец'); // true
+theRealEnd.endsWith('не конец'); // true
+
+// Второй аргумент - ограничение длины проверки
+'JavaScript'.startsWith('Java', 0); // true
+'JavaScript'.startsWith('Script', 4); // true
+
+'JavaScript'.endsWith('Script', 10); // true (10 - длина строки)
+'JavaScript'.endsWith('Java', 4); // true
+
+// Практические примеры
+function checkProtocol(url) {
+    if (url.startsWith('https://')) {
+        return 'Безопасное соединение';
+    } else if (url.startsWith('http://')) {
+        return 'Обычное соединение';
+    } else {
+        return 'Неизвестный протокол';
+    }
+}
+
+function checkFileType(filename) {
+    if (filename.endsWith('.jpg') || filename.endsWith('.jpeg')) {
+        return 'Изображение JPEG';
+    } else if (filename.endsWith('.png')) {
+        return 'Изображение PNG';
+    } else if (filename.endsWith('.pdf')) {
+        return 'Документ PDF';
+    } else {
+        return 'Неизвестный тип файла';
+    }
+}
+
+function isRussianPhone(phone) {
+    return phone.startsWith('+7') || phone.startsWith('8');
+}
+
+// Проверка расширений файлов
+const files = ['document.pdf', 'photo.jpg', 'script.js', 'archive.zip'];
+const images = files.filter(file => 
+    file.endsWith('.jpg') || 
+    file.endsWith('.png') || 
+    file.endsWith('.gif')
+);
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="123">3. Управление регистром - toLowerCase и toUpperCase</h3></div>
+    <div class="content_1">
+        <pre><code>
+// toLowerCase - все символы в нижний регистр
+'Включите Caps Lock'.toLowerCase(); // "включите caps lock"
+
+// toUpperCase - все символы в верхний регистр
+'Выключите Caps Lock'.toUpperCase(); // "ВЫКЛЮЧИТЕ CAPS LOCK"
+
+// Сравнение строк без учёта регистра
+const firstStr = 'Такая проверка не пройдёт';
+const secondStr = 'таКая пРовеРка не пройдёт';
+
+console.log(firstStr === secondStr); // false
+console.log(firstStr.toLowerCase() === secondStr.toLowerCase()); // true
+
+// Практические примеры
+function normalizeInput(input) {
+    return input.trim().toLowerCase();
+}
+
+function caseInsensitiveSearch(text, searchTerm) {
+    return text.toLowerCase().includes(searchTerm.toLowerCase());
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+console.log(capitalizeFirstLetter('пЕТР')); // "Петр"
+
+// Проверка ответа пользователя
+function checkAnswer(userAnswer, correctAnswer) {
+    return userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+}
+
+// Создание констант или ключей
+const ACTION_TYPES = {
+    ADD: 'ADD_TODO'.toLowerCase(),
+    DELETE: 'DELETE_TODO'.toLowerCase(),
+    UPDATE: 'UPDATE_TODO'.toLowerCase()
+};
+
+// Нормализация email
+function normalizeEmail(email) {
+    return email.trim().toLowerCase();
+}
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="124">4. Разделение строки - метод split</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод split превращает строку в массив по разделителю
+'Пришёл. Увидел. Победил.'.split(' '); // ["Пришёл.", "Увидел.", "Победил."]
+'Пришёл. Увидел. Победил.'.split('. '); // ["Пришёл", "Увидел", "Победил"]
+
+// Разные разделители
+'яблоко,груша,банан'.split(','); // ["яблоко", "груша", "банан"]
+'один|два|три'.split('|'); // ["один", "два", "три"]
+
+// Ограничение количества элементов
+'раз-два-три-четыре'.split('-', 2); // ["раз", "два"]
+
+// Разделение по каждому символу
+'JavaScript'.split(''); // ["J", "a", "v", "a", "S", "c", "r", "i", "p", "t"]
+
+// Практические примеры
+function parseCSV(csvString) {
+    return csvString.split(',').map(item => item.trim());
+}
+
+function getWordsFromSentence(sentence) {
+    return sentence.split(' ').filter(word => word.length > 0);
+}
+
+function getFileExtension(filename) {
+    const parts = filename.split('.');
+    return parts.length > 1 ? parts[parts.length - 1] : '';
+}
+
+function parseQueryString(query) {
+    const params = {};
+    query.split('&').forEach(pair => {
+        const [key, value] = pair.split('=');
+        if (key) params[key] = value || '';
+    });
+    return params;
+}
+
+// Разбор URL
+const url = 'https://example.com/path/to/page';
+const urlParts = url.split('/');
+console.log(urlParts); // ["https:", "", "example.com", "path", "to", "page"]
+console.log('Домен:', urlParts[2]); // "example.com"
+
+// Обработка многострочного текста
+const multilineText = `Первая строка
+Вторая строка
+Третья строка`;
+
+const lines = multilineText.split('\n');
+console.log(lines); // ["Первая строка", "Вторая строка", "Третья строка"]
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="125">5. Извлечение части строки - метод slice</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод slice возвращает часть строки
+'Не прислоняться'.slice(6, 10); // "слон"
+
+// Без второго аргумента - до конца строки
+'Яндекс.Практикум'.slice(7); // "Практикум"
+'Яндекс.Телефон'.slice(7); // "Телефон"
+'Яндекс.Еда'.slice(7); // "Еда"
+
+// Отрицательные индексы (отсчет с конца строки)
+'JavaScript'.slice(-6); // "Script"
+'JavaScript'.slice(0, -6); // "Java"
+'JavaScript'.slice(4, -2); // "Scri"
+
+// Практические примеры
+function getDomainFromEmail(email) {
+    const atIndex = email.indexOf('@');
+    if (atIndex !== -1) {
+        return email.slice(atIndex + 1);
+    }
+    return '';
+}
+
+function getInitials(fullName) {
+    const names = fullName.split(' ');
+    if (names.length >= 2) {
+        return names[0].slice(0, 1) + names[1].slice(0, 1);
+    }
+    return fullName.slice(0, 1);
+}
+
+function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+        return text;
+    }
+    return text.slice(0, maxLength - 3) + '...';
+}
+
+function extractMiddle(text, start, end) {
+    const startIndex = text.indexOf(start);
+    if (startIndex === -1) return '';
+    
+    const endIndex = text.indexOf(end, startIndex + start.length);
+    if (endIndex === -1) return text.slice(startIndex + start.length);
+    
+    return text.slice(startIndex + start.length, endIndex);
+}
+
+// Извлечение подстроки между маркерами
+const html = '<div class="content">Текст</div>';
+const content = extractMiddle(html, '>', '<');
+console.log(content); // "Текст"
+
+// Обрезка префикса
+function removePrefix(text, prefix) {
+    if (text.startsWith(prefix)) {
+        return text.slice(prefix.length);
+    }
+    return text;
+}
+
+// Обрезка суффикса
+function removeSuffix(text, suffix) {
+    if (text.endsWith(suffix)) {
+        return text.slice(0, -suffix.length);
+    }
+    return text;
+}
+        </code></pre>
+        
+        <h4>Сводка методов строк:</h4>
+        <pre><code>
+🔍 indexOf(substring)     - индекс первого вхождения или -1
+✅ includes(substring)    - true если подстрока найдена
+🔍 startsWith(prefix)     - начинается ли строка с...
+🔍 endsWith(suffix)       - заканчивается ли строка на...
+🔤 toLowerCase()          - строка в нижнем регистре
+🔤 toUpperCase()          - строка в верхнем регистре  
+📋 split(separator)       - разбивает строку на массив
+✂️ slice(start, end)      - извлекает часть строки
+
+📌 Все методы возвращают новые строки, не изменяя оригинал
+📌 Строки в JavaScript неизменяемы (immutable)
+💡 Используйте для валидации, парсинга, нормализации данных
+        </code></pre>
+        
+        <h4>Другие полезные методы строк:</h4>
+        <pre><code>
+trim()           - удаляет пробелы с начала и конца
+trimStart()      - удаляет пробелы только в начале
+trimEnd()        - удаляет пробелы только в конце
+repeat(count)    - повторяет строку указанное количество раз
+replace(old, new) - заменяет первое вхождение подстроки
+replaceAll(old, new) - заменяет все вхождения подстроки
+padStart(length, char) - дополняет строку в начале
+padEnd(length, char)   - дополняет строку в конце
+charAt(index)    - возвращает символ по указанному индексу
+charCodeAt(index) - возвращает код символа по указанному индексу
+        </code></pre>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
