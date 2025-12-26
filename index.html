@@ -4455,6 +4455,216 @@ charCodeAt(index) - возвращает код символа по указан
         </code></pre>
     </div>
 </div>
+			<h2 class="text_topic_1" id="topic_2_32">XXXII. JavaScript - Математические операции и преобразования</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="126">1. Объект Math и его методы</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Округление чисел
+Math.floor(9.99);   // 9 - округляет вниз
+Math.ceil(9.01);    // 10 - округляет вверх
+Math.round(9.51);   // 10 - округляет до ближайшего целого
+Math.round(9.49);   // 9 - округляет до ближайшего целого
+
+// Дополнительные методы округления
+Math.trunc(9.99);   // 9 - отбрасывает дробную часть
+Math.floor(-9.99);  // -10 (внимание: вниз для отрицательных!)
+Math.trunc(-9.99);  // -9
+
+// Поиск максимального и минимального значения
+Math.max(1, 2, 3, 4, 5);      // 5
+Math.min(1, 2, 3, 4, 5);      // 1
+Math.max(...[1, 2, 3, 4, 5]); // 5 (с использованием spread оператора)
+
+// Генерация случайных чисел
+Math.random(); // случайное число от 0 (включительно) до 1 (не включительно)
+
+// Другие полезные методы Math
+Math.abs(-10);        // 10 - абсолютное значение
+Math.sqrt(25);        // 5 - квадратный корень
+Math.pow(2, 3);       // 8 - возведение в степень (2³)
+2 ** 3;               // 8 - современный синтаксис
+Math.PI;              // 3.141592653589793 - число π
+Math.E;               // 2.718281828459045 - число e
+
+// Практические примеры
+function getRandomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function roundToDecimal(number, decimals) {
+    const factor = Math.pow(10, decimals);
+    return Math.round(number * factor) / factor;
+}
+
+function calculatePercentage(value, total) {
+    return Math.round((value / total) * 100);
+}
+
+// Пример: генерация случайного цвета в hex
+function getRandomColor() {
+    const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    return color.padStart(7, '#0');
+}
+
+// Пример: проверка диапазона
+function clamp(value, min, max) {
+    return Math.max(min, Math.min(value, max));
+}
+
+console.log(clamp(15, 0, 10));  // 10
+console.log(clamp(-5, 0, 10));  // 0
+console.log(clamp(7, 0, 10));   // 7
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="127">2. Работа с дробной частью - parseInt и parseFloat</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Функция parseInt - приводит к целому числу
+let age = '37 лет, 8 месяцев и 10 дней';
+console.log(parseInt(age)); // 37
+
+// Читает аргумент слева направо, останавливается на не-цифре
+parseInt('38 попугаев'); // 38
+parseInt('10px');        // 10
+parseInt('12.34');       // 12 (останавливается на точке)
+
+// Если первый символ не цифра - возвращает NaN
+parseInt('Метро 2033');  // NaN
+parseInt('abc123');      // NaN
+
+// Второй аргумент - система счисления (от 2 до 36)
+parseInt('100', 10);     // 100 (десятичная)
+parseInt('100', 2);      // 4 (двоичная 100₂ = 4₁₀)
+parseInt('FF', 16);      // 255 (шестнадцатеричная)
+parseInt('0xFF', 16);    // 255
+parseInt('077', 8);      // 63 (восьмеричная)
+
+// Всегда указывайте систему счисления явно!
+parseInt('010');         // 10 (ES5), 8 (старые браузеры)
+parseInt('010', 10);     // 10 (всегда десятичная)
+
+// Функция parseFloat - выделяет число с плавающей точкой
+parseFloat('36.6');                           // 36.6
+parseFloat('36.6 нормальная температура');    // 36.6
+parseFloat('12.34px');                        // 12.34
+parseFloat('1.2e3');                          // 1200 (1.2 × 10³)
+
+// Практические примеры
+function extractNumberFromString(text) {
+    const num = parseFloat(text);
+    return isNaN(num) ? 0 : num;
+}
+
+function parsePrice(priceString) {
+    // Удаляем всё, кроме цифр и точки
+    const cleaned = priceString.replace(/[^\d.,]/g, '')
+                               .replace(',', '.');
+    return parseFloat(cleaned) || 0;
+}
+
+function convertToNumberSafely(value) {
+    if (typeof value === 'number') return value;
+    
+    const num = parseFloat(value);
+    if (isNaN(num)) {
+        console.warn(`Не удалось преобразовать "${value}" в число`);
+        return 0;
+    }
+    return num;
+}
+
+// Извлечение чисел из CSS значений
+function parsePixels(value) {
+    return parseInt(value) || 0;
+}
+
+console.log(parsePixels('100px'));  // 100
+console.log(parsePixels('50%'));    // 50
+console.log(parsePixels('auto'));   // 0
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="128">3. Проверка чисел - Number.isInteger и другие методы</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Number.isInteger - проверяет, является ли число целым
+const eightAndAHalf = 8.5;
+Number.isInteger(eightAndAHalf);            // false
+Number.isInteger(Math.floor(eightAndAHalf)); // true
+Number.isInteger(10);                       // true
+Number.isInteger(10.0);                     // true
+
+// Другие методы проверки чисел
+Number.isNaN(NaN);          // true
+Number.isNaN(0 / 0);        // true
+Number.isNaN('текст');      // false (строка не NaN)
+
+Number.isFinite(42);        // true
+Number.isFinite(Infinity);  // false
+Number.isFinite(-Infinity); // false
+Number.isFinite(NaN);       // false
+
+// Сравнение с глобальными функциями
+isNaN('текст');             // true (пытается преобразовать в число)
+Number.isNaN('текст');      // false (строго проверяет NaN)
+
+isFinite('42');             // true (преобразует строку)
+Number.isFinite('42');      // false (только числа)
+
+// Проверка безопасного целого числа
+Number.isSafeInteger(42);                   // true
+Number.isSafeInteger(9007199254740991);     // true (2⁵³ - 1)
+Number.isSafeInteger(9007199254740992);     // false
+
+// Практические примеры
+function validateNumber(value) {
+    if (typeof value !== 'number') {
+        return 'Не число';
+    }
+    
+    if (Number.isNaN(value)) {
+        return 'NaN (не число)';
+    }
+    
+    if (!Number.isFinite(value)) {
+        return 'Бесконечность';
+    }
+    
+    if (Number.isInteger(value)) {
+        return `Целое число: ${value}`;
+    } else {
+        return `Дробное число: ${value}`;
+    }
+}
+
+function checkNumberType(num) {
+    const checks = {
+        isInteger: Number.isInteger(num),
+        isSafeInteger: Number.isSafeInteger(num),
+        isFinite: Number.isFinite(num),
+        isNaN: Number.isNaN(num),
+        isEven: num % 2 === 0,
+        isOdd: num % 2 !== 0
+    };
+    
+    return checks;
+}
+
+// Фильтрация массива чисел
+const numbers = [1, 2.5, 3, 4.7, 5, NaN, Infinity, 6.0];
+const integers = numbers.filter(Number.isInteger);        // [1, 3, 5, 6.0]
+const safeNumbers = numbers.filter(Number.isFinite);      // [1, 2.5, 3, 4.7, 5, 6.0]
+const validNumbers = numbers.filter(n => !Number.isNaN(n)); // все кроме NaN
+        </code></pre>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
