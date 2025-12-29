@@ -5303,6 +5303,450 @@ console.log(createQueryString({q: 'search', page: 1})); // "q=search&page=1"
         </code></pre>
     </div>
 </div>
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="135">3. Получение части массива - метод slice</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод slice создаёт новый массив из части исходного
+const months = [
+    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+];
+
+// slice(начальный_индекс, конечный_индекс_не_включая)
+const spring = months.slice(2, 5);
+console.log(spring); // ["Март", "Апрель", "Май"]
+console.log(months); // Исходный массив не изменился
+
+// Отрицательные индексы (отсчет с конца)
+const lastThree = months.slice(-3);
+console.log(lastThree); // ["Октябрь", "Ноябрь", "Декабрь"]
+
+const fromThirdToLast = months.slice(2, -1);
+console.log(fromThirdToLast); // ["Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь"]
+
+// Копирование всего массива
+const monthsCopy = months.slice();
+console.log(monthsCopy); // Полная копия массива
+console.log(monthsCopy === months); // false (разные массивы)
+
+// Практические примеры
+function getFirstN(items, n) {
+    return items.slice(0, n);
+}
+
+function getLastN(items, n) {
+    return items.slice(-n);
+}
+
+function paginate(items, page, itemsPerPage) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return items.slice(start, end);
+}
+
+// Извлечение подмассива
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log(numbers.slice(3, 7)); // [4, 5, 6, 7]
+
+// Сравнение slice и splice
+const arr1 = [1, 2, 3, 4, 5];
+const sliceResult = arr1.slice(1, 4); // [2, 3, 4] - не изменяет arr1
+console.log(arr1); // [1, 2, 3, 4, 5]
+
+const arr2 = [1, 2, 3, 4, 5];
+const spliceResult = arr2.splice(1, 3); // [2, 3, 4] - изменяет arr2
+console.log(arr2); // [1, 5]
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="136">4. Изменение массива - метод splice</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод splice изменяет исходный массив
+// splice(начальный_индекс, количество_удаляемых, элементы_для_вставки...)
+
+// Пример 1: Замена элементов
+const week = [
+    'Понедельник', 'Вторник', 'Среда', 'Четверг',
+    'Пятница', 'Суббота', 'Воскресенье'
+];
+
+const removedItems = week.splice(0, 5, 'Воскресенье', 'Суббота', 'Воскресенье', 'Суббота', 'Воскресенье');
+console.log(removedItems); // ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
+console.log(week); // ["Воскресенье", "Суббота", "Воскресенье", "Суббота", "Воскресенье", "Суббота", "Воскресенье"]
+
+// Пример 2: Вставка без удаления (удаляем 0 элементов)
+const planets = ['Меркурий', 'Венера', 'Марс', 'Юпитер', 'Сатурн', 'Уран', 'Нептун'];
+planets.splice(2, 0, "Земля"); // Вставляем на позицию 2
+console.log(planets); // ["Меркурий", "Венера", "Земля", "Марс", "Юпитер", "Сатурн", "Уран", "Нептун"]
+
+// Пример 3: Удаление без вставки
+const colors = ['красный', 'оранжевый', 'желтый', 'зеленый', 'голубой', 'синий', 'фиолетовый'];
+const removedColors = colors.splice(2, 3); // Удаляем 3 элемента начиная с индекса 2
+console.log(removedColors); // ["желтый", "зеленый", "голубой"]
+console.log(colors); // ["красный", "оранжевый", "синий", "фиолетовый"]
+
+// Пример 4: Вставка нескольких элементов
+const numbers = [1, 2, 5, 6];
+numbers.splice(2, 0, 3, 4); // Вставляем 3 и 4 на позицию 2
+console.log(numbers); // [1, 2, 3, 4, 5, 6]
+
+// Практические примеры
+function insertItem(array, index, item) {
+    const newArray = [...array];
+    newArray.splice(index, 0, item);
+    return newArray;
+}
+
+function removeItem(array, index) {
+    const newArray = [...array];
+    newArray.splice(index, 1);
+    return newArray;
+}
+
+function replaceItem(array, index, newItem) {
+    const newArray = [...array];
+    newArray.splice(index, 1, newItem);
+    return newArray;
+}
+
+// Удаление дубликатов (используя splice)
+function removeDuplicates(arr) {
+    const result = [...arr];
+    for (let i = 0; i < result.length; i++) {
+        for (let j = i + 1; j < result.length; j++) {
+            if (result[i] === result[j]) {
+                result.splice(j, 1);
+                j--; // уменьшаем j т.к. массив стал короче
+            }
+        }
+    }
+    return result;
+}
+
+// Манипуляции с массивом
+const todoList = ['Купить хлеб', 'Позвонить маме', 'Сделать ДЗ'];
+todoList.splice(1, 0, 'Заправить машину'); // Добавляем на вторую позицию
+console.log(todoList); // ["Купить хлеб", "Заправить машину", "Позвонить маме", "Сделать ДЗ"]
+
+todoList.splice(2, 1, 'Позвонить отцу'); // Заменяем элемент
+console.log(todoList); // ["Купить хлеб", "Заправить машину", "Позвонить отцу", "Сделать ДЗ"]
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="137">5. Обход массива - метод forEach</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод forEach для последовательной обработки элементов
+const how = ['быстрее', 'выше', 'сильнее'];
+
+how.forEach(function (item) {
+    console.log(item + '.');
+});
+// быстрее.
+// выше.
+// сильнее.
+
+// Стрелочная функция
+how.forEach(item => console.log(item.toUpperCase()));
+// БЫСТРЕЕ
+// ВЫШЕ
+// СИЛЬНЕЕ
+
+// forEach с индексом и массивом
+how.forEach(function (item, index, array) {
+    console.log(`${index + 1}. ${item} (из ${array.length})`);
+});
+// 1. быстрее (из 3)
+// 2. выше (из 3)
+// 3. сильнее (из 3)
+
+// Практические примеры
+function processArrayItems(items, callback) {
+    items.forEach(callback);
+}
+
+function logArrayWithIndexes(arr) {
+    arr.forEach((item, index) => {
+        console.log(`[${index}] = ${item}`);
+    });
+}
+
+function updateDOMElements(elements, className) {
+    elements.forEach(element => {
+        element.classList.add(className);
+    });
+}
+
+// Обработка данных
+const users = [
+    { id: 1, name: 'Анна', age: 25 },
+    { id: 2, name: 'Иван', age: 30 },
+    { id: 3, name: 'Мария', age: 22 }
+];
+
+users.forEach(user => {
+    console.log(`${user.name} (${user.age} лет)`);
+});
+
+// Суммирование значений (forEach не возвращает значение)
+let totalAge = 0;
+users.forEach(user => {
+    totalAge += user.age;
+});
+console.log(`Суммарный возраст: ${totalAge}`);
+
+// Изменение исходного массива
+const numbers = [1, 2, 3, 4, 5];
+numbers.forEach((num, index, arr) => {
+    arr[index] = num * 2; // Изменяем каждый элемент
+});
+console.log(numbers); // [2, 4, 6, 8, 10]
+
+// Сравнение forEach с for...of
+const fruits = ['яблоко', 'банан', 'апельсин'];
+
+// forEach
+fruits.forEach(fruit => console.log(fruit));
+
+// for...of
+for (const fruit of fruits) {
+    console.log(fruit);
+}
+
+// Ограничения forEach
+// 1. Нельзя прервать выполнение (нет break/continue)
+// 2. Всегда обрабатывает все элементы
+// 3. Возвращает undefined
+
+function processUntilCondition(items, condition) {
+    // forEach НЕ подходит для досрочного прерывания
+    // Используйте for или for...of
+    for (let i = 0; i < items.length; i++) {
+        if (condition(items[i])) {
+            return i; // Можно прервать
+        }
+    }
+}
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="138">6. Преобразование массива - метод map</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод map создаёт новый массив на основе существующего
+const firstArr = [0, 1, 2, 3, 4];
+const secondArr = firstArr.map(function (item) {
+    return item * item; // Возводим каждый элемент в квадрат
+});
+console.log(secondArr); // [0, 1, 4, 9, 16]
+console.log(firstArr); // [0, 1, 2, 3, 4] - исходный не изменился
+
+// Стрелочная функция
+const doubled = firstArr.map(x => x * 2);
+console.log(doubled); // [0, 2, 4, 6, 8]
+
+// map с индексом
+const withIndex = firstArr.map((item, index) => `Элемент ${index}: ${item}`);
+console.log(withIndex); // ["Элемент 0: 0", "Элемент 1: 1", "Элемент 2: 2", "Элемент 3: 3", "Элемент 4: 4"]
+
+// Практические примеры
+function squareNumbers(numbers) {
+    return numbers.map(n => n * n);
+}
+
+function formatPrices(prices) {
+    return prices.map(price => `${price} ₽`);
+}
+
+function extractProperty(objects, property) {
+    return objects.map(obj => obj[property]);
+}
+
+// Преобразование объектов
+const users = [
+    { firstName: 'Анна', lastName: 'Иванова' },
+    { firstName: 'Иван', lastName: 'Петров' },
+    { firstName: 'Мария', lastName: 'Сидорова' }
+];
+
+const fullNames = users.map(user => `${user.firstName} ${user.lastName}`);
+console.log(fullNames); // ["Анна Иванова", "Иван Петров", "Мария Сидорова"]
+
+// Преобразование DOM элементов
+const divs = document.querySelectorAll('div');
+const divTexts = Array.from(divs).map(div => div.textContent);
+
+// Array.from для преобразования массивоподобных объектов
+const nodeList = document.querySelectorAll('li');
+const arrayFromNodeList = Array.from(nodeList);
+const texts = arrayFromNodeList.map(li => li.textContent);
+
+// Альтернатива с spread оператором
+const arrayFromSpread = [...nodeList].map(li => li.textContent);
+
+// Цепочка методов map
+const data = [1, 2, 3, 4, 5];
+const result = data
+    .map(x => x * 2)        // [2, 4, 6, 8, 10]
+    .map(x => x + 1)        // [3, 5, 7, 9, 11]
+    .map(x => `Число: ${x}`); // ["Число: 3", "Число: 5", "Число: 7", "Число: 9", "Число: 11"]
+
+// Преобразование строк
+const words = ['hello', 'world'];
+const upperCased = words.map(word => word.toUpperCase());
+console.log(upperCased); // ["HELLO", "WORLD"]
+
+// map vs forEach
+const numbers = [1, 2, 3];
+
+const mapResult = numbers.map(n => n * 2); // [2, 4, 6] - возвращает новый массив
+const forEachResult = numbers.forEach(n => n * 2); // undefined - ничего не возвращает
+
+// Для side effects используйте forEach, для трансформации - map
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="139">7. Фильтрация массива - метод filter</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод filter отсеивает элементы по условию
+const a = [1, 9, 2, 2, 3, 4, 1, 7, 8, 0, 9, 0, 1, 5, 3];
+
+// Отбираем элементы больше 5
+const b = a.filter(function (item) {
+    return item > 5;
+});
+console.log(b); // [9, 7, 8, 9]
+
+// Стрелочная функция
+const evens = a.filter(n => n % 2 === 0);
+console.log(evens); // [2, 2, 4, 8, 0, 0]
+
+// filter с индексом
+const firstOccurrences = a.filter((item, index, array) => {
+    return array.indexOf(item) === index; // Оставляем только первое вхождение
+});
+console.log(firstOccurrences); // [1, 9, 2, 3, 4, 7, 8, 0, 5]
+
+// Практические примеры
+function getAdults(people, minAge = 18) {
+    return people.filter(person => person.age >= minAge);
+}
+
+function findMatchingItems(items, searchTerm) {
+    return items.filter(item => 
+        item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+}
+
+function removeFalsyValues(arr) {
+    return arr.filter(Boolean);
+}
+
+// Фильтрация объектов
+const products = [
+    { name: 'Телефон', price: 30000, inStock: true },
+    { name: 'Ноутбук', price: 80000, inStock: false },
+    { name: 'Планшет', price: 25000, inStock: true },
+    { name: 'Наушники', price: 5000, inStock: true }
+];
+
+const availableProducts = products.filter(product => product.inStock);
+console.log(availableProducts); // Массив с доступными товарами
+
+const affordableProducts = products.filter(product => product.price < 30000);
+console.log(affordableProducts); // Массив с товарами дешевле 30000
+
+// Комбинированные условия
+const goodProducts = products.filter(product => 
+    product.inStock && product.price < 40000
+);
+
+// Цепочка filter и map
+const expensiveProductNames = products
+    .filter(product => product.price > 20000)
+    .map(product => product.name);
+console.log(expensiveProductNames); // ["Телефон", "Ноутбук", "Планшет"]
+
+// Удаление пустых значений
+const mixedValues = [0, 1, false, 2, '', 3, null, undefined, 4];
+const truthyValues = mixedValues.filter(Boolean);
+console.log(truthyValues); // [1, 2, 3, 4]
+
+// Фильтрация уникальных значений
+const numbers = [1, 2, 2, 3, 4, 4, 5];
+const uniqueNumbers = numbers.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+});
+console.log(uniqueNumbers); // [1, 2, 3, 4, 5]
+
+// Более эффективный способ через Set
+const uniqueViaSet = [...new Set(numbers)];
+console.log(uniqueViaSet); // [1, 2, 3, 4, 5]
+
+// Сравнение filter с циклом
+function filterEvenNumbers(numbers) {
+    // С filter
+    return numbers.filter(n => n % 2 === 0);
+    
+    // Без filter (старый способ)
+    const result = [];
+    for (let i = 0; i < numbers.length; i++) {
+        if (numbers[i] % 2 === 0) {
+            result.push(numbers[i]);
+        }
+    }
+    return result;
+}
+        </code></pre>
+        
+        <h4>Сводка методов массивов:</h4>
+        <pre><code>
+✂️ slice(start, end)     - копирует часть массива (не изменяет оригинал)
+🔧 splice(start, count, ...items) - изменяет массив (удаляет/вставляет)
+🔄 forEach(callback)      - выполняет функцию для каждого элемента
+🗺️ map(callback)         - создает новый массив с преобразованными значениями
+🔍 filter(callback)       - создает новый массив с элементами, прошедшими проверку
+
+📊 Возвращаемые значения:
+- slice: новый массив
+- splice: массив удаленных элементов  
+- forEach: undefined
+- map: новый массив
+- filter: новый массив
+
+💡 Лучшие практики:
+- Используйте map для преобразований
+- Используйте filter для фильтрации
+- Используйте forEach для side effects
+- slice/splice для работы с частями массивов
+- Помните о неизменяемости (иммутабельности)
+        </code></pre>
+        
+        <h4>Цепочки методов (method chaining):</h4>
+        <pre><code>
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const result = numbers
+    .filter(n => n % 2 === 0)    // [2, 4, 6, 8, 10]
+    .map(n => n * 2)             // [4, 8, 12, 16, 20]
+    .slice(0, 3)                 // [4, 8, 12]
+    .join(' - ');                // "4 - 8 - 12"
+
+console.log(result); // "4 - 8 - 12"
+        </code></pre>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
