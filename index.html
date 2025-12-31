@@ -5747,6 +5747,539 @@ console.log(result); // "4 - 8 - 12"
         </code></pre>
     </div>
 </div>
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="140">8. Проверка элементов массива - метод some</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод some проверяет, есть ли хотя бы один элемент, соответствующий условию
+const oceanResidents = ['Флаундер', 'Немо', 'Губка Боб', 'Аквамен'];
+
+const hasNemo = oceanResidents.some(function (resident) {
+    return resident === 'Немо';
+});
+console.log(hasNemo); // true
+
+// Стрелочная функция
+const hasSpongeBob = oceanResidents.some(resident => resident === 'Губка Боб');
+console.log(hasSpongeBob); // true
+
+const hasWhale = oceanResidents.some(resident => resident === 'Кит');
+console.log(hasWhale); // false
+
+// some с индексом
+const hasShortName = oceanResidents.some((resident, index) => {
+    console.log(`Проверяем элемент ${index}: ${resident}`);
+    return resident.length < 5;
+});
+// Проверяем элемент 0: Флаундер
+// Проверяем элемент 1: Немо -> true (останавливается)
+console.log(hasShortName); // true
+
+// Практические примеры
+function hasEvenNumber(numbers) {
+    return numbers.some(n => n % 2 === 0);
+}
+
+function hasAdminUser(users) {
+    return users.some(user => user.role === 'admin');
+}
+
+function containsInvalidEmail(emails) {
+    return emails.some(email => !email.includes('@'));
+}
+
+// Проверка массива объектов
+const products = [
+    { name: 'Телефон', price: 30000, inStock: true },
+    { name: 'Ноутбук', price: 80000, inStock: false },
+    { name: 'Планшет', price: 25000, inStock: true }
+];
+
+const hasExpensiveProduct = products.some(product => product.price > 50000);
+console.log(hasExpensiveProduct); // true
+
+const hasOutOfStock = products.some(product => !product.inStock);
+console.log(hasOutOfStock); // true
+
+// some для валидации
+function validateForm(fields) {
+    const errors = fields.some(field => !field.value || field.value.trim() === '');
+    return !errors; // true если все поля заполнены
+}
+
+// Проверка разрешений
+const userPermissions = ['read', 'write'];
+const canDelete = userPermissions.some(perm => perm === 'delete');
+console.log(canDelete); // false
+
+// some прерывается при первом true
+const numbers = [1, 3, 5, 8, 9];
+const found = numbers.some(n => {
+    console.log(`Проверяем ${n}`);
+    return n % 2 === 0;
+});
+// Проверяем 1
+// Проверяем 3  
+// Проверяем 5
+// Проверяем 8 -> true (останавливается)
+console.log(found); // true
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="141">9. Поиск элемента - метод find</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод find возвращает первый элемент, соответствующий условию
+const birds = [
+    'Ворона',
+    'Чёрно-белая ворона', 
+    'Белая ворона',
+    'Ворона обыкновенная'
+];
+
+// some возвращает boolean
+const includesCrow = birds.some(function (bird) {
+    return bird.includes('ворона');
+});
+console.log(includesCrow); // true
+
+// find возвращает значение элемента
+const crow = birds.find(function (bird) {
+    return bird.includes('ворона');
+});
+console.log(crow); // "Чёрно-белая ворона" (первый подходящий)
+
+// find с индексом
+const firstLongBird = birds.find((bird, index) => {
+    console.log(`Проверяем птицу ${index}: ${bird}`);
+    return bird.length > 10;
+});
+// Проверяем птицу 0: Ворона
+// Проверяем птицу 1: Чёрно-белая ворона -> true (останавливается)
+console.log(firstLongBird); // "Чёрно-белая ворона"
+
+// Если элемент не найден, возвращается undefined
+const eagle = birds.find(bird => bird.includes('орёл'));
+console.log(eagle); // undefined
+
+// Практические примеры
+function findUserById(users, id) {
+    return users.find(user => user.id === id);
+}
+
+function findProductByName(products, name) {
+    return products.find(product => 
+        product.name.toLowerCase() === name.toLowerCase()
+    );
+}
+
+function findFirstAvailable(products) {
+    return products.find(product => product.inStock);
+}
+
+// Поиск в массиве объектов
+const users = [
+    { id: 1, name: 'Анна', age: 25, active: true },
+    { id: 2, name: 'Иван', age: 30, active: false },
+    { id: 3, name: 'Мария', age: 22, active: true }
+];
+
+const adultUser = users.find(user => user.age >= 18);
+console.log(adultUser); // {id: 1, name: 'Анна', age: 25, active: true}
+
+const inactiveUser = users.find(user => !user.active);
+console.log(inactiveUser); // {id: 2, name: 'Иван', age: 30, active: false}
+
+// find vs filter
+const numbers = [1, 2, 3, 4, 5];
+
+const foundNumber = numbers.find(n => n > 3); // 4 (первый элемент > 3)
+const allNumbers = numbers.filter(n => n > 3); // [4, 5] (все элементы > 3)
+
+// findIndex - возвращает индекс вместо значения
+const birdIndex = birds.findIndex(bird => bird.includes('Белая'));
+console.log(birdIndex); // 2
+console.log(birds[birdIndex]); // "Белая ворона"
+
+// Поиск с учетом регистра
+const caseInsensitiveFind = (array, search) => {
+    return array.find(item => 
+        item.toLowerCase().includes(search.toLowerCase())
+    );
+};
+
+console.log(caseInsensitiveFind(birds, 'ВОРОНА')); // "Ворона"
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="142">10. Проверка всех элементов - метод every</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод every проверяет, все ли элементы соответствуют условию
+const numbers = [2, 4, 6, 8, 10];
+
+const allEven = numbers.every(function (number) {
+    return number % 2 === 0;
+});
+console.log(allEven); // true
+
+const allGreaterThanFive = numbers.every(n => n > 5);
+console.log(allGreaterThanFive); // false (2, 4 не больше 5)
+
+// every с индексом
+const allHaveIndex = numbers.every((number, index) => {
+    console.log(`Проверяем элемент ${index}: ${number}`);
+    return number === numbers[index];
+});
+console.log(allHaveIndex); // true
+
+// every прерывается при первом false
+const mixedNumbers = [2, 4, 5, 6, 8];
+const result = mixedNumbers.every(n => {
+    console.log(`Проверяем ${n}`);
+    return n % 2 === 0;
+});
+// Проверяем 2
+// Проверяем 4  
+// Проверяем 5 -> false (останавливается)
+console.log(result); // false
+
+// Практические примеры
+function allPositive(numbers) {
+    return numbers.every(n => n > 0);
+}
+
+function allFieldsValid(formData) {
+    return Object.values(formData).every(value => 
+        value && value.trim() !== ''
+    );
+}
+
+function allAdults(people) {
+    return people.every(person => person.age >= 18);
+}
+
+// Проверка массива объектов
+const students = [
+    { name: 'Анна', grade: 85, passed: true },
+    { name: 'Иван', grade: 92, passed: true },
+    { name: 'Мария', grade: 78, passed: true }
+];
+
+const allPassed = students.every(student => student.passed);
+console.log(allPassed); // true
+
+const allExcellent = students.every(student => student.grade >= 90);
+console.log(allExcellent); // false
+
+// every для пустого массива всегда возвращает true
+const emptyArray = [];
+console.log(emptyArray.every(() => false)); // true
+
+// Проверка типа данных
+function isAllStrings(array) {
+    return array.every(item => typeof item === 'string');
+}
+
+function isAllNumbers(array) {
+    return array.every(item => typeof item === 'number' && !isNaN(item));
+}
+
+// Комбинация every и some
+function validatePasswords(passwords) {
+    const hasMinimumLength = passwords.every(pwd => pwd.length >= 8);
+    const hasUppercase = passwords.some(pwd => /[A-Z]/.test(pwd));
+    const hasNumber = passwords.some(pwd => /\d/.test(pwd));
+    
+    return hasMinimumLength && hasUppercase && hasNumber;
+}
+
+// Сравнение every и some
+const testArray = [1, 2, 3, 4, 5];
+
+console.log(testArray.every(n => n > 0));  // true (все > 0)
+console.log(testArray.some(n => n > 4));   // true (хотя бы один > 4)
+console.log(testArray.every(n => n > 3));  // false (не все > 3)
+console.log(testArray.some(n => n > 10));  // false (ни один > 10)
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="143">11. Аккумуляция значений - метод reduce</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод reduce сводит массив к одному значению
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+// Сумма всех элементов
+const sum = arr.reduce(function (previousValue, item) {
+    return previousValue + item;
+}, 0); // 0 - начальное значение
+console.log(sum); // 45
+
+// Без начального значения (используется первый элемент)
+const sumWithoutInitial = arr.reduce((acc, val) => acc + val);
+console.log(sumWithoutInitial); // 45
+
+// Разбор работы reduce
+const numbers = [1, 2, 3, 4];
+const result = numbers.reduce((accumulator, currentValue, index) => {
+    console.log(`Шаг ${index}: accumulator=${accumulator}, current=${currentValue}`);
+    return accumulator + currentValue;
+}, 0);
+// Шаг 0: accumulator=0, current=1
+// Шаг 1: accumulator=1, current=2  
+// Шаг 2: accumulator=3, current=3
+// Шаг 3: accumulator=6, current=4
+console.log(result); // 10
+
+// Практические примеры
+function sumArray(numbers) {
+    return numbers.reduce((sum, num) => sum + num, 0);
+}
+
+function multiplyArray(numbers) {
+    return numbers.reduce((product, num) => product * num, 1);
+}
+
+function findMax(numbers) {
+    return numbers.reduce((max, num) => num > max ? num : max, -Infinity);
+}
+
+function findMin(numbers) {
+    return numbers.reduce((min, num) => num < min ? num : min, Infinity);
+}
+
+// Работа с объектами
+const items = [
+    { name: 'Яблоки', price: 100, quantity: 2 },
+    { name: 'Бананы', price: 80, quantity: 3 },
+    { name: 'Апельсины', price: 120, quantity: 1 }
+];
+
+// Общая стоимость
+const totalCost = items.reduce((total, item) => {
+    return total + (item.price * item.quantity);
+}, 0);
+console.log(totalCost); // 100*2 + 80*3 + 120*1 = 560
+
+// Группировка по категориям
+const products = [
+    { category: 'фрукты', name: 'Яблоко' },
+    { category: 'овощи', name: 'Морковь' },
+    { category: 'фрукты', name: 'Банан' },
+    { category: 'овощи', name: 'Картофель' }
+];
+
+const grouped = products.reduce((groups, product) => {
+    const category = product.category;
+    if (!groups[category]) {
+        groups[category] = [];
+    }
+    groups[category].push(product.name);
+    return groups;
+}, {});
+
+console.log(grouped);
+// {
+//   фрукты: ['Яблоко', 'Банан'],
+//   овощи: ['Морковь', 'Картофель']
+// }
+
+// Создание объекта из массива
+const keyValuePairs = [['name', 'Анна'], ['age', 25], ['city', 'Москва']];
+const obj = keyValuePairs.reduce((result, [key, value]) => {
+    result[key] = value;
+    return result;
+}, {});
+console.log(obj); // {name: 'Анна', age: 25, city: 'Москва'}
+
+// Подсчет частоты элементов
+const words = ['яблоко', 'банан', 'яблоко', 'апельсин', 'банан', 'яблоко'];
+const wordCount = words.reduce((counts, word) => {
+    counts[word] = (counts[word] || 0) + 1;
+    return counts;
+}, {});
+console.log(wordCount); // {яблоко: 3, банан: 2, апельсин: 1}
+
+// Вычисление среднего значения
+const grades = [85, 92, 78, 90, 88];
+const average = grades.reduce((sum, grade, index, array) => {
+    sum += grade;
+    if (index === array.length - 1) {
+        return sum / array.length;
+    }
+    return sum;
+}, 0);
+console.log(average); // 86.6
+
+// Цепочка reduce
+const data = [[1, 2], [3, 4], [5, 6]];
+const flattenedSum = data
+    .reduce((acc, val) => acc.concat(val), []) // [1, 2, 3, 4, 5, 6]
+    .reduce((sum, num) => sum + num, 0);       // 21
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="144">12. Сортировка массива - метод sort</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Метод sort изменяет исходный массив
+const myNumbers = [0, 3.14, 2.718, 13];
+
+// Без функции сравнения - лексикографическая сортировка
+myNumbers.sort();
+console.log(myNumbers); // [0, 13, 2.718, 3.14] (как строки!)
+
+// С функцией сравнения для чисел
+myNumbers.sort(function (a, b) {
+    return a - b; // Сортировка по возрастанию
+});
+console.log(myNumbers); // [0, 2.718, 3.14, 13]
+
+// Стрелочная функция
+myNumbers.sort((a, b) => b - a); // Сортировка по убыванию
+console.log(myNumbers); // [13, 3.14, 2.718, 0]
+
+// Сортировка строк
+const fruits = ['яблоко', 'банан', 'апельсин', 'томат'];
+fruits.sort(); // Лексикографическая сортировка
+console.log(fruits); // ["апельсин", "банан", "томат", "яблоко"]
+
+// Без учета регистра
+const mixedCase = ['Яблоко', 'банан', 'Апельсин', 'томат'];
+mixedCase.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+console.log(mixedCase); // ["Апельсин", "банан", "томат", "Яблоко"]
+
+// Практические примеры
+function sortNumbersAscending(numbers) {
+    return [...numbers].sort((a, b) => a - b); // Копия + сортировка
+}
+
+function sortNumbersDescending(numbers) {
+    return [...numbers].sort((a, b) => b - a);
+}
+
+function sortByProperty(objects, property) {
+    return [...objects].sort((a, b) => {
+        if (a[property] < b[property]) return -1;
+        if (a[property] > b[property]) return 1;
+        return 0;
+    });
+}
+
+// Сортировка объектов
+const users = [
+    { name: 'Анна', age: 25 },
+    { name: 'Иван', age: 30 },
+    { name: 'Мария', age: 22 },
+    { name: 'Петр', age: 25 }
+];
+
+// По возрасту (возрастание)
+users.sort((a, b) => a.age - b.age);
+console.log(users);
+// [
+//   {name: 'Мария', age: 22},
+//   {name: 'Анна', age: 25},
+//   {name: 'Петр', age: 25},
+//   {name: 'Иван', age: 30}
+// ]
+
+// По имени (алфавитный порядок)
+users.sort((a, b) => a.name.localeCompare(b.name));
+console.log(users[0].name); // "Анна"
+
+// Многокритериальная сортировка (по возрасту, потом по имени)
+users.sort((a, b) => {
+    if (a.age !== b.age) {
+        return a.age - b.age; // Сначала по возрасту
+    }
+    return a.name.localeCompare(b.name); // Потом по имени
+});
+
+// Сортировка по длине строк
+const words = ['яблоко', 'апельсин', 'банан', 'груша'];
+words.sort((a, b) => a.length - b.length);
+console.log(words); // ["груша", "банан", "яблоко", "апельсин"]
+
+// Сортировка дат
+const dates = [
+    new Date(2023, 0, 15), // 15 января 2023
+    new Date(2022, 11, 31), // 31 декабря 2022
+    new Date(2023, 2, 10)   // 10 марта 2023
+];
+
+dates.sort((a, b) => a - b); // По возрастанию даты
+console.log(dates.map(d => d.toLocaleDateString()));
+
+// Создание копии перед сортировкой
+const original = [3, 1, 4, 1, 5, 9];
+const sortedCopy = [...original].sort((a, b) => a - b);
+console.log(original); // [3, 1, 4, 1, 5, 9] - не изменился
+console.log(sortedCopy); // [1, 1, 3, 4, 5, 9] - отсортированная копия
+
+// Сортировка с localeCompare для русского языка
+const russianWords = ['ёжик', 'яблоко', 'арбуз', 'ёлка'];
+russianWords.sort((a, b) => a.localeCompare(b, 'ru'));
+console.log(russianWords); // ["арбуз", "ёжик", "ёлка", "яблоко"]
+
+// Кастомная сортировка
+const mixed = ['яблоко', 2, 'банан', 1, 'апельсин', 3];
+mixed.sort((a, b) => {
+    // Сначала числа, потом строки
+    if (typeof a === 'number' && typeof b === 'number') return a - b;
+    if (typeof a === 'number') return -1;
+    if (typeof b === 'number') return 1;
+    return a.localeCompare(b);
+});
+console.log(mixed); // [1, 2, 3, "апельсин", "банан", "яблоко"]
+        </code></pre>
+        
+        <h4>Сводка методов проверки и трансформации:</h4>
+        <pre><code>
+🔍 some(callback)    - true если хотя бы один элемент соответствует условию
+🔍 find(callback)    - возвращает первый соответствующий элемент
+🔍 every(callback)   - true если ВСЕ элементы соответствуют условию
+📊 reduce(callback, initial) - сводит массив к одному значению
+🔀 sort(callback)    - сортирует массив (изменяет оригинал)
+
+📌 Особенности:
+- some/every прерываются при достижении результата
+- find возвращает undefined если элемент не найден  
+- reduce может принимать начальное значение
+- sort изменяет исходный массив
+- sort по умолчанию сортирует как строки
+
+💡 Лучшие практики:
+- Для поиска используйте find/findIndex
+- Для проверки используйте some/every
+- Для агрегации используйте reduce
+- Для сортировки создавайте копию [...arr].sort()
+- Для чисел всегда указывайте функцию сравнения
+        </code></pre>
+        
+        <h4>Функции сравнения для sort:</h4>
+        <pre><code>
+(a, b) => a - b      // числа по возрастанию
+(a, b) => b - a      // числа по убыванию
+(a, b) => a.localeCompare(b) // строки (с учетом локали)
+(a, b) => a.age - b.age // объекты по свойству
+
+// Возвращаемые значения:
+// < 0  - a идет перед b
+// > 0  - b идет перед a  
+// === 0 - порядок не меняется
+        </code></pre>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
