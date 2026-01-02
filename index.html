@@ -6280,6 +6280,407 @@ console.log(mixed); // [1, 2, 3, "апельсин", "банан", "яблоко
         </code></pre>
     </div>
 </div>
+<h2 class="text_topic_1" id="topic_2_35">XXXV. JavaScript - Шпаргалка по методам массивов</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="145">Шпаргалка по методам массивов</h3></div>
+    <div class="content_1">
+        <div class="cheatsheet-container">
+            <style>
+                .cheatsheet-container {
+                    margin: 20px 0;
+                    overflow-x: auto;
+                }
+                .cheatsheet-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 0;
+                    font-family: monospace;
+                }
+                .cheatsheet-table th {
+                    background: #2c3e50;
+                    color: white;
+                    padding: 12px 15px;
+                    text-align: left;
+                    font-weight: bold;
+                    border: 1px solid #34495e;
+                }
+                .cheatsheet-table td {
+                    padding: 10px 15px;
+                    border: 1px solid #ddd;
+                    vertical-align: top;
+                }
+                .cheatsheet-table tr:nth-child(even) {
+                    background-color: #f8f9fa;
+                }
+                .cheatsheet-table tr:hover {
+                    background-color: #e8f4f8;
+                }
+                .method-number {
+                    display: inline-block;
+                    width: 25px;
+                    height: 25px;
+                    background: #3498db;
+                    color: white;
+                    text-align: center;
+                    border-radius: 50%;
+                    line-height: 25px;
+                    margin-right: 10px;
+                    font-weight: bold;
+                }
+                .method-name {
+                    font-weight: bold;
+                    color: #2c3e50;
+                }
+                .method-syntax {
+                    color: #e74c3c;
+                    font-family: 'Courier New', monospace;
+                }
+                .method-returns {
+                    color: #27ae60;
+                }
+                .method-mutates {
+                    background: #e74c3c;
+                    color: white;
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    font-size: 0.8em;
+                }
+                .method-immutable {
+                    background: #27ae60;
+                    color: white;
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    font-size: 0.8em;
+                }
+                .category-header {
+                    background: #ecf0f1 !important;
+                    font-weight: bold;
+                    color: #2c3e50;
+                }
+            </style>
+            
+            <table class="cheatsheet-table">
+                <thead>
+                    <tr>
+                        <th width="50">#</th>
+                        <th width="150">Метод</th>
+                        <th width="200">Синтаксис</th>
+                        <th>Описание</th>
+                        <th width="100">Возвращает</th>
+                        <th width="120">Изменяет массив</th>
+                        <th width="150">Пример</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="category-header">
+                        <td colspan="7">📚 Добавление и удаление элементов</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">1</span></td>
+                        <td><span class="method-name">concat()</span></td>
+                        <td><span class="method-syntax">arr.concat(item1, item2, ...)</span></td>
+                        <td>Объединяет массивы и элементы в новый массив</td>
+                        <td><span class="method-returns">Новый массив</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.concat([3,4])</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">2</span></td>
+                        <td><span class="method-name">push()</span></td>
+                        <td><span class="method-syntax">arr.push(item1, item2, ...)</span></td>
+                        <td>Добавляет элементы в конец массива</td>
+                        <td><span class="method-returns">Новая длина</span></td>
+                        <td><span class="method-mutates">ДА</span></td>
+                        <td><code>arr.push(5)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">3</span></td>
+                        <td><span class="method-name">pop()</span></td>
+                        <td><span class="method-syntax">arr.pop()</span></td>
+                        <td>Удаляет последний элемент массива</td>
+                        <td><span class="method-returns">Удалённый элемент</span></td>
+                        <td><span class="method-mutates">ДА</span></td>
+                        <td><code>let last = arr.pop()</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">4</span></td>
+                        <td><span class="method-name">unshift()</span></td>
+                        <td><span class="method-syntax">arr.unshift(item1, item2, ...)</span></td>
+                        <td>Добавляет элементы в начало массива</td>
+                        <td><span class="method-returns">Новая длина</span></td>
+                        <td><span class="method-mutates">ДА</span></td>
+                        <td><code>arr.unshift(0)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">5</span></td>
+                        <td><span class="method-name">shift()</span></td>
+                        <td><span class="method-syntax">arr.shift()</span></td>
+                        <td>Удаляет первый элемент массива</td>
+                        <td><span class="method-returns">Удалённый элемент</span></td>
+                        <td><span class="method-mutates">ДА</span></td>
+                        <td><code>let first = arr.shift()</code></td>
+                    </tr>
+                    
+                    <tr class="category-header">
+                        <td colspan="7">✂️ Работа с частями массива</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">6</span></td>
+                        <td><span class="method-name">slice()</span></td>
+                        <td><span class="method-syntax">arr.slice(start, end)</span></td>
+                        <td>Копирует часть массива и создаёт новый массив</td>
+                        <td><span class="method-returns">Новый массив</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.slice(1, 4)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">7</span></td>
+                        <td><span class="method-name">splice()</span></td>
+                        <td><span class="method-syntax">arr.splice(start, count, item1, ...)</span></td>
+                        <td>Удаляет часть элементов и вставляет новые</td>
+                        <td><span class="method-returns">Массив удалённых</span></td>
+                        <td><span class="method-mutates">ДА</span></td>
+                        <td><code>arr.splice(2, 1, 'x')</code></td>
+                    </tr>
+                    
+                    <tr class="category-header">
+                        <td colspan="7">🔄 Итерация и преобразование</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">8</span></td>
+                        <td><span class="method-name">forEach()</span></td>
+                        <td><span class="method-syntax">arr.forEach(callback)</span></td>
+                        <td>Перебирает элементы, выполняя код для каждого</td>
+                        <td><span class="method-returns">undefined</span></td>
+                        <td><span class="method-immutable">НЕТ</span>*</td>
+                        <td><code>arr.forEach(x => console.log(x))</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">9</span></td>
+                        <td><span class="method-name">map()</span></td>
+                        <td><span class="method-syntax">arr.map(callback)</span></td>
+                        <td>Создаёт новый массив из преобразованных элементов</td>
+                        <td><span class="method-returns">Новый массив</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.map(x => x * 2)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">10</span></td>
+                        <td><span class="method-name">filter()</span></td>
+                        <td><span class="method-syntax">arr.filter(callback)</span></td>
+                        <td>Создаёт новый массив с элементами по условию</td>
+                        <td><span class="method-returns">Новый массив</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.filter(x => x > 0)</code></td>
+                    </tr>
+                    
+                    <tr class="category-header">
+                        <td colspan="7">🔍 Поиск и проверка</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">11</span></td>
+                        <td><span class="method-name">some()</span></td>
+                        <td><span class="method-syntax">arr.some(callback)</span></td>
+                        <td>Проверяет, есть ли хоть один элемент по условию</td>
+                        <td><span class="method-returns">Boolean</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.some(x => x > 10)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">12</span></td>
+                        <td><span class="method-name">every()</span></td>
+                        <td><span class="method-syntax">arr.every(callback)</span></td>
+                        <td>Проверяет, все ли элементы по условию</td>
+                        <td><span class="method-returns">Boolean</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.every(x => x > 0)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">13</span></td>
+                        <td><span class="method-name">find()</span></td>
+                        <td><span class="method-syntax">arr.find(callback)</span></td>
+                        <td>Находит первый элемент по условию</td>
+                        <td><span class="method-returns">Элемент</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.find(x => x > 5)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">13.1</span></td>
+                        <td><span class="method-name">findIndex()</span></td>
+                        <td><span class="method-syntax">arr.findIndex(callback)</span></td>
+                        <td>Находит индекс первого элемента по условию</td>
+                        <td><span class="method-returns">Индекс</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.findIndex(x => x > 5)</code></td>
+                    </tr>
+                    
+                    <tr class="category-header">
+                        <td colspan="7">📊 Агрегация и сортировка</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">14</span></td>
+                        <td><span class="method-name">reduce()</span></td>
+                        <td><span class="method-syntax">arr.reduce(callback, initial)</span></td>
+                        <td>Сводит массив к одному значению</td>
+                        <td><span class="method-returns">Значение</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.reduce((sum, x) => sum + x, 0)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">15</span></td>
+                        <td><span class="method-name">sort()</span></td>
+                        <td><span class="method-syntax">arr.sort([compare])</span></td>
+                        <td>Сортирует массив</td>
+                        <td><span class="method-returns">Тот же массив</span></td>
+                        <td><span class="method-mutates">ДА</span></td>
+                        <td><code>arr.sort((a,b) => a-b)</code></td>
+                    </tr>
+                    
+                    <tr class="category-header">
+                        <td colspan="7">🔗 Дополнительные полезные методы</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">16</span></td>
+                        <td><span class="method-name">join()</span></td>
+                        <td><span class="method-syntax">arr.join([separator])</span></td>
+                        <td>Объединяет элементы в строку</td>
+                        <td><span class="method-returns">Строка</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.join(', ')</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">17</span></td>
+                        <td><span class="method-name">includes()</span></td>
+                        <td><span class="method-syntax">arr.includes(value)</span></td>
+                        <td>Проверяет наличие элемента</td>
+                        <td><span class="method-returns">Boolean</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.includes(5)</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">18</span></td>
+                        <td><span class="method-name">indexOf()</span></td>
+                        <td><span class="method-syntax">arr.indexOf(value)</span></td>
+                        <td>Находит индекс первого вхождения</td>
+                        <td><span class="method-returns">Индекс</span></td>
+                        <td><span class="method-immutable">НЕТ</span></td>
+                        <td><code>arr.indexOf('item')</code></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="method-number">19</span></td>
+                        <td><span class="method-name">reverse()</span></td>
+                        <td><span class="method-syntax">arr.reverse()</span></td>
+                        <td>Переворачивает массив</td>
+                        <td><span class="method-returns">Тот же массив</span></td>
+                        <td><span class="method-mutates">ДА</span></td>
+                        <td><code>arr.reverse()</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h4>📌 Ключевые особенности:</h4>
+            <pre><code>
+✅ Мутирующие методы (изменяют исходный массив):
+   - push(), pop(), shift(), unshift()
+   - splice(), sort(), reverse()
+
+✅ Немутирующие методы (не изменяют исходный массив):
+   - concat(), slice(), map(), filter()
+   - forEach(), some(), every(), find(), reduce()
+
+⚠️  forEach может изменять элементы, но не переупорядочивает массив
+
+🎯 Для чисел всегда используйте функцию сравнения в sort():
+   arr.sort((a, b) => a - b)  // возрастание
+   arr.sort((a, b) => b - a)  // убывание
+
+💡 Цепочки методов (method chaining):
+   arr.filter(...).map(...).sort(...)
+
+📝 Создание копий:
+   const copy = [...arr]        // spread оператор
+   const copy = arr.slice()     // slice без аргументов
+   const copy = Array.from(arr) // Array.from()
+            </code></pre>
+            
+            <h4>🚀 Быстрые примеры:</h4>
+            <pre><code>
+// Сумма всех элементов
+const sum = arr.reduce((acc, val) => acc + val, 0);
+
+// Максимальный элемент
+const max = arr.reduce((a, b) => Math.max(a, b), -Infinity);
+
+// Уникальные значения
+const unique = [...new Set(arr)];
+
+// Группировка объектов по свойству
+const grouped = arr.reduce((groups, item) => {
+    const key = item.category;
+    groups[key] = groups[key] || [];
+    groups[key].push(item);
+    return groups;
+}, {});
+
+// Преобразование массива в объект
+const obj = arr.reduce((acc, item) => {
+    acc[item.id] = item;
+    return acc;
+}, {});
+
+// Фильтрация и преобразование за один проход
+const result = arr.reduce((acc, item) => {
+    if (item.active) {
+        acc.push({...item, status: 'active'});
+    }
+    return acc;
+}, []);
+            </code></pre>
+            
+            <h4>🎯 Выбор метода по задаче:</h4>
+            <pre><code>
+┌─────────────────┬─────────────────────────────────────┐
+│ Задача          │ Метод                               │
+├─────────────────┼─────────────────────────────────────┤
+│ Добавить элемент│ push() (в конец),unshift()(в начало)│
+│ Удалить элемент │ pop() (последний), shift() (первый) │
+│ Найти элемент   │ find(), includes(), indexOf()       │
+│ Проверить все   │ every()                             │
+│ Проверить хотя  │ some()                              │
+│ бы один         │                                     │
+│ Преобразовать   │ map()                               │
+│ Отфильтровать   │ filter()                            │
+│ Посчитать сумму │ reduce()                            │
+│ Отсортировать   │ sort()                              │
+│ Объединить      │ concat() или spread [...]           │
+│ Скопировать часть│ slice()                            │
+│ Удалить/вставить│ splice()                            │
+└─────────────────┴─────────────────────────────────────┘
+            </code></pre>
+        </div>
+    </div>
+</div>
     </div>
     </main>
     <script src="theme.js"></script>
