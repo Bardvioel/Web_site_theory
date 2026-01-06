@@ -69,6 +69,7 @@
 			<h2 class="text_bar_topic"><a href="#topic_2_34">XXXV. JavaScript - Методы массивов</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_35">XXXVI. JavaScript - Шпаргалка по методам массивов</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_36">XXXVII. JavaScript - Асинхронные операции</a></h2>
+			<h2 class="text_bar_topic"><a href="#topic_2_37">XXXVIII. JavaScript - Колбэки</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -6956,6 +6957,490 @@ console.log('Основной поток продолжает работать')
 4. API браузера (Web APIs) работают в отдельных потоках
 5. Колбэки - базовый способ работы с асинхронностью
 6. Современные подходы: Промисы и async/await
+        </code></pre>
+    </div>
+</div>
+<h2 class="text_topic_1" id="topic_2_37">XXXVIII. JavaScript - Колбэки (callbacks)</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="149">1. Что такое колбэки</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Колбэк (callback) - функция, которую передают как аргумент другой функции
+
+// СИНХРОННЫЙ колбэк - выполняется сразу
+const tweets = [
+    'Какой-то странный тред',
+    'Твит, адресованный Илону Маску', 
+    'Ответ на инфоповод'
+];
+
+// forEach - синхронный метод с колбэком
+tweets.forEach((tweet) => {
+    console.log(tweet);
+});
+
+// Колбэк может быть объявлен отдельно
+function consoleTweet(tweet) {
+    console.log(tweet);
+}
+
+tweets.forEach(consoleTweet); // Передаем функцию по имени
+
+// АСИНХРОННЫЙ колбэк - выполняется когда произойдет событие
+document.addEventListener('click', function(event) {
+    console.log('Клик произошел!', event.clientX, event.clientY);
+});
+
+// Колбэк в setTimeout
+setTimeout(() => {
+    console.log('Этот код выполнится через 2 секунды');
+}, 2000);
+
+// Колбэк в сетевом запросе
+fetch('https://api.example.com/data')
+    .then(response => response.json()) // Колбэк для преобразования ответа
+    .then(data => console.log(data)); // Колбэк для обработки данных
+        </code></pre>
+        
+        <h4>📌 Определение колбэка:</h4>
+        <pre><code>
+✅ Колбэк - функция, переданная как аргумент
+✅ Вызывается из кода принимающей функции
+✅ Может быть синхронным или асинхронным
+✅ Может быть анонимной функцией или объявленной отдельно
+
+// Структура колбэка:
+function принимающаяФункция(данные, колбэк) {
+    // Какая-то логика...
+    колбэк(результат); // Вызов колбэка
+}
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="150">2. Синхронные колбэки</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Пример: функция для вставки твита с обработкой ошибок через колбэк
+function insertTweet(tweet, containerSelector, errorCallback) {
+    const tweetContainer = document.querySelector(containerSelector);
+    
+    // Если контейнер не найден - вызываем колбэк ошибки
+    if (!tweetContainer) {
+        if (errorCallback) {
+            errorCallback(tweet);
+        }
+        return;
+    }
+    
+    tweetContainer.textContent = tweet;
+}
+
+// Колбэк для обработки ошибки
+function handleTweetError(tweet) {
+    const newTweetContainer = document.createElement('div');
+    newTweetContainer.textContent = tweet;
+    newTweetContainer.classList.add('error-tweet');
+    document.body.append(newTweetContainer);
+    console.log('Создан новый контейнер для твита');
+}
+
+// Использование с именованной функцией-колбэком
+insertTweet('Твит, адресованный Илону Маску', '.tweets', handleTweetError);
+
+// Использование с анонимной функцией
+insertTweet('Какой-то странный тред', '.tweets', function(tweet) {
+    console.log('Ошибка! Контейнер не найден для твита:', tweet);
+    alert('Не удалось отобразить твит!');
+});
+
+// Использование со стрелочной функцией
+insertTweet('Ответ на инфоповод', '.tweets', (tweet) => {
+    const fallbackDiv = document.createElement('div');
+    fallbackDiv.textContent = `Резервный вывод: ${tweet}`;
+    fallbackDiv.style.color = 'red';
+    document.body.prepend(fallbackDiv);
+});
+
+// Практические примеры синхронных колбэков
+
+// 1. Колбэк в функциях высшего порядка
+function processArray(arr, callback) {
+    const result = [];
+    for (let i = 0; i < arr.length; i++) {
+        result.push(callback(arr[i], i, arr));
+    }
+    return result;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+const squared = processArray(numbers, (num) => num * num);
+console.log(squared); // [1, 4, 9, 16, 25]
+
+// 2. Колбэк для валидации
+function validateInput(input, validationCallback) {
+    const isValid = validationCallback(input);
+    
+    if (isValid) {
+        console.log('Ввод корректен');
+        return input;
+    } else {
+        console.log('Неверный ввод');
+        return null;
+    }
+}
+
+function isEmailValid(email) {
+    return email.includes('@') && email.includes('.');
+}
+
+const userEmail = validateInput('user@example.com', isEmailValid);
+
+// 3. Колбэк для преобразования данных
+function formatData(data, formatterCallback) {
+    return formatterCallback(data);
+}
+
+const userData = { name: 'Анна', age: 25 };
+const formatted = formatData(userData, (data) => {
+    return `${data.name}, ${data.age} лет`;
+});
+console.log(formatted); // "Анна, 25 лет"
+
+// 4. Колбэк с условием
+function conditionalExecute(condition, trueCallback, falseCallback) {
+    if (condition) {
+        return trueCallback();
+    } else {
+        return falseCallback();
+    }
+}
+
+const isLoggedIn = true;
+const message = conditionalExecute(
+    isLoggedIn,
+    () => 'Добро пожаловать!',
+    () => 'Пожалуйста, войдите в систему'
+);
+console.log(message); // "Добро пожаловать!"
+        </code></pre>
+        
+        <h4>🎯 Преимущества синхронных колбэков:</h4>
+        <pre><code>
+1. 📝 Переиспользование кода - одна логика в разных местах
+2. 🔧 Гибкость - разное поведение для разных ситуаций
+3. 🧩 Инкапсуляция - логика обработки изолирована в функции
+4. 🚀 Расширяемость - легко добавлять новую функциональность
+
+// Пример из реальной жизни:
+function calculate(a, b, operationCallback) {
+    return operationCallback(a, b);
+}
+
+const add = (x, y) => x + y;
+const multiply = (x, y) => x * y;
+
+console.log(calculate(5, 3, add));      // 8
+console.log(calculate(5, 3, multiply)); // 15
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="151">3. Асинхронные колбэки</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Асинхронные колбэки выполняются когда произойдет какое-то событие
+
+// 1. События DOM
+const button = document.querySelector('#myButton');
+
+button.addEventListener('click', function(event) {
+    console.log('Кнопка нажата!', event);
+});
+
+// 2. Таймеры
+console.log('Начало...');
+
+setTimeout(function() {
+    console.log('Выполнено через 1 секунду');
+}, 1000);
+
+setInterval(function() {
+    console.log('Повторяется каждые 2 секунды');
+}, 2000);
+
+// 3. Сетевые запросы (устаревший способ с XMLHttpRequest)
+function loadData(url, successCallback, errorCallback) {
+    const xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', url, true);
+    
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            successCallback(xhr.responseText);
+        } else {
+            errorCallback('Ошибка: ' + xhr.status);
+        }
+    };
+    
+    xhr.onerror = function() {
+        errorCallback('Ошибка сети');
+    };
+    
+    xhr.send();
+}
+
+// 4. Чтение файлов (File API)
+function readFile(file, onSuccess, onError) {
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+        onSuccess(event.target.result);
+    };
+    
+    reader.onerror = function(event) {
+        onError('Ошибка чтения файла');
+    };
+    
+    reader.readAsText(file);
+}
+
+// 5. Геолокация
+function getLocation(onSuccess, onError) {
+    if (!navigator.geolocation) {
+        onError('Геолокация не поддерживается');
+        return;
+    }
+    
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            onSuccess({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            });
+        },
+        function(error) {
+            onError('Не удалось получить местоположение: ' + error.message);
+        }
+    );
+}
+
+// 6. Анимации
+function animateElement(element, duration, onComplete) {
+    let start = null;
+    
+    function step(timestamp) {
+        if (!start) start = timestamp;
+        
+        const progress = timestamp - start;
+        const percentage = Math.min(progress / duration, 1);
+        
+        element.style.transform = `translateX(${percentage * 100}px)`;
+        
+        if (progress < duration) {
+            requestAnimationFrame(step);
+        } else {
+            onComplete(); // Колбэк по завершении анимации
+        }
+    }
+    
+    requestAnimationFrame(step);
+}
+
+// 7. Пользовательские асинхронные функции
+function asyncOperation(data, callback) {
+    console.log('Начало операции с данными:', data);
+    
+    // Имитируем асинхронную операцию
+    setTimeout(() => {
+        const result = data.toUpperCase();
+        console.log('Операция завершена, результат:', result);
+        callback(null, result); // Первый аргумент - ошибка (null если нет)
+    }, 1000);
+}
+
+// Использование
+asyncOperation('hello world', function(error, result) {
+    if (error) {
+        console.error('Ошибка:', error);
+    } else {
+        console.log('Успех! Результат:', result);
+    }
+});
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="152">4. Колбэк-ад (Callback Hell) и решение проблем</h3></div>
+    <div class="content_1">
+        <pre><code>
+// ПРОБЛЕМА: Колбэк-ад (Callback Hell) - вложенные колбэки
+getUserData(function(user) {
+    getUserPosts(user.id, function(posts) {
+        getPostComments(posts[0].id, function(comments) {
+            getCommentAuthor(comments[0].authorId, function(author) {
+                console.log('Автор первого комментария:', author);
+                
+                // И так далее...
+                // Это трудно читать и поддерживать
+            });
+        });
+    });
+});
+
+// Пример колбэк-ада на практике:
+function complexOperation() {
+    step1(function(result1) {
+        step2(result1, function(result2) {
+            step3(result2, function(result3) {
+                step4(result3, function(result4) {
+                    step5(result4, function(result5) {
+                        console.log('Финальный результат:', result5);
+                        // Глубина вложенности делает код нечитаемым
+                    });
+                });
+            });
+        });
+    });
+}
+
+// РЕШЕНИЯ:
+
+// 1. Именованные функции (разделение на части)
+function handleUser(user) {
+    getUserPosts(user.id, handlePosts);
+}
+
+function handlePosts(posts) {
+    getPostComments(posts[0].id, handleComments);
+}
+
+function handleComments(comments) {
+    getCommentAuthor(comments[0].authorId, handleAuthor);
+}
+
+function handleAuthor(author) {
+    console.log('Автор первого комментария:', author);
+}
+
+// Начало цепочки
+getUserData(handleUser);
+
+// 2. Обработка ошибок в колбэках (паттерн "error-first")
+function asyncTask(callback) {
+    // Симулируем асинхронную операцию
+    setTimeout(() => {
+        const success = Math.random() > 0.3;
+        
+        if (success) {
+            callback(null, 'Успешный результат'); // Первый аргумент - null (нет ошибки)
+        } else {
+            callback('Произошла ошибка', null); // Первый аргумент - текст ошибки
+        }
+    }, 1000);
+}
+
+// Использование с обработкой ошибок
+asyncTask(function(error, result) {
+    if (error) {
+        console.error('Ошибка:', error);
+        return;
+    }
+    
+    console.log('Результат:', result);
+});
+
+// 3. Модульный подход
+const userOperations = {
+    getUser: function(callback) {
+        setTimeout(() => callback(null, { id: 1, name: 'Анна' }), 500);
+    },
+    
+    getPosts: function(userId, callback) {
+        setTimeout(() => callback(null, [
+            { id: 101, title: 'Первый пост' },
+            { id: 102, title: 'Второй пост' }
+        ]), 500);
+    },
+    
+    getComments: function(postId, callback) {
+        setTimeout(() => callback(null, [
+            { id: 1001, text: 'Отличный пост!', authorId: 2 },
+            { id: 1002, text: 'Спасибо за информацию', authorId: 3 }
+        ]), 500);
+    }
+};
+
+// 4. Ограничение вложенности
+function executeWithLimit(functions, finalCallback, maxDepth = 3) {
+    let currentDepth = 0;
+    let currentIndex = 0;
+    
+    function executeNext() {
+        if (currentIndex >= functions.length) {
+            finalCallback(null, 'Все операции завершены');
+            return;
+        }
+        
+        if (currentDepth >= maxDepth) {
+            finalCallback('Превышена максимальная глубина вложенности');
+            return;
+        }
+        
+        currentDepth++;
+        functions[currentIndex](function(error, result) {
+            currentDepth--;
+            currentIndex++;
+            
+            if (error) {
+                finalCallback(error);
+            } else {
+                executeNext();
+            }
+        });
+    }
+    
+    executeNext();
+}
+
+// ПРАВИЛА РАБОТЫ С КОЛБЭКАМИ:
+// 1. Старайтесь не превышать 2-3 уровня вложенности
+// 2. Используйте именованные функции вместо анонимных
+// 3. Всегда обрабатывайте ошибки
+// 4. Используйте паттерн error-first
+// 5. Рассмотрите переход на Промисы или async/await
+        </code></pre>
+        
+        <h4>📊 Сравнение подходов:</h4>
+        <pre><code>
+┌─────────────────┬────────────────────┬──────────────────────────┐
+│ Подход          │ Преимущества       │ Недостатки               │
+├─────────────────┼────────────────────┼──────────────────────────┤
+│ Колбэки         │ - Простота         │ - Колбэк-ад              │
+│                 │ - Широкая поддержка│ - Сложная обработка ошибо│
+│                 │ - Быстрый старт    │ - Трудно читать          │
+├─────────────────┼────────────────────┼──────────────────────────┤
+│ Именованные     │ - Улучшает         │ - Больше кода            │
+│ функции         │   читаемость       │ - Требует планирования   │
+│                 │ - Легче отлаживать │                          │
+├─────────────────┼────────────────────┼──────────────────────────┤
+│ Модульный подход│ - Переиспользование│ - Сложная архитектура    │
+│                 │ - Тестируемость    │ - Оверхед мелких задач   │
+└─────────────────┴────────────────────┴──────────────────────────┘
+        </code></pre>
+        
+        <h4>🎯 Лучшие практики:</h4>
+        <pre><code>
+✅ Всегда обрабатывайте ошибки в колбэках
+✅ Используйте паттерн error-first (err, result) => {}
+✅ Ограничивайте вложенность колбэков (макс 2-3 уровня)
+✅ Именуйте функции-колбэки для улучшения читаемости
+✅ Документируйте сигнатуру колбэка (что принимает, что возвращает)
+✅ Для сложных операций рассматривайте Промисы
         </code></pre>
     </div>
 </div>
