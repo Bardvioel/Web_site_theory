@@ -70,6 +70,7 @@
 			<h2 class="text_bar_topic"><a href="#topic_2_35">XXXVI. JavaScript - Шпаргалка по методам массивов</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_36">XXXVII. JavaScript - Асинхронные операции</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_37">XXXVIII. JavaScript - Колбэки</a></h2>
+			<h2 class="text_bar_topic"><a href="#topic_2_38">XXXIX. JavaScript - Таймеры</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -7441,6 +7442,209 @@ function executeWithLimit(functions, finalCallback, maxDepth = 3) {
 ✅ Именуйте функции-колбэки для улучшения читаемости
 ✅ Документируйте сигнатуру колбэка (что принимает, что возвращает)
 ✅ Для сложных операций рассматривайте Промисы
+        </code></pre>
+    </div>
+</div>
+<h2 class="text_topic_1" id="topic_2_38">XXXIX. JavaScript - Таймеры (setTimeout и setInterval)</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="153">1. Таймер setTimeout - однократное выполнение</h3></div>
+    <div class="content_1">
+        <pre><code>
+// setTimeout - выполнить код один раз через указанное время
+
+// Базовый синтаксис: setTimeout(колбэк, задержка, аргументы...)
+function showMessage(message) {
+    console.log(message);
+}
+
+setTimeout(showMessage, 3000, 'Привет через 3 секунды!');
+
+// Стрелочная функция
+setTimeout(() => {
+    console.log('Выполнено через 2 секунды');
+}, 2000);
+
+// Остановка таймера с clearTimeout
+function logout() {
+    console.log('Пользователь разлогинен');
+}
+
+let timer = setTimeout(logout, 300000); // 5 минут
+
+// Сброс таймера при действии пользователя
+document.addEventListener('click', function() {
+    clearTimeout(timer); // Отменяем текущий таймер
+    timer = setTimeout(logout, 300000); // Запускаем новый
+});
+
+// Практический пример: отложенная загрузка
+function loadLazyContent() {
+    console.log('Загружаем тяжелый контент...');
+}
+
+setTimeout(loadLazyContent, 1000); // Через 1 сек после загрузки
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="154">2. Таймер setInterval - повторяющееся выполнение</h3></div>
+    <div class="content_1">
+        <pre><code>
+// setInterval - выполнять код повторно через указанные интервалы
+
+// Проверка новых сообщений каждые 10 секунд
+function checkMessages() {
+    console.log('Проверяю новые сообщения...');
+}
+
+let messageInterval = setInterval(checkMessages, 10000);
+
+// Таймер обратного отсчета
+let count = 10;
+let countdown = setInterval(() => {
+    console.log(`Осталось: ${count} сек`);
+    count--;
+    
+    if (count < 0) {
+        clearInterval(countdown);
+        console.log('Время вышло!');
+    }
+}, 1000);
+
+// Анимация с setInterval
+let position = 0;
+let element = document.querySelector('.moving-element');
+
+let animation = setInterval(() => {
+    position += 5;
+    element.style.left = position + 'px';
+    
+    if (position > 300) {
+        clearInterval(animation);
+    }
+}, 50);
+
+// Остановка интервала с clearInterval
+clearInterval(messageInterval); // Остановить проверку сообщений
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="155">3. Практическое использование таймеров</h3></div>
+    <div class="content_1">
+        <pre><code>
+// 1. Автосохранение формы
+let saveTimer;
+const form = document.querySelector('#editor-form');
+
+form.addEventListener('input', function() {
+    clearTimeout(saveTimer); // Сбрасываем предыдущий таймер
+    
+    saveTimer = setTimeout(() => {
+        console.log('Автосохранение...');
+        // Код для сохранения данных
+    }, 2000); // Сохранить через 2 сек после последнего ввода
+});
+
+// 2. Таймер неактивности пользователя
+let inactivityTimer;
+
+function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+        console.log('Пользователь неактивен 5 минут');
+        // Показать предупреждение или разлогинить
+    }, 300000); // 5 минут
+}
+
+// Сброс при любом действии пользователя
+['click', 'keypress', 'mousemove'].forEach(event => {
+    document.addEventListener(event, resetInactivityTimer);
+});
+
+// 3. Обновление данных в реальном времени
+function updateStockPrices() {
+    console.log('Обновляю котировки акций...');
+}
+
+// Обновлять каждые 30 секунд
+let stockInterval = setInterval(updateStockPrices, 30000);
+
+// Остановить при уходе со вкладки
+window.addEventListener('blur', () => {
+    clearInterval(stockInterval);
+});
+
+// Возобновить при возвращении
+window.addEventListener('focus', () => {
+    stockInterval = setInterval(updateStockPrices, 30000);
+});
+
+// 4. Дебаунсинг (устранение дребезга)
+function debounce(func, delay) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Использование
+const searchInput = document.querySelector('#search');
+const debouncedSearch = debounce((query) => {
+    console.log('Ищем:', query);
+}, 500);
+
+searchInput.addEventListener('input', (e) => {
+    debouncedSearch(e.target.value);
+});
+
+// 5. Троттлинг (ограничение частоты)
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// Использование для события скролла
+window.addEventListener('scroll', throttle(() => {
+    console.log('Пользователь скроллит');
+}, 1000)); // Максимум 1 раз в секунду
+        </code></pre>
+        
+        <h4>📌 Важные особенности:</h4>
+        <pre><code>
+1. Время указывается в миллисекундах (1000 мс = 1 сек)
+2. Реальная задержка может быть больше из-за загрузки процессора
+3. Таймеры работают в основном потоке JavaScript
+4. setInterval может накапливать отставание при долгой работе колбэка
+5. Для точных интервалов используйте рекурсивный setTimeout
+
+// Рекурсивный setTimeout для точного интервала
+function preciseInterval(callback, interval) {
+    function tick() {
+        callback();
+        setTimeout(tick, interval);
+    }
+    setTimeout(tick, interval);
+}
+        </code></pre>
+        
+        <h4>🎯 Рекомендации:</h4>
+        <pre><code>
+✅ Всегда очищайте ненужные таймеры (clearTimeout/clearInterval)
+✅ Для периодических задач используйте setInterval
+✅ Для отложенных одноразовых задач используйте setTimeout  
+✅ При долгих операциях в setInterval используйте рекурсивный setTimeout
+✅ Минимальная задержка в браузере - 4 мс (но лучше не меньше 10-16 мс)
         </code></pre>
     </div>
 </div>
