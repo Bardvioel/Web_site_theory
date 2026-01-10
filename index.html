@@ -72,7 +72,7 @@
 			<h2 class="text_bar_topic"><a href="#topic_2_37">XXXVIII. JavaScript - Колбэки</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_38">XXXIX. JavaScript - Таймеры</a></h2>
 			<h2 class="text_bar_topic"><a href="#topic_2_39">XL. JavaScript - Event Loop</a></h2>
-			
+			<h2 class="text_bar_topic"><a href="#topic_2_40">XLI. JavaScript - Промисы</a></h2>
         </div>
         <!--<h2 class="text_topic" id="Css"><a href="#menu">Справочник по CSS</a></h2>-->
         <h2 class="text_topic_1" id="topic_2_1">I. Немного об основных свойствах</h2>
@@ -7813,6 +7813,235 @@ console.log('Конец скрипта');
 ✅ Event Loop связывает очередь и стек
 ✅ Синхронный код всегда выполняется до асинхронного
 ✅ Микрозадачи (Promise) имеют приоритет над макрозадачами
+        </code></pre>
+    </div>
+</div>
+<h2 class="text_topic_1" id="topic_2_40">XLI. JavaScript - Промисы (Promise)</h2>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="159">1. Проблема Callback Hell и решение</h3></div>
+    <div class="content_1">
+        <pre><code>
+// CALLBACK HELL (ад колбэков) - проблема вложенных колбэков
+// Трудно читать, поддерживать, отлаживать
+
+// ПЛОХО: Колбэк в колбэке в колбэке
+getData(function(data) {
+    processData(data, function(result) {
+        saveData(result, function(saved) {
+            displayData(saved, function() {
+                // и так далее...
+            });
+        });
+    });
+});
+
+// ХОРОШО: Промисы решают проблему читаемости
+getData()
+    .then(processData)
+    .then(saveData)
+    .then(displayData)
+    .catch(handleError);
+
+// Промис - это "бипер" для асинхронных операций
+// Обещает вернуть результат (успешный или с ошибкой)
+// Позволяет обрабатывать асинхронный код последовательно
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="160">2. Создание и использование промисов</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Создание промиса
+const promise = new Promise((resolve, reject) => {
+    // Асинхронная операция
+    const success = Math.random() > 0.5;
+    
+    if (success) {
+        resolve('Успех!'); // Промис выполнен успешно
+    } else {
+        reject('Ошибка!'); // Промис отклонен с ошибкой
+    }
+});
+
+// Использование промиса
+promise
+    .then(result => {
+        console.log('Успех:', result);
+        return result + ' (обработан)';
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        return 'Значение по умолчанию';
+    })
+    .finally(() => {
+        console.log('Операция завершена (в любом случае)');
+    });
+
+// then - обработка успешного выполнения
+// catch - обработка ошибки
+// finally - выполняется всегда (после then/catch)
+
+// Пример с сетевой загрузкой
+function loadData(url) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (url.includes('api')) {
+                resolve({ data: 'Данные с сервера' });
+            } else {
+                reject('Неверный URL');
+            }
+        }, 1000);
+    });
+}
+
+loadData('https://api.example.com')
+    .then(response => console.log('Данные:', response.data))
+    .catch(error => console.error('Ошибка загрузки:', error));
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="161">3. Цепочки промисов (Chaining)</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Промисы можно объединять в цепочки
+new Promise((resolve) => {
+    resolve('Начало');
+})
+.then(result => {
+    console.log(result); // "Начало"
+    return result + ' → Шаг 1';
+})
+.then(result => {
+    console.log(result); // "Начало → Шаг 1"
+    return result + ' → Шаг 2';
+})
+.then(result => {
+    console.log(result); // "Начало → Шаг 1 → Шаг 2"
+    return result + ' → Конец';
+})
+.then(finalResult => {
+    console.log('Итог:', finalResult);
+})
+.catch(error => {
+    console.error('Ошибка в цепочке:', error);
+});
+
+// Каждый then получает результат предыдущего
+// Можно возвращать как значения, так и новые промисы
+
+// Пример: последовательные операции
+function getUser(id) {
+    return new Promise(resolve => {
+        setTimeout(() => resolve({ id, name: 'Иван' }), 500);
+    });
+}
+
+function getPosts(userId) {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(['Пост 1', 'Пост 2']), 500);
+    });
+}
+
+function getComments(postId) {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(['Коммент 1', 'Коммент 2']), 500);
+    });
+}
+
+// Читаемая цепочка промисов
+getUser(1)
+    .then(user => {
+        console.log('Пользователь:', user.name);
+        return getPosts(user.id);
+    })
+    .then(posts => {
+        console.log('Посты:', posts);
+        return getComments(posts[0]);
+    })
+    .then(comments => {
+        console.log('Комментарии:', comments);
+    })
+    .catch(error => console.error('Ошибка:', error));
+        </code></pre>
+    </div>
+</div>
+
+<div class="content">
+    <div class="topic_block"><h3 class="text_topic_2" id="162">4. Статические методы Promise</h3></div>
+    <div class="content_1">
+        <pre><code>
+// Promise.resolve() - создает успешный промис
+const resolvedPromise = Promise.resolve('Готово!');
+resolvedPromise.then(result => console.log(result)); // "Готово!"
+
+// Promise.reject() - создает отклоненный промис
+const rejectedPromise = Promise.reject('Ошибка!');
+rejectedPromise.catch(error => console.error(error)); // "Ошибка!"
+
+// Promise.all() - ждет выполнения всех промисов
+const promise1 = Promise.resolve('Первый');
+const promise2 = new Promise(resolve => setTimeout(() => resolve('Второй'), 1000));
+const promise3 = Promise.resolve('Третий');
+
+Promise.all([promise1, promise2, promise3])
+    .then(results => {
+        console.log('Все выполнены:', results); // ["Первый", "Второй", "Третий"]
+    })
+    .catch(error => {
+        console.error('Хотя бы один промис отклонен:', error);
+    });
+
+// Promise.race() - результат первого выполнившегося промиса
+const fast = new Promise(resolve => setTimeout(() => resolve('Быстрый'), 500));
+const slow = new Promise(resolve => setTimeout(() => resolve('Медленный'), 1000));
+
+Promise.race([fast, slow])
+    .then(winner => console.log('Победитель:', winner)); // "Быстрый"
+
+// Promise.allSettled() - результаты всех промисов (успешных и неудачных)
+const promises = [
+    Promise.resolve('Успех'),
+    Promise.reject('Ошибка'),
+    Promise.resolve('Еще успех')
+];
+
+Promise.allSettled(promises)
+    .then(results => {
+        results.forEach(result => {
+            if (result.status === 'fulfilled') {
+                console.log('Успех:', result.value);
+            } else {
+                console.log('Ошибка:', result.reason);
+            }
+        });
+    });
+        </code></pre>
+        
+        <h4>📌 Ключевые принципы промисов:</h4>
+        <pre><code>
+✅ Промис может быть в трех состояниях:
+   - pending (ожидание)
+   - fulfilled (выполнен успешно)
+   - rejected (выполнен с ошибкой)
+
+✅ Состояние меняется только один раз
+✅ then/catch/finally возвращают новый промис
+✅ Ошибки в цепочке передаются в ближайший catch
+✅ Всегда завершайте цепочки catch для обработки ошибок
+        </code></pre>
+        
+        <h4>🎯 Преимущества промисов над колбэками:</h4>
+        <pre><code>
+1. 📖 Лучшая читаемость (цепочки вместо вложенности)
+2. 🎯 Улучшенная обработка ошибок (один catch для всей цепочки)
+3. 🔄 Проще комбинировать асинхронные операции (Promise.all)
+4. 🏗️ Стандартизированный API (единый подход)
+5. 🚀 Подготовка к async/await
         </code></pre>
     </div>
 </div>
